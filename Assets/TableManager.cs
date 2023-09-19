@@ -23,7 +23,7 @@ public class TableManager : MonoBehaviour
 
         public TextMeshProUGUI timerTicking;
         public TextMeshProUGUI editingWordTMP;
-        public Transform wordContainer;
+        public Transform[] wordContainers;
         public RectTransform botPlacerRT;
 
         public AcceptButtonController acceptButton;
@@ -134,7 +134,7 @@ public class TableManager : MonoBehaviour
     {
         Color colorFeedback = Color.white;
 
-        if (exists && !wordsCompleted.Contains(editingWord) && editingWord.Length >1)
+        if (exists && !wordsCompleted.Contains(editingWord) && editingWord.Length > 1)
         {         
             //WordCompeted
             wordsCompleted.Add(editingWord);
@@ -187,19 +187,46 @@ public class TableManager : MonoBehaviour
     }
     public void GenerateAcceptedWords()
     {
-        foreach (var wordObj in wordObjects)
+        foreach (GameObject wordObj in wordObjects)
         {
             Destroy(wordObj);
         }
-        wordObjects.Clear(); 
+        wordObjects.Clear();
 
-        foreach (var word in wordsCompleted)
+        float accumulatedWidht = 0;
+        int rowIndex = 0;
+
+        try
         {
-            GameObject wordObj = Instantiate(wordPrefab, uiElements.wordContainer);
-            wordObj.GetComponentInChildren<TextMeshProUGUI>().text = word + ", ";
-            wordObj.GetComponent<Button>().onClick.AddListener(() => RemoveAcceptedWord(word));
-            wordObjects.Add(wordObj);
+            foreach (string word in wordsCompleted)
+            {
+                GameObject wordObj = Instantiate(wordPrefab, uiElements.wordContainers[rowIndex]);
+                wordObj.GetComponentInChildren<TextMeshProUGUI>().text = word + ", ";
+                wordObj.GetComponent<Button>().onClick.AddListener(() => RemoveAcceptedWord(word));
+
+                //Comprobamos que cepa en la misma fila
+                float wordObjWidth = wordObj.GetComponentInChildren<TextMeshProUGUI>().preferredWidth;
+                float containerWidth = uiElements.wordContainers[rowIndex].GetComponent<RectTransform>().rect.width;
+                float wordSpacing = uiElements.wordContainers[rowIndex].GetComponent<HorizontalLayoutGroup>().spacing;
+
+                if (accumulatedWidht + wordObjWidth > containerWidth)
+                {
+                    wordObj.transform.SetParent(uiElements.wordContainers[++rowIndex]);
+                    accumulatedWidht = 0;
+                }
+
+                accumulatedWidht += wordObjWidth + wordSpacing;
+
+                wordObjects.Add(wordObj);
+            }
         }
+        catch (Exception)
+        {
+            Debug.Log("Max completed words limit reach");
+            throw;
+        }
+           
+
     }
 
     private void RemoveAcceptedWord(string word)
