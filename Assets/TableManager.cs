@@ -19,7 +19,8 @@ public class TableManager : MonoBehaviour
     {
         public TextMeshProUGUI puntuationTMP;
         public TextMeshProUGUI accumulatePuntuationTMP;
-        public TextMeshProUGUI bonusMultiplayerTMP;
+        public TextMeshProUGUI accumulateBonusMultiplayerTMP;
+        public TextMeshProUGUI restPuntuationTMP;
 
         public TextMeshProUGUI timerTicking;
         public TextMeshProUGUI editingWordTMP;
@@ -32,15 +33,22 @@ public class TableManager : MonoBehaviour
         {
             editingWordTMP.text = _editingWord;
         }
-        public void UpdateAccPuntAndBonMult(int _accumulatePuntuation, int _bonusMultiplyer)
+        public void UpdateAccPuntAndBonMult(int _accumulatePuntuation, float _accBonusMultiplyer)
         {
+            float accBonusMultRounded = Mathf.Round(_accBonusMultiplyer * 10f) / 10f; ;
+
             accumulatePuntuationTMP.text = _accumulatePuntuation <= 0 ? string.Empty : ("+" + _accumulatePuntuation.ToString());
-            bonusMultiplayerTMP.text = _bonusMultiplyer <= 1 ? string.Empty : ("x" + _bonusMultiplyer.ToString());
+            accumulateBonusMultiplayerTMP.text = accBonusMultRounded <= 1 ? string.Empty : ("x" + accBonusMultRounded.ToString());
         }
 
         public void UpdatePuntuation(int _puntuation)
         {
             puntuationTMP.text = _puntuation.ToString();
+        }
+        public void UpdateRestPuntuation(int _restPuntuation, TableManager _tableManager)
+        {
+            restPuntuationTMP.text = "-" + _restPuntuation.ToString();
+            _tableManager.StartCoroutine(RestPuntuationFeedback(1));
         }
 
         public void UpdateTimerTicking(int _seconds)
@@ -55,6 +63,18 @@ public class TableManager : MonoBehaviour
         {
             if (_haveResponse) acceptButton.ResponseRecived();
             else acceptButton.WaitingForResponse();
+        }
+
+        IEnumerator RestPuntuationFeedback(int _timerInSeconds)
+        {
+            restPuntuationTMP.color += new Color(0, 0, 0, 1f);
+
+            while (restPuntuationTMP.color.a > 0.0f)
+            {
+                restPuntuationTMP.color -= new Color(0, 0, 0, (Time.deltaTime / _timerInSeconds));
+                yield return null;
+            }
+
         }
     }
     [SerializeField] UIElements uiElements;
@@ -77,9 +97,10 @@ public class TableManager : MonoBehaviour
     private List<string> wordsCompleted = new List<string>();
     private List<GameObject> wordObjects = new List<GameObject>();
 
-    private int puntuation;
+    private float bonusMultiplyer = 1f;
+    private float accBonusMultiplyer;
     private int accPuntuation;
-    private int bonusMultiplyer;
+    private int puntuation;
 
     private float startSesionInSeconds;
 
@@ -104,7 +125,7 @@ public class TableManager : MonoBehaviour
 
         //VIEW
         uiElements.UpdateEditingWord(editingWord);
-        uiElements.UpdateAccPuntAndBonMult(accPuntuation, bonusMultiplyer);
+        uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         uiElements.UpdatePuntuation(puntuation);
     }
 
@@ -140,7 +161,7 @@ public class TableManager : MonoBehaviour
             wordsCompleted.Add(editingWord);
 
             //Puntuation
-            puntuation += accPuntuation * bonusMultiplyer;
+            puntuation += (int)(accPuntuation * accBonusMultiplyer);
 
             //VIEW
             colorFeedback = Color.green;
@@ -161,12 +182,12 @@ public class TableManager : MonoBehaviour
         selectedLetters.Clear();
 
         accPuntuation = 0;
-        bonusMultiplyer = 0;
+        accBonusMultiplyer = 0;
 
         //VIEW
         StartCoroutine(FadeToAndFromColor(colorFeedback, 0.5f));
         uiElements.UpdateEditingWord(editingWord);
-        uiElements.UpdateAccPuntAndBonMult(accPuntuation, bonusMultiplyer);
+        uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         uiElements.UpdateAcceptButton(true);
     }
     private void ConcatenateLetters()
@@ -232,23 +253,29 @@ public class TableManager : MonoBehaviour
     private void RemoveAcceptedWord(string word)
     {
         int index = wordsCompleted.IndexOf(word);
+        int restAccPuntuation = 0;
 
-       if (index != -1 && wordObjects[index].GetComponent<WordCompletedController>().preparedToRemove)
+        if (index != -1 && wordObjects[index].GetComponent<WordCompletedController>().preparedToRemove)
         {
             foreach (char letter in word)
             {
                 lettersCtrl[letter.ToString()].ReturnLetter();
-                accPuntuation -= lettersCtrl[letter.ToString()].GetLetterPuntuation();
+                restAccPuntuation += lettersCtrl[letter.ToString()].GetLetterPuntuation();
             }
+
+            int restPuntuation = (int)(restAccPuntuation * (bonusMultiplyer * word.Length));
+            puntuation -= restPuntuation;
 
             wordsCompleted.RemoveAt(index);
             Destroy(wordObjects[index]);
             wordObjects.RemoveAt(index);
 
             GenerateAcceptedWords();
-            
+
             //VIEW
+            uiElements.UpdateRestPuntuation(restPuntuation, this);
             uiElements.UpdatePuntuation(puntuation);
+            
        }
     }
 
@@ -274,10 +301,10 @@ public class TableManager : MonoBehaviour
 
             //Puntuation
             accPuntuation += lettersCtrl[letterValue].GetLetterPuntuation();
-            bonusMultiplyer++;
+            accBonusMultiplyer += bonusMultiplyer;
             
             //VIEW
-            uiElements.UpdateAccPuntAndBonMult(accPuntuation, bonusMultiplyer);
+            uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         }
         else
         {
@@ -299,10 +326,10 @@ public class TableManager : MonoBehaviour
 
             //Puntuation
             accPuntuation -= lettersCtrl[letterValue].GetLetterPuntuation();
-            bonusMultiplyer--;
+            accBonusMultiplyer -= bonusMultiplyer;
 
             //VIEW
-            uiElements.UpdateAccPuntAndBonMult(accPuntuation, bonusMultiplyer);
+            uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         }
         
     }
