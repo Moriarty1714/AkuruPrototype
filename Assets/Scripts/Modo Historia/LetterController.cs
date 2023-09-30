@@ -43,12 +43,23 @@ public class LetterController : MonoBehaviour
     [Header("Configuation:")]
     [SerializeField] private LetterType letterType;
     [SerializeField] private AmountLetterType amountLetterType;
-    [SerializeField] private int amount = 0;
-    [SerializeField] private int basePuntuation;
-    [SerializeField] private int extraPuntuation = 0;
+ 
+    [SerializeField] private int basePuntuation;   
     [SerializeField] private char letter;
+    private int amount = 1; 
+    private int extraPuntuation = 0;
+
     // Define the event
     public static event Action<string> OnLetterClicked;
+
+    private void Awake()
+    {
+        if (!(StoryGameSettings.instance == null))
+        {
+            amount = StoryGameSettings.instance.letterAmount[char.ToLower(letter)];
+            extraPuntuation = StoryGameSettings.instance.letterExtraPuntuation[char.ToLower(letter)];
+        }
+    }
 
     // Start is called before the first frame update
     void Start()

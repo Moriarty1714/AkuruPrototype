@@ -159,7 +159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.10998535, y: -123.25749}
+  m_AnchoredPosition: {x: 0.11010742, y: -123.25749}
   m_SizeDelta: {x: 0.2199707, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &21807626
@@ -2702,9 +2702,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1413637738}
   letterType: 1
   amountLetterType: 0
-  amount: 5
   basePuntuation: 1
-  extraPuntuation: 0
   letter: 79
 --- !u!212 &302170895
 SpriteRenderer:
@@ -2801,7 +2799,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &315280821
 GameObject:
@@ -3763,9 +3761,7 @@ MonoBehaviour:
     amountTMP: {fileID: 2071217412}
   letterType: 0
   amountLetterType: 0
-  amount: 3
   basePuntuation: 1
-  extraPuntuation: 0
   letter: 84
 --- !u!212 &370477677
 SpriteRenderer:
@@ -3862,7 +3858,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &383831779
 GameObject:
@@ -4723,7 +4719,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &531938659
 GameObject:
@@ -4949,9 +4945,7 @@ MonoBehaviour:
     amountTMP: {fileID: 228949492}
   letterType: 0
   amountLetterType: 0
-  amount: 1
   basePuntuation: 10
-  extraPuntuation: 0
   letter: 88
 --- !u!212 &542273863
 SpriteRenderer:
@@ -5048,7 +5042,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &544931097
 GameObject:
@@ -5581,9 +5575,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1001357113}
   letterType: 1
   amountLetterType: 0
-  amount: 5
   basePuntuation: 1
-  extraPuntuation: 0
   letter: 85
 --- !u!212 &584014547
 SpriteRenderer:
@@ -5680,7 +5672,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &595886379
 GameObject:
@@ -6250,9 +6242,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1085681404}
   letterType: 0
   amountLetterType: 0
-  amount: 1
   basePuntuation: 5
-  extraPuntuation: 0
   letter: 74
 --- !u!212 &628693046
 SpriteRenderer:
@@ -6349,7 +6339,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &665019527
 GameObject:
@@ -6490,9 +6480,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1742273231}
   letterType: 0
   amountLetterType: 0
-  amount: 2
   basePuntuation: 3
-  extraPuntuation: 10
   letter: 87
 --- !u!212 &680655894
 SpriteRenderer:
@@ -6589,7 +6577,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &694793718
 GameObject:
@@ -7538,9 +7526,7 @@ MonoBehaviour:
     amountTMP: {fileID: 728876578}
   letterType: 1
   amountLetterType: 0
-  amount: 5
   basePuntuation: 1
-  extraPuntuation: 0
   letter: 65
 --- !u!212 &817270596
 SpriteRenderer:
@@ -7637,7 +7623,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &817996692
 GameObject:
@@ -7693,9 +7679,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1401515567}
   letterType: 0
   amountLetterType: 0
-  amount: 1
   basePuntuation: 10
-  extraPuntuation: 0
   letter: 81
 --- !u!212 &817996696
 SpriteRenderer:
@@ -7792,7 +7776,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &830681923
 GameObject:
@@ -8172,7 +8156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 62.431976, y: 153.40987}
+  m_AnchoredPosition: {x: 62.431885, y: 153.40987}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &875419164
@@ -8468,7 +8452,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1010754163}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TableMAnager, Assembly-CSharp
         m_MethodName: RemoveLastLetter
         m_Mode: 1
@@ -9049,7 +9033,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1004290026
 GameObject:
@@ -9105,9 +9089,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1631758028}
   letterType: 0
   amountLetterType: 0
-  amount: 3
   basePuntuation: 1
-  extraPuntuation: 10
   letter: 83
 --- !u!212 &1004290030
 SpriteRenderer:
@@ -9204,7 +9186,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1006625961
 GameObject:
@@ -9390,7 +9372,7 @@ GameObject:
   - component: {fileID: 1010754163}
   - component: {fileID: 1010754165}
   m_Layer: 0
-  m_Name: SceneManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9464,7 +9446,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1010754165
 MonoBehaviour:
@@ -9514,7 +9496,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.10998535, y: -10}
+  m_AnchoredPosition: {x: 0.11010742, y: -10}
   m_SizeDelta: {x: 0.2199707, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1016531176
@@ -9625,9 +9607,7 @@ MonoBehaviour:
     amountTMP: {fileID: 623798124}
   letterType: 0
   amountLetterType: 0
-  amount: 3
   basePuntuation: 1
-  extraPuntuation: 0
   letter: 68
 --- !u!212 &1016936278
 SpriteRenderer:
@@ -9724,7 +9704,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1017264232
 GameObject:
@@ -9780,9 +9760,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1560778855}
   letterType: 0
   amountLetterType: 0
-  amount: 1
   basePuntuation: 10
-  extraPuntuation: 0
   letter: 90
 --- !u!212 &1017264236
 SpriteRenderer:
@@ -9879,7 +9857,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1031647548
 GameObject:
@@ -11093,8 +11071,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1190806034}
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 1698688076}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11327,9 +11305,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1613299137}
   letterType: 0
   amountLetterType: 0
-  amount: 1
   basePuntuation: 5
-  extraPuntuation: 0
   letter: 80
 --- !u!212 &1123649390
 SpriteRenderer:
@@ -11426,7 +11402,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1131236394
 GameObject:
@@ -11824,9 +11800,7 @@ MonoBehaviour:
     amountTMP: {fileID: 2051205193}
   letterType: 0
   amountLetterType: 0
-  amount: 2
   basePuntuation: 3
-  extraPuntuation: 0
   letter: 71
 --- !u!212 &1176251091
 SpriteRenderer:
@@ -11923,7 +11897,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1177659330
 GameObject:
@@ -13412,7 +13386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -67.5983, y: 212.2746}
+  m_AnchoredPosition: {x: -67.59839, y: 212.2746}
   m_SizeDelta: {x: -170.06995, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1271382221
@@ -14064,7 +14038,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.10998535, y: -85.505}
+  m_AnchoredPosition: {x: 0.11010742, y: -85.505}
   m_SizeDelta: {x: 0.2199707, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1299717502
@@ -14604,9 +14578,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1999890692}
   letterType: 0
   amountLetterType: 0
-  amount: 3
   basePuntuation: 1
-  extraPuntuation: 0
   letter: 76
 --- !u!212 &1368221210
 SpriteRenderer:
@@ -14703,7 +14675,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1401515565
 GameObject:
@@ -15750,9 +15722,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1099804276}
   letterType: 0
   amountLetterType: 0
-  amount: 2
   basePuntuation: 3
-  extraPuntuation: 0
   letter: 70
 --- !u!212 &1490118788
 SpriteRenderer:
@@ -15849,7 +15819,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1499550252
 GameObject:
@@ -15905,9 +15875,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1805743477}
   letterType: 0
   amountLetterType: 0
-  amount: 2
   basePuntuation: 3
-  extraPuntuation: 0
   letter: 67
 --- !u!212 &1499550256
 SpriteRenderer:
@@ -16004,7 +15972,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1511744237
 GameObject:
@@ -16574,9 +16542,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1202107208}
   letterType: 1
   amountLetterType: 0
-  amount: 5
   basePuntuation: 1
-  extraPuntuation: 10
   letter: 69
 --- !u!212 &1553159800
 SpriteRenderer:
@@ -16673,7 +16639,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1560778853
 GameObject:
@@ -16986,9 +16952,7 @@ MonoBehaviour:
     amountTMP: {fileID: 930444688}
   letterType: 0
   amountLetterType: 0
-  amount: 1
   basePuntuation: 5
-  extraPuntuation: 10
   letter: 75
 --- !u!212 &1594501672
 SpriteRenderer:
@@ -17085,7 +17049,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1599477697
 GameObject:
@@ -17724,7 +17688,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.10998535, y: -47.7525}
+  m_AnchoredPosition: {x: 0.11010742, y: -47.7525}
   m_SizeDelta: {x: 0.2199707, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1620960617
@@ -18007,9 +17971,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1599477699}
   letterType: 0
   amountLetterType: 0
-  amount: 3
   basePuntuation: 1
-  extraPuntuation: 0
   letter: 72
 --- !u!212 &1636855243
 SpriteRenderer:
@@ -18106,7 +18068,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1644327719
 GameObject:
@@ -18591,9 +18553,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1709667945}
   letterType: 1
   amountLetterType: 0
-  amount: 5
   basePuntuation: 1
-  extraPuntuation: 0
   letter: 73
 --- !u!212 &1675035713
 SpriteRenderer:
@@ -18690,7 +18650,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1686041447
 GameObject:
@@ -18864,6 +18824,39 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1698688075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1698688076}
+  m_Layer: 0
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1698688076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698688075}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2977097, y: 1.4364727, z: -0.03990452}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1112621504}
+  - {fileID: 1790639584}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1703097724
 GameObject:
   m_ObjectHideFlags: 0
@@ -19432,9 +19425,7 @@ MonoBehaviour:
     amountTMP: {fileID: 99531358}
   letterType: 0
   amountLetterType: 0
-  amount: 1
   basePuntuation: 5
-  extraPuntuation: 0
   letter: 86
 --- !u!212 &1738969470
 SpriteRenderer:
@@ -19531,7 +19522,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1742273229
 GameObject:
@@ -19759,9 +19750,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1038929236}
   letterType: 0
   amountLetterType: 0
-  amount: 1
   basePuntuation: 5
-  extraPuntuation: 0
   letter: 66
 --- !u!212 &1742560475
 SpriteRenderer:
@@ -19858,7 +19847,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1757151860
 GameObject:
@@ -19944,7 +19933,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1010754163}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TableMAnager, Assembly-CSharp
         m_MethodName: ValidatorButton
         m_Mode: 1
@@ -20276,8 +20265,8 @@ RectTransform:
   m_Children:
   - {fileID: 694793719}
   - {fileID: 760811831}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 1698688076}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -20510,9 +20499,7 @@ MonoBehaviour:
     amountTMP: {fileID: 253212002}
   letterType: 0
   amountLetterType: 0
-  amount: 3
   basePuntuation: 1
-  extraPuntuation: 10
   letter: 78
 --- !u!212 &1810147946
 SpriteRenderer:
@@ -20609,7 +20596,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1834798391
 GameObject:
@@ -21092,9 +21079,7 @@ MonoBehaviour:
     amountTMP: {fileID: 1850333978}
   letterType: 0
   amountLetterType: 0
-  amount: 2
   basePuntuation: 3
-  extraPuntuation: 0
   letter: 89
 --- !u!212 &1909765829
 SpriteRenderer:
@@ -21191,7 +21176,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &1915569171
 GameObject:
@@ -22271,7 +22256,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1010754163}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TableManager, Assembly-CSharp
         m_MethodName: TrashButtonRemoveWord
         m_Mode: 1
@@ -22438,7 +22423,7 @@ Transform:
   - {fileID: 962600819}
   - {fileID: 2044322681}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2038573971
 MonoBehaviour:
@@ -23416,9 +23401,7 @@ MonoBehaviour:
     amountTMP: {fileID: 875137521}
   letterType: 0
   amountLetterType: 0
-  amount: 3
   basePuntuation: 1
-  extraPuntuation: 0
   letter: 82
 --- !u!212 &2101157251
 SpriteRenderer:
@@ -23515,7 +23498,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &2120056749
 GameObject:
@@ -24314,9 +24297,7 @@ MonoBehaviour:
     amountTMP: {fileID: 9014851046886223532}
   letterType: 0
   amountLetterType: 0
-  amount: 2
   basePuntuation: 3
-  extraPuntuation: 0
   letter: 77
 --- !u!61 &8482122430555075795
 BoxCollider2D:
@@ -24361,7 +24342,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
 --- !u!1 &8624439125921722520
 GameObject:

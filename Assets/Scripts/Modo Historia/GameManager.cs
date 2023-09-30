@@ -9,10 +9,15 @@ using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TableManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     private enum GameState { PLAYING, ENDED}
     private GameState gameState = GameState.PLAYING;
+
+    private const int MAX_LETTERS_IN_WORD = 20;
+    
+    private int gameTimeSesionInSec = 300;
+    private Language gameLanguage;
 
     [System.Serializable]
     public class UIElements
@@ -45,7 +50,7 @@ public class TableManager : MonoBehaviour
         {
             puntuationTMP.text = _puntuation.ToString();
         }
-        public void UpdateRestPuntuation(int _restPuntuation, TableManager _tableManager)
+        public void UpdateRestPuntuation(int _restPuntuation, GameManager _tableManager)
         {
             restPuntuationTMP.text = "-" + _restPuntuation.ToString();
             _tableManager.StartCoroutine(RestPuntuationFeedback(1));
@@ -79,13 +84,9 @@ public class TableManager : MonoBehaviour
     }
     [SerializeField] UIElements uiElements;
 
-    [Header("Constants")]
-    public const int MAX_LETTERS_IN_WORD = 20;
-    public const int TIMER_IN_SECONDS = 300;
-
     [Header("Word Validator")]
     [SerializeField] WordValidator wordValidator;
-    
+
     [Header("Letters GameObjects")]
     [SerializeField] private List<GameObject> lettersInGameGO = new List<GameObject>();
 
@@ -108,6 +109,16 @@ public class TableManager : MonoBehaviour
     {
         wordValidator.OnWordValidationComplete -= OnWordValidationComplete;
         LetterController.OnLetterClicked -= AddLetter;
+    }
+
+    private void Awake()
+    {
+        if (!(StoryGameSettings.instance == null))
+        {
+            gameTimeSesionInSec = StoryGameSettings.instance.gameTimeSesionInSec;
+            gameLanguage = StoryGameSettings.instance.gameLanguage;
+        }
+        
     }
     private void Start()
     {
@@ -135,7 +146,7 @@ public class TableManager : MonoBehaviour
         {
             case GameState.PLAYING:
                 {
-                    int actualTimer = TIMER_IN_SECONDS - (int)(Time.time - startSesionInSeconds);
+                    int actualTimer = gameTimeSesionInSec - (int)(Time.time - startSesionInSeconds);
 
                     if (actualTimer <= 0) gameState = GameState.ENDED;
 
