@@ -2704,6 +2704,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 1
   letter: 79
+  amount: 5
 --- !u!212 &302170895
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3763,6 +3764,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 1
   letter: 84
+  amount: 1
 --- !u!212 &370477677
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4947,6 +4949,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 10
   letter: 88
+  amount: 1
 --- !u!212 &542273863
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5577,6 +5580,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 1
   letter: 85
+  amount: 5
 --- !u!212 &584014547
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6244,6 +6248,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 5
   letter: 74
+  amount: 1
 --- !u!212 &628693046
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6482,6 +6487,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 3
   letter: 87
+  amount: 1
 --- !u!212 &680655894
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7528,6 +7534,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 1
   letter: 65
+  amount: 5
 --- !u!212 &817270596
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7681,6 +7688,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 10
   letter: 81
+  amount: 1
 --- !u!212 &817996696
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8452,8 +8460,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TableMAnager, Assembly-CSharp
+      - m_Target: {fileID: 1010754163}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: RemoveLastLetter
         m_Mode: 1
         m_Arguments:
@@ -9091,6 +9099,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 1
   letter: 83
+  amount: 1
 --- !u!212 &1004290030
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9609,6 +9618,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 1
   letter: 68
+  amount: 1
 --- !u!212 &1016936278
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9762,6 +9772,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 10
   letter: 90
+  amount: 1
 --- !u!212 &1017264236
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11307,6 +11318,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 5
   letter: 80
+  amount: 1
 --- !u!212 &1123649390
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11802,6 +11814,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 3
   letter: 71
+  amount: 1
 --- !u!212 &1176251091
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14580,6 +14593,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 1
   letter: 76
+  amount: 1
 --- !u!212 &1368221210
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15724,6 +15738,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 3
   letter: 70
+  amount: 1
 --- !u!212 &1490118788
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15877,6 +15892,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 3
   letter: 67
+  amount: 1
 --- !u!212 &1499550256
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16544,6 +16560,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 1
   letter: 69
+  amount: 5
 --- !u!212 &1553159800
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16954,6 +16971,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 5
   letter: 75
+  amount: 1
 --- !u!212 &1594501672
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17973,6 +17991,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 1
   letter: 72
+  amount: 1
 --- !u!212 &1636855243
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18555,6 +18574,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 1
   letter: 73
+  amount: 5
 --- !u!212 &1675035713
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19427,6 +19447,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 5
   letter: 86
+  amount: 1
 --- !u!212 &1738969470
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19752,6 +19773,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 5
   letter: 66
+  amount: 1
 --- !u!212 &1742560475
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19933,8 +19955,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TableMAnager, Assembly-CSharp
+      - m_Target: {fileID: 1010754163}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: ValidatorButton
         m_Mode: 1
         m_Arguments:
@@ -20501,6 +20523,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 1
   letter: 78
+  amount: 1
 --- !u!212 &1810147946
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21081,6 +21104,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 3
   letter: 89
+  amount: 1
 --- !u!212 &1909765829
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -22256,8 +22280,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TableManager, Assembly-CSharp
+      - m_Target: {fileID: 1010754163}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: TrashButtonRemoveWord
         m_Mode: 1
         m_Arguments:
@@ -23403,6 +23427,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 1
   letter: 82
+  amount: 1
 --- !u!212 &2101157251
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24299,6 +24324,7 @@ MonoBehaviour:
   amountLetterType: 0
   basePuntuation: 3
   letter: 77
+  amount: 1
 --- !u!61 &8482122430555075795
 BoxCollider2D:
   m_ObjectHideFlags: 0

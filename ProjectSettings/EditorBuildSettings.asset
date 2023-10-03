@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/StoryMode.unity
+    guid: 7c5190fa900968949b0d851b235b84b1
+  - enabled: 1
     path: Assets/Scenes/StoryGame.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}
