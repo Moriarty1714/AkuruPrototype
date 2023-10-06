@@ -1,50 +1,95 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LayersController : MonoBehaviour
 {
     [SerializeField] public Canvas canvas;
     [SerializeField] public RectTransform parentSceneLayerRT;
-    private Vector2[] sceneLayersPosition;
-
-    private float limit;
-
-    private Vector2 initLayerPos;
-    private float initTouchPos;
-    public float fMovingSpeed;
+    [SerializeField] public LayoutElement[] botLayoutButtons;
+    public float timeBounce = 0.25f;
+    public float sceneLayerOffset = 300f;
+    
+    private IEnumerator layerTransitionCor;
 
     // Start is called before the first frame update
     void Start()
     {
-        limit = Screen.width / 2;
-        initLayerPos = parentSceneLayerRT.localPosition;
-
-        RectTransform[] sceneLayersRT = parentSceneLayerRT.gameObject.GetComponentsInChildren<RectTransform>();
-        sceneLayersPosition = new Vector2[sceneLayersRT.Length];
-
-        for (int i = 0; i < sceneLayersRT.Length; i++)
-        {
-            sceneLayersPosition[i] = sceneLayersRT[i].anchoredPosition;
-        }
+        ChangeLayerByButton(1);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        //Movement
-        if (Input.GetMouseButtonDown(0))
-        {
-            initTouchPos = Input.mousePosition.x;
+            
+    }
 
-        }
-        else if (Input.GetMouseButton(0))
+    //private void OnMouseEnter()
+    //{
+    //    //Movement
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        initTouchPos = Input.mousePosition.x;
+
+    //    }
+    //    else if (Input.GetMouseButton(0))
+    //    {
+    //        float dragPos = Input.mousePosition.x;
+    //        parentSceneLayerRT.localPosition = new Vector2((initLayerPos.x - (initTouchPos - dragPos)), parentSceneLayerRT.localPosition.y);
+    //    }
+    //}
+
+    public void ChangeLayerByButton(int index) 
+    {
+        if (layerTransitionCor != null) StopCoroutine(layerTransitionCor);
+
+
+        if (index == 0)
         {
-            float dragPos = Input.mousePosition.x;
-            parentSceneLayerRT.localPosition = new Vector2((initLayerPos.x - (initTouchPos - dragPos)), parentSceneLayerRT.localPosition.y);
+            layerTransitionCor = ScrollLayer(sceneLayerOffset, timeBounce);
+            StartCoroutine(layerTransitionCor);
+
+            //View
+            botLayoutButtons[0].preferredWidth = 150;
+            botLayoutButtons[1].preferredWidth = 100;
+            botLayoutButtons[2].preferredWidth = 100;
         }
-        else
+        else if (index == 1)
         {
-            parentSceneLayerRT.localPosition = Vector2.MoveTowards(transform.position, initLayerPos, fMovingSpeed);
+            layerTransitionCor = ScrollLayer(0, timeBounce);
+            StartCoroutine(layerTransitionCor);
+
+            //View
+            botLayoutButtons[0].preferredWidth = 100;
+            botLayoutButtons[1].preferredWidth = 150;
+            botLayoutButtons[2].preferredWidth = 100;
+        }
+        else if (index == 2)
+        {
+            layerTransitionCor = ScrollLayer(-sceneLayerOffset, timeBounce);
+            StartCoroutine(layerTransitionCor);
+
+            //View
+            botLayoutButtons[0].preferredWidth = 100;
+            botLayoutButtons[1].preferredWidth = 100;
+            botLayoutButtons[2].preferredWidth = 150;
+        }
+        else 
+        {
+            Debug.Log("Layer doesn't exist!");
         }
     }
-    
+
+    IEnumerator ScrollLayer(float position, float time)
+    {
+        Vector2 currentPos = parentSceneLayerRT.localPosition;
+        float t = 0f;
+        while (t < 1)
+        {
+            t += Time.deltaTime / time; //Tiepo de deslizamiento
+            parentSceneLayerRT.localPosition = Vector3.Lerp(currentPos, new Vector3(position, parentSceneLayerRT.localPosition.y), t);
+            yield return null;
+        }
+    }
 }
+
