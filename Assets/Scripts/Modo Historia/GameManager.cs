@@ -351,4 +351,9 @@ public class GameManager : MonoBehaviour
         //VIEW
         uiElements.UpdateAcceptButton(false);
     }
+
+    public void ChangeSceneTo(string _text) 
+    {
+        SceneChanger.Instance.LoadScene(_text);
+    }
 }

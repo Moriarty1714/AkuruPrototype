@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,9 +28,8 @@ public class LevelHandler : MonoBehaviour
         StoryGameSettings.instance.letterExtraPuntuation = levelInfo.letterExtraPuntuation;
         StoryGameSettings.instance.gameTimeSesionInSec = levelInfo.gameTimeSesionInSec;
         StoryGameSettings.instance.gameLanguage = levelInfo.gameLanguage;
-            
 
-        SceneManager.LoadScene("StoryGame");
+        SceneChanger.Instance.LoadScene("StoryGame");
     }
 
     public void Start()
