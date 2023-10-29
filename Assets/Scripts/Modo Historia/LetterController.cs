@@ -46,8 +46,8 @@ public class LetterController : MonoBehaviour
  
     [SerializeField] private int basePuntuation;   
     [SerializeField] private char letter;
-    [SerializeField] int amount = 1; 
-    private int extraPuntuation = 0;
+    [SerializeField] int amount = 1;
+    [SerializeField] private int extraPuntuation = 0;
 
     // Define the event
     public static event Action<string> OnLetterClicked;

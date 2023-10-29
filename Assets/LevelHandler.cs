@@ -29,13 +29,13 @@ public class LevelHandler : MonoBehaviour
         switch (storyLevelType)
         {
             case StoryLevelType.LVL1:
-                levelInfo = new LevelInfo(0);
+                levelInfo.SetTableConfiguration(0);
                 break;
             case StoryLevelType.LVL2:
-                levelInfo = new LevelInfo(1);
+                levelInfo.SetTableConfiguration(1);
                 break;
             case StoryLevelType.TESTLVL:
-                levelInfo = new LevelInfo();
+                levelInfo.SetRandomLevel();
                 break;
             default:
                 break;

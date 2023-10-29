@@ -24,30 +24,31 @@ public class LevelInfo
     }
 
     public Dictionary<char, LetterInfo> letterInfo = new Dictionary<char, LetterInfo>() { { 'A', new LetterInfo() }, { 'B', new LetterInfo() }, { 'C', new LetterInfo() }, { 'D', new LetterInfo() }, { 'E', new LetterInfo() }, { 'F', new LetterInfo() }, { 'G', new LetterInfo() }, { 'H', new LetterInfo() }, { 'I', new LetterInfo() }, { 'J', new LetterInfo() }, { 'K', new LetterInfo() }, { 'L', new LetterInfo() }, { 'M', new LetterInfo() }, { 'N', new LetterInfo() }, { 'O', new LetterInfo() }, { 'P', new LetterInfo() }, { 'Q', new LetterInfo() }, { 'R', new LetterInfo() }, { 'S', new LetterInfo() }, { 'T', new LetterInfo() }, { 'U', new LetterInfo() }, { 'V', new LetterInfo() }, { 'W', new LetterInfo() }, { 'X', new LetterInfo() }, { 'Y', new LetterInfo() }, { 'Z', new LetterInfo() } };
-    public int gameTimeSesionInSec = 0;
+    public int gameTimeSesionInSec = 150;
     public Language gameLanguage;
 
-    public LevelInfo() //RandomLevelInfo
+    public void SetRandomLevel() //RandomLevelInfo
     {
         //Letter Amount
         for (int i = 0; i < letterInfo.Count; i++)
         {
-            KeyValuePair<char, LetterInfo> letter = letterInfo.ElementAt(i);
-            if (letter.Key == 'D' || letter.Key == 'H' || letter.Key == 'L' || letter.Key == 'N' || letter.Key == 'R' || letter.Key == 'S' || letter.Key == 'T')
+            char  letterIndex = letterInfo.ElementAt(i).Key;
+            letterInfo[letterIndex].basePuntuation = 1;
+            if (letterIndex == 'D' || letterIndex == 'H' || letterIndex == 'L' || letterIndex == 'N' || letterIndex == 'R' || letterIndex == 'S' || letterIndex == 'T')
             {
-                letterInfo[letter.Key].amount = 3;
+                letterInfo[letterIndex].amount = 3;
             }
-            else if (letter.Key == 'C' || letter.Key == 'F' || letter.Key == 'G' || letter.Key == 'M' || letter.Key == 'W' || letter.Key == 'Y')
+            else if (letterIndex == 'C' || letterIndex == 'F' || letterIndex == 'G' || letterIndex == 'M' || letterIndex == 'W' || letterIndex == 'Y')
             {
-                letterInfo[letter.Key].amount = 3;
+                letterInfo[letterIndex].amount = 2;
             }
-            else if (letter.Key == 'B' || letter.Key == 'J' || letter.Key == 'K' || letter.Key == 'P' || letter.Key == 'V' || letter.Key == 'Q' || letter.Key == 'X' || letter.Key == 'Z')
+            else if (letterIndex == 'B' || letterIndex == 'J' || letterIndex == 'K' || letterIndex == 'P' || letterIndex == 'V' || letterIndex == 'Q' || letterIndex == 'X' || letterIndex == 'Z')
             {
-                letterInfo[letter.Key].amount = 3;
+                letterInfo[letterIndex].amount = 1;
             }
-            else if (letter.Key == 'A' || letter.Key == 'E' || letter.Key == 'I' || letter.Key == 'O' || letter.Key == 'U')
+            else if (letterIndex == 'A' || letterIndex == 'E' || letterIndex == 'I' || letterIndex == 'O' || letterIndex == 'U')
             {
-                letterInfo[letter.Key].amount = 3;
+                letterInfo[letterIndex].amount = 5;
             }
         }
 
@@ -59,7 +60,7 @@ public class LevelInfo
         int randKey;
         for (int i = 0; i < randomExtraPuntuationLetters; i++)
         {
-            randKey = UnityEngine.Random.Range(0, keys.Count - 1);
+            randKey = (DateTime.Now.Second+(i*200)) % (keys.Count - 1); //Random UnityEngine doesn't work (UnityExeption) NO FUNCA!
             char randomKey = keys[randKey];
             letterInfo[randomKey].extraPuntuation = extraPuntuation;
         }
@@ -71,16 +72,23 @@ public class LevelInfo
         ///Inspector
 
     }
-    public LevelInfo(int _level)
+    public void SetTableConfiguration(int _level)
     {
         for (int i = 0; i < letterInfo.Count; i++)
         {
             char actualLetterIndex = letterInfo.ElementAt(i).Key;
-            LetterInfo letterInfoTmp = new LetterInfo(
-                int.Parse(HandleTSV.Instance.levelInfo[_level][actualLetterIndex][0]), //Primer elemento
-                int.Parse(HandleTSV.Instance.levelInfo[_level][actualLetterIndex][1]),  //Segundo elemento
-                int.Parse(HandleTSV.Instance.levelInfo[_level][actualLetterIndex][2])); //Tercer elemento
+            int primerElemento = 0;
+            int segundoElemento = 0;
+            int tercerElemento = 0;
+
+            int.TryParse(HandleTSV.Instance.levelInfo[_level][actualLetterIndex][0], out primerElemento);
+            int.TryParse(HandleTSV.Instance.levelInfo[_level][actualLetterIndex][1], out segundoElemento);
+            int.TryParse(HandleTSV.Instance.levelInfo[_level][actualLetterIndex][2], out tercerElemento);
+            
+            LetterInfo letterInfoTmp = new LetterInfo(primerElemento, segundoElemento, tercerElemento);
+            letterInfo[actualLetterIndex] = letterInfoTmp;           
         }
     }
+    
 }
 
