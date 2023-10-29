@@ -18,10 +18,7 @@ public class StoryGameSettings : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public Dictionary<char, int> letterAmount = new Dictionary<char, int>();
-    public Dictionary<char, int> letterExtraPuntuation = new Dictionary<char, int>();
-    public int gameTimeSesionInSec = 1000;
-    public Language gameLanguage = Language.ENGLISH;
+    public LevelInfo levelInfo;
 
     // Start is called before the first frame update
     void Start()

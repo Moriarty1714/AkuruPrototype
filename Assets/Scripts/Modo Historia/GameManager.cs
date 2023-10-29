@@ -115,8 +115,8 @@ public class GameManager : MonoBehaviour
     {
         if (!(StoryGameSettings.instance == null))
         {
-            gameTimeSesionInSec = StoryGameSettings.instance.gameTimeSesionInSec;
-            gameLanguage = StoryGameSettings.instance.gameLanguage;
+            gameTimeSesionInSec = StoryGameSettings.instance.levelInfo.gameTimeSesionInSec;
+            gameLanguage = StoryGameSettings.instance.levelInfo.gameLanguage;
         }
         
     }

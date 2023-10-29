@@ -56,8 +56,9 @@ public class LetterController : MonoBehaviour
     {
         if (!(StoryGameSettings.instance == null))
         {
-            amount = StoryGameSettings.instance.letterAmount[char.ToLower(letter)];
-            extraPuntuation = StoryGameSettings.instance.letterExtraPuntuation[char.ToLower(letter)];
+            amount = StoryGameSettings.instance.levelInfo.letterInfo[letter].amount;
+            basePuntuation = StoryGameSettings.instance.levelInfo.letterInfo[letter].basePuntuation;
+            extraPuntuation = StoryGameSettings.instance.levelInfo.letterInfo[letter].extraPuntuation;
         }
     }
 
