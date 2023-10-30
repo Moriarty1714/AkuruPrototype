@@ -5,7 +5,6 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 public enum LetterType { CONSONANT, VOWEL };
-public enum AmountLetterType { FINITE, INFINITE };
 public class LetterController : MonoBehaviour
 {
     [System.Serializable]
@@ -33,16 +32,15 @@ public class LetterController : MonoBehaviour
         }
 
         // Setea la cantidad y maneja la representación visual de la misma
-        public void SetAmount(AmountLetterType _amountLetterType, int _amount)
+        public void SetAmount(int _amount)
         {
-            amountTMP.text = _amountLetterType == AmountLetterType.INFINITE ? "∞" : "x" + _amount;
+            amountTMP.text = "x" + _amount;
         }
     }
     [SerializeField] private ViewLetter viewLetter;
 
     [Header("Configuation:")]
     [SerializeField] private LetterType letterType;
-    [SerializeField] private AmountLetterType amountLetterType;
  
     [SerializeField] private int basePuntuation;   
     [SerializeField] private char letter;
@@ -68,7 +66,7 @@ public class LetterController : MonoBehaviour
         GetComponentsInChildren<TextMeshPro>()[0].text =letter.ToString();
 
         viewLetter.SetPuntuation(basePuntuation, extraPuntuation);
-        viewLetter.SetAmount(amountLetterType, amount);
+        viewLetter.SetAmount(amount);
     }
 
     // Evento de click del mouse
@@ -80,17 +78,15 @@ public class LetterController : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (amountLetterType == AmountLetterType.FINITE)
+        if (amount > 1)
         {
-            if (amount > 1)
-            {
-                viewLetter.SetAmount(amountLetterType, --amount);
-            }
-            else
-            {
-                gameObject.SetActive(false);
-            }
+            viewLetter.SetAmount( --amount);
         }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+        
         InvokeOnLetterClicked(letter.ToString());
 
         //VIEW
@@ -100,18 +96,15 @@ public class LetterController : MonoBehaviour
     // Regresa una letra
     public void ReturnLetter()
     {
-        if (amountLetterType == AmountLetterType.FINITE)
-        {
-            if (!gameObject.activeInHierarchy)
-            {               
-                gameObject.SetActive(true);
-            }
-            else 
-            {
-                amount = amount + 1;
-            }
-            viewLetter.SetAmount(amountLetterType, amount);
+        if (!gameObject.activeInHierarchy)
+        {               
+            gameObject.SetActive(true);
         }
+        else 
+        {
+            amount = amount + 1;
+        }
+        viewLetter.SetAmount(amount);
     }
 
     protected virtual void InvokeOnLetterClicked(string letter)

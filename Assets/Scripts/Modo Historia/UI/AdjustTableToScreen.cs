@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AdjustTableToScreen : MonoBehaviour
 {
-   
     void Start()
     {
         // Obtén el tamaño de la pantalla
