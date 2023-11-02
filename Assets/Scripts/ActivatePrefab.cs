@@ -19,8 +19,7 @@ public class ActivatePrefab : MonoBehaviour
     }
 
     public void SetActivatePrefab()
-    {
-       
+    {     
         if (state)
         {
             obj.SetActive(true);

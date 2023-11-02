@@ -17,31 +17,31 @@ public class WordCompletedController : MonoBehaviour
     {
         if (!preparedToRemove)
         {
-            StartCoroutine(Vibrate());
+            //StartCoroutine(Vibrate());
             wordCompletedTMP.color = Color.red;
             preparedToRemove = true;
         }
         else {
-            wordCompletedTMP.color = Color.black;
+            wordCompletedTMP.color = Color.white;
             preparedToRemove = false;
         
         }
     }
 
-    IEnumerator Vibrate()
-    {
-        preparedToRemove = true;
-        originalPosition = transform.position;
+    //IEnumerator Vibrate()
+    //{
+    //    preparedToRemove = true;
+    //    originalPosition = transform.position;
 
-        while (preparedToRemove)
-        {
-            float x = originalPosition.x + Random.Range(-vibrationMagnitude, vibrationMagnitude);
-            float y = originalPosition.y + Random.Range(-vibrationMagnitude, vibrationMagnitude);
+    //    while (preparedToRemove)
+    //    {
+    //        float x = originalPosition.x + Random.Range(-vibrationMagnitude, vibrationMagnitude);
+    //        float y = originalPosition.y + Random.Range(-vibrationMagnitude, vibrationMagnitude);
 
-            transform.position = new Vector3(x, y, originalPosition.z);
+    //        transform.position = new Vector3(x, y, originalPosition.z);
 
-            yield return null; // Esperar hasta el próximo frame
-        }
-    }
+    //        yield return null; // Esperar hasta el próximo frame
+    //    }
+    //}
     
 }
