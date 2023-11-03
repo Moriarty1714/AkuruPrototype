@@ -12,6 +12,7 @@ public class LetterController : MonoBehaviour
     {
         public TextMeshPro puntuationTMP;
         public TextMeshPro amountTMP;
+        public Animation animation;
 
         // Setea la puntuación y maneja la visibilidad del elemento de puntuación
         public void SetPuntuation(int basePuntuation, int extraPuntuation = 0)
@@ -71,9 +72,10 @@ public class LetterController : MonoBehaviour
 
     // Evento de click del mouse
     void OnMouseDown()
-    {    
+    {
         //VIEW
-        transform.localScale = transform.localScale * 0.7f;
+        viewLetter.animation.Stop();
+        viewLetter.animation.Play("LetterAnimOnMouseDown");
     }
 
     private void OnMouseUp()
@@ -90,7 +92,8 @@ public class LetterController : MonoBehaviour
         InvokeOnLetterClicked(letter.ToString());
 
         //VIEW
-        transform.localScale = transform.localScale / 0.7f;
+        viewLetter.animation.Stop();
+        viewLetter.animation.Play("LetterAnimOnMouseUp");
     }
 
     // Regresa una letra
