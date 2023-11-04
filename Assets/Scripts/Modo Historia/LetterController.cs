@@ -48,8 +48,6 @@ public class LetterController : MonoBehaviour
     [SerializeField] int amount = 1;
     [SerializeField] private int extraPuntuation = 0;
 
-    public bool arnau = false;
-
     // Define the event
     public static event Action<string> OnLetterClicked;
 

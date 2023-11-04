@@ -34,58 +34,6 @@ public class GameManager : MonoBehaviour
 
         public AcceptButtonController acceptButton;
 
-        private List<GameObject> editingWordLettersGO = new List<GameObject>();
-        public GameObject prefabLetterConstruct;
-        public Transform constructorTrans;
-        public Transform startPointConstructor;
-        public Transform endPointConstructor;
-        public float minDistanceBetweenObjects = 0.5f;
-
-        public void UpdateEditingWord(string _editingWord, GameManager _gameManager)
-        {
-            foreach (GameObject letterGO in editingWordLettersGO)
-            {
-                Destroy(letterGO);
-            }
-            editingWordLettersGO.Clear();
-
-            int i = 0;
-            foreach (char letter in _editingWord)
-            {
-                GameObject tmp = Instantiate(prefabLetterConstruct, constructorTrans);
-                tmp.name = i.ToString()+letter.ToString()+"-" +prefabLetterConstruct.name;
-                tmp.GetComponent<LetterControllerUI>().SetLetter(letter.ToString());
-                editingWordLettersGO.Add(tmp);        
-                i++;
-            }
-            PlaceObjectsInLine(startPointConstructor.position, endPointConstructor.position);
-        }
-        public void PlaceObjectsInLine(Vector2 pointA, Vector2 pointB)
-        {
-            Vector2 direction = (pointB - pointA).normalized;
-            float totalLength = Vector2.Distance(pointA, pointB);
-            float totalObjectLength = minDistanceBetweenObjects * (editingWordLettersGO.Count - 1);
-
-            if (totalObjectLength > totalLength)
-            {
-                float scaleFactor = totalLength / totalObjectLength;
-                foreach (GameObject go in editingWordLettersGO)
-                {
-                    go.transform.localScale *= scaleFactor;
-                }
-                totalObjectLength = totalLength;
-                minDistanceBetweenObjects = totalLength / (editingWordLettersGO.Count - 1);
-            }
-
-            float padding = (totalLength - totalObjectLength) / 2;
-            Vector2 startPoint = pointA + direction * padding;
-
-            for (int i = 0; i < editingWordLettersGO.Count; i++)
-            {
-                Vector2 position = startPoint + direction * minDistanceBetweenObjects * i;
-                editingWordLettersGO[i].transform.position = position;
-            }
-        }
         public void UpdateAccPuntAndBonMult(int _accumulatePuntuation, float _accBonusMultiplyer)
         {
             float accBonusMultRounded = Mathf.Round(_accBonusMultiplyer * 10f) / 10f; ;
@@ -138,6 +86,9 @@ public class GameManager : MonoBehaviour
     [Header("Letters GameObjects")]
     [SerializeField] private List<GameObject> lettersInGameGO = new List<GameObject>();
 
+    [Header("Constructor")]
+    [SerializeField] ConstructorController constructorController;
+
     private Dictionary<string, LetterController> lettersCtrl = new Dictionary<string, LetterController>();
     private List<string> selectedLetters = new List<string>();
 
@@ -157,6 +108,7 @@ public class GameManager : MonoBehaviour
     {
         wordValidator.OnWordValidationComplete -= OnWordValidationComplete;
         LetterController.OnLetterClicked -= AddLetter;
+        LetterConstructor.OnLetterClicked -= RemoveLetter;
     }
 
     private void Awake()
@@ -172,6 +124,7 @@ public class GameManager : MonoBehaviour
     {
         wordValidator.OnWordValidationComplete += OnWordValidationComplete;
         LetterController.OnLetterClicked += AddLetter;
+        LetterConstructor.OnLetterClicked += RemoveLetter;
 
         for (int i = 0; i < lettersInGameGO.Count; i++)
         {
@@ -183,7 +136,7 @@ public class GameManager : MonoBehaviour
         startSesionInSeconds = Time.time;
 
         //VIEW
-        uiElements.UpdateEditingWord(editingWord, this);
+        constructorController.constructorView.UpdateEditingWord(editingWord, this);
         uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         uiElements.UpdatePuntuation(puntuation);
     }
@@ -245,7 +198,7 @@ public class GameManager : MonoBehaviour
 
         //VIEW
         StartCoroutine(FadeToAndFromColor(colorFeedback, 0.5f));
-        uiElements.UpdateEditingWord(editingWord, this);
+        constructorController.constructorView.UpdateEditingWord(editingWord, this);
         uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         uiElements.UpdateAcceptButton(true);
     }
@@ -256,7 +209,7 @@ public class GameManager : MonoBehaviour
         {          
             editingWord += selectedLetter;
         }
-        uiElements.UpdateEditingWord(editingWord, this);
+        constructorController.constructorView.UpdateEditingWord(editingWord, this);
     }
     private IEnumerator FadeToAndFromColor(Color color, float duration)
     {
@@ -370,17 +323,18 @@ public class GameManager : MonoBehaviour
             lettersCtrl[letterValue].ReturnLetter();
         }
     }
-    public void RemoveLastLetter()
+    public void RemoveLastLetter() 
     {
         if (selectedLetters.Count > 0)
         {
-            string letterValue = selectedLetters[selectedLetters.Count - 1];
-
+            int letterIndex = selectedLetters.Count - 1;
+            string letterValue = letterValue = selectedLetters[letterIndex]; 
+            
             Debug.Log("Removed " + letterValue + " IN " + (selectedLetters.Count - 1).ToString());
 
             //Word
             lettersCtrl[letterValue].ReturnLetter();
-            selectedLetters.RemoveAt(selectedLetters.Count - 1);
+            selectedLetters.RemoveAt(letterIndex);
             ConcatenateLetters();
 
             //Puntuation
@@ -390,19 +344,19 @@ public class GameManager : MonoBehaviour
             //VIEW
             uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         }
-        
     }
     public void RemoveLetter(int _index)
     {
         if (selectedLetters.Count > 0)
         {
-            string letterValue = selectedLetters[selectedLetters.Count - 1];
+            int letterIndex = _index - 1;//Error al pasar _index. El valor o no se escribe bien o no se guarda vien o no se que pasa
+            string letterValue = selectedLetters[letterIndex];   
 
-            Debug.Log("Removed " + _index + " IN " + (selectedLetters.Count - 1).ToString());
+            Debug.Log("Removed " + letterValue + " IN " + letterIndex.ToString());
 
             //Word
             lettersCtrl[letterValue].ReturnLetter();
-            selectedLetters.RemoveAt(_index);
+            selectedLetters.RemoveAt(letterIndex);
             ConcatenateLetters();
 
             //Puntuation
@@ -414,6 +368,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
     public void ValidatorButton()
     {
         wordValidator.ValidateWord(editingWord);
