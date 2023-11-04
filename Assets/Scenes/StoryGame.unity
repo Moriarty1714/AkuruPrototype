@@ -974,6 +974,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 226190743}
+  - component: {fileID: 226190744}
   m_Layer: 0
   m_Name: Contructor
   m_TagString: Untagged
@@ -999,6 +1000,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &226190744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226190742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7390ac88261f144f97a8a7d20a0414d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  constructorView:
+    prefabLetterConstruct: {fileID: 531634133290831498, guid: 32826dde42ed76f4cb104db09ee3e803, type: 3}
+    constructorTrans: {fileID: 226190743}
+    startPointConstructor: {fileID: 205605968}
+    endPointConstructor: {fileID: 70685349}
+    minDistanceBetweenObjects: 0.5
 --- !u!114 &242202810 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2221107556157343212, guid: 1c755a6bc1fe80642adf86c920af41ba, type: 3}
@@ -3350,7 +3369,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3828,11 +3847,6 @@ MonoBehaviour:
     - {fileID: 21807625}
     botPlacerRT: {fileID: 760811831}
     acceptButton: {fileID: 1757151865}
-    prefabLetterConstruct: {fileID: 531634133290831498, guid: 32826dde42ed76f4cb104db09ee3e803, type: 3}
-    constructorTrans: {fileID: 226190743}
-    startPointConstructor: {fileID: 205605968}
-    endPointConstructor: {fileID: 70685349}
-    minDistanceBetweenObjects: 0.5
   wordValidator: {fileID: 1010754165}
   lettersInGameGO:
   - {fileID: 817270592}
@@ -3861,6 +3875,7 @@ MonoBehaviour:
   - {fileID: 1122801248}
   - {fileID: 221582837}
   - {fileID: 1728126104}
+  constructorController: {fileID: 226190744}
   wordPrefab: {fileID: 1623777347121383274, guid: 561b1097891953646b8dcad8097e0026, type: 3}
 --- !u!4 &1010754164
 Transform:
