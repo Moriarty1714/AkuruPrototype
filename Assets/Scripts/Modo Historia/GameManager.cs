@@ -8,13 +8,14 @@ using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class GameManager : MonoBehaviour
 {
     private enum GameState { PLAYING, ENDED}
     private GameState gameState = GameState.PLAYING;
 
-    private const int MAX_LETTERS_IN_WORD = 20;
+    private const int MAX_LETTERS_IN_WORD = 15;
     
     private int gameTimeSesionInSec = 300;
     private Language gameLanguage;
@@ -28,15 +29,62 @@ public class GameManager : MonoBehaviour
         public TextMeshProUGUI restPuntuationTMP;
 
         public TextMeshProUGUI timerTicking;
-        public TextMeshProUGUI editingWordTMP;
         public Transform[] wordContainers;
         public RectTransform botPlacerRT;
 
         public AcceptButtonController acceptButton;
 
-        public void UpdateEditingWord(string _editingWord)
+        private List<GameObject> editingWordLettersGO = new List<GameObject>();
+        public GameObject prefabLetterConstruct;
+        public Transform constructorTrans;
+        public Transform startPointConstructor;
+        public Transform endPointConstructor;
+        public float minDistanceBetweenObjects = 0.5f;
+
+        public void UpdateEditingWord(string _editingWord, GameManager _gameManager)
         {
-            editingWordTMP.text = _editingWord;
+            foreach (GameObject letterGO in editingWordLettersGO)
+            {
+                Destroy(letterGO);
+            }
+            editingWordLettersGO.Clear();
+
+            int i = 0;
+            foreach (char letter in _editingWord)
+            {
+                GameObject tmp = Instantiate(prefabLetterConstruct, constructorTrans);
+                tmp.name = i.ToString()+letter.ToString()+"-" +prefabLetterConstruct.name;
+                tmp.GetComponent<LetterControllerUI>().SetLetter(letter.ToString());
+                editingWordLettersGO.Add(tmp);        
+                i++;
+            }
+            PlaceObjectsInLine(startPointConstructor.position, endPointConstructor.position);
+        }
+        public void PlaceObjectsInLine(Vector2 pointA, Vector2 pointB)
+        {
+            Vector2 direction = (pointB - pointA).normalized;
+            float totalLength = Vector2.Distance(pointA, pointB);
+            float totalObjectLength = minDistanceBetweenObjects * (editingWordLettersGO.Count - 1);
+
+            if (totalObjectLength > totalLength)
+            {
+                float scaleFactor = totalLength / totalObjectLength;
+                foreach (GameObject go in editingWordLettersGO)
+                {
+                    go.transform.localScale *= scaleFactor;
+                }
+                totalObjectLength = totalLength;
+                minDistanceBetweenObjects = totalLength / (editingWordLettersGO.Count - 1);
+            }
+
+            float padding = (totalLength - totalObjectLength) / 2;
+            Vector2 startPoint = pointA + direction * padding;
+
+            for (int i = 0; i < editingWordLettersGO.Count; i++)
+            {
+                Vector2 position = startPoint + direction * minDistanceBetweenObjects * i;
+                editingWordLettersGO[i].transform.position = position;
+            }
         }
         public void UpdateAccPuntAndBonMult(int _accumulatePuntuation, float _accBonusMultiplyer)
         {
@@ -135,7 +183,7 @@ public class GameManager : MonoBehaviour
         startSesionInSeconds = Time.time;
 
         //VIEW
-        uiElements.UpdateEditingWord(editingWord);
+        uiElements.UpdateEditingWord(editingWord, this);
         uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         uiElements.UpdatePuntuation(puntuation);
     }
@@ -197,7 +245,7 @@ public class GameManager : MonoBehaviour
 
         //VIEW
         StartCoroutine(FadeToAndFromColor(colorFeedback, 0.5f));
-        uiElements.UpdateEditingWord(editingWord);
+        uiElements.UpdateEditingWord(editingWord, this);
         uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         uiElements.UpdateAcceptButton(true);
     }
@@ -208,7 +256,7 @@ public class GameManager : MonoBehaviour
         {          
             editingWord += selectedLetter;
         }
-        uiElements.UpdateEditingWord(editingWord);
+        uiElements.UpdateEditingWord(editingWord, this);
     }
     private IEnumerator FadeToAndFromColor(Color color, float duration)
     {
@@ -343,6 +391,28 @@ public class GameManager : MonoBehaviour
             uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         }
         
+    }
+    public void RemoveLetter(int _index)
+    {
+        if (selectedLetters.Count > 0)
+        {
+            string letterValue = selectedLetters[selectedLetters.Count - 1];
+
+            Debug.Log("Removed " + _index + " IN " + (selectedLetters.Count - 1).ToString());
+
+            //Word
+            lettersCtrl[letterValue].ReturnLetter();
+            selectedLetters.RemoveAt(_index);
+            ConcatenateLetters();
+
+            //Puntuation
+            accPuntuation -= lettersCtrl[letterValue].GetLetterPuntuation();
+            accBonusMultiplyer -= bonusMultiplyer;
+
+            //VIEW
+            uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
+        }
+
     }
     public void ValidatorButton()
     {
