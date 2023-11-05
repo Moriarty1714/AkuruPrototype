@@ -81,6 +81,17 @@ public static class UIHelper
         }
         image.color = endColor;
     }
+    public static IEnumerator Fade(SpriteRenderer spriteRenderer, Color startColor, Color endColor, float duration)
+    {
+        for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            float normalizedTime = t / duration;
+            spriteRenderer.color = Color.Lerp(startColor, endColor, normalizedTime);
+            yield return null;
+        }
+        spriteRenderer.color = endColor;
+    }
+
 }
 
 

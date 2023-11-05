@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
         public TextMeshProUGUI timerTicking;
         public Transform[] wordContainers;
-        public RectTransform botPlacerRT;
+        public SpriteRenderer constructorPanelTrans;
 
         public AcceptButtonController acceptButton;
 
@@ -88,6 +88,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Constructor")]
     [SerializeField] ConstructorController constructorController;
+   
+    [Header("Board")]
+    [SerializeField] Transform boardTrans;
 
     private Dictionary<string, LetterController> lettersCtrl = new Dictionary<string, LetterController>();
     private List<string> selectedLetters = new List<string>();
@@ -107,7 +110,10 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         wordValidator.OnWordValidationComplete -= OnWordValidationComplete;
-        LetterController.OnLetterClicked -= AddLetter;
+
+        LetterController.OnLetterMouseDown -= CopyLetter;
+        LetterController.OnLetterMouseUp -= AddLetter;
+
         LetterConstructor.OnLetterClicked -= RemoveLetter;
     }
 
@@ -123,7 +129,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         wordValidator.OnWordValidationComplete += OnWordValidationComplete;
-        LetterController.OnLetterClicked += AddLetter;
+        LetterController.OnLetterMouseDown += CopyLetter;
+        LetterController.OnLetterMouseUp += AddLetter;
+
         LetterConstructor.OnLetterClicked += RemoveLetter;
 
         for (int i = 0; i < lettersInGameGO.Count; i++)
@@ -213,10 +221,10 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator FadeToAndFromColor(Color color, float duration)
     {
-        Color originalColor = uiElements.botPlacerRT.GetComponent<Image>().color;
-        yield return UIHelper.Fade(uiElements.botPlacerRT.GetComponent<Image>(), originalColor, color, duration);
-        yield return UIHelper.Fade(uiElements.botPlacerRT.GetComponent<Image>(), color, originalColor, duration);
-        uiElements.botPlacerRT.GetComponent<Image>().color = Color.white;
+        Color originalColor = uiElements.constructorPanelTrans.color;
+        yield return UIHelper.Fade(uiElements.constructorPanelTrans, originalColor, color, duration);
+        yield return UIHelper.Fade(uiElements.constructorPanelTrans, color, originalColor, duration);
+        uiElements.constructorPanelTrans.color = Color.white;
     }
     public void GenerateAcceptedWords()
     {
@@ -237,7 +245,7 @@ public class GameManager : MonoBehaviour
                 wordObj.GetComponentInChildren<TextMeshProUGUI>().text = word + ", ";
                 wordObj.GetComponent<Button>().onClick.AddListener(() => RemoveAcceptedWord(word));
 
-                //Comprobamos que cepa en la misma fila
+                //Comprobamos que quepa en la misma fila
                 float wordObjWidth = wordObj.GetComponentInChildren<TextMeshProUGUI>().preferredWidth;
                 float containerWidth = uiElements.wordContainers[rowIndex].GetComponent<RectTransform>().rect.width;
                 float wordSpacing = uiElements.wordContainers[rowIndex].GetComponent<HorizontalLayoutGroup>().spacing;
@@ -299,12 +307,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void CopyLetter(string _letterValue) 
+    {
+        GameObject letterCopy = Instantiate(lettersCtrl[_letterValue].gameObject, boardTrans);
+        letterCopy.SetActive(true);
+
+        lettersCtrl[_letterValue] = letterCopy.GetComponent<LetterController>();
+        lettersCtrl[_letterValue].draggingLetter = true;
+    }
     public void AddLetter(string letterValue)
     {
-        Debug.Log(letterValue);
-
         if (selectedLetters.Count < MAX_LETTERS_IN_WORD)
         {
+            
             Debug.Log("Added " + letterValue + " IN " + (selectedLetters.Count).ToString());
 
             //Word
@@ -323,13 +338,14 @@ public class GameManager : MonoBehaviour
             lettersCtrl[letterValue].ReturnLetter();
         }
     }
-    public void RemoveLastLetter() 
+    public void RemoveLetter(int _index = -1) //SI index == -1 ->Se borra la última referencia
     {
         if (selectedLetters.Count > 0)
         {
-            int letterIndex = selectedLetters.Count - 1;
-            string letterValue = letterValue = selectedLetters[letterIndex]; 
-            
+            int letterIndex = _index == -1? selectedLetters.Count - 1: _index;
+
+            string letterValue = selectedLetters[letterIndex];
+
             Debug.Log("Removed " + letterValue + " IN " + (selectedLetters.Count - 1).ToString());
 
             //Word
@@ -345,29 +361,7 @@ public class GameManager : MonoBehaviour
             uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         }
     }
-    public void RemoveLetter(int _index)
-    {
-        if (selectedLetters.Count > 0)
-        {
-            int letterIndex = _index;//Error al pasar _index. El valor o no se escribe bien o no se guarda vien o no se que pasa
-            string letterValue = selectedLetters[letterIndex];   
-
-            Debug.Log("Removed " + letterValue + " IN " + letterIndex.ToString());
-
-            //Word
-            lettersCtrl[letterValue].ReturnLetter();
-            selectedLetters.RemoveAt(letterIndex);
-            ConcatenateLetters();
-
-            //Puntuation
-            accPuntuation -= lettersCtrl[letterValue].GetLetterPuntuation();
-            accBonusMultiplyer -= bonusMultiplyer;
-
-            //VIEW
-            uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
-        }
-
-    }
+   
 
     public void ValidatorButton()
     {

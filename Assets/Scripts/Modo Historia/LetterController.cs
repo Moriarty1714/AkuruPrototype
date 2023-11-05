@@ -6,9 +6,11 @@ using UnityEditor;
 using UnityEngine;
 public enum LetterType { CONSONANT, VOWEL };
 public class LetterController : MonoBehaviour
-{
+{    
+    private enum LetterState {IDLE, DRAG }
+    private LetterState state;
     [System.Serializable]
-    private struct ViewLetter
+    private class ViewLetter
     {
         public TextMeshPro puntuationTMP;
         public TextMeshPro amountTMP;
@@ -48,8 +50,15 @@ public class LetterController : MonoBehaviour
     [SerializeField] int amount = 1;
     [SerializeField] private int extraPuntuation = 0;
 
+    //Visual
+    private Vector2 initLetterPos;
+    private Vector2 initTouchPos;
+
+    public bool draggingLetter = false;
+
     // Define the event
-    public static event Action<string> OnLetterClicked;
+    public static event Action<string> OnLetterMouseUp;
+    public static event Action<string> OnLetterMouseDown;
 
     private void Awake()
     {
@@ -68,34 +77,77 @@ public class LetterController : MonoBehaviour
 
         viewLetter.SetPuntuation(basePuntuation, extraPuntuation);
         viewLetter.SetAmount(amount);
+
+        initLetterPos = transform.position;
+
+        state = LetterState.IDLE;
     }
 
+    private void Update()
+    {
+        switch (state)
+        {
+            case LetterState.IDLE:
+                {
+                    if (draggingLetter)
+                    {
+                        initTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        state = LetterState.DRAG;
+                    }
+                }
+                break;
+            case LetterState.DRAG:
+                {
+                    Vector2 dragPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    transform.position = initLetterPos - (initTouchPos - dragPos);
+                    
+                    if (Input.GetMouseButtonUp(0)) //OnMouseUp
+                    {
+                        Debug.Log("GFFS");
+                        ////VIEW
+                        //viewLetter.animation.Stop();
+                        //viewLetter.animation.Play("LetterAnimOnMouseUp");
+
+                        draggingLetter = false;
+
+                        InvokeOnLetterMouseUp(letter.ToString());
+
+                        Destroy(this.gameObject);
+
+                        transform.position = initLetterPos; 
+                        state = LetterState.IDLE;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
     // Evento de click del mouse
     void OnMouseDown()
     {
-        //VIEW
-        viewLetter.animation.Stop();
-        viewLetter.animation.Play("LetterAnimOnMouseDown");
-    }
-
-    private void OnMouseUp()
-    {
         if (amount > 1)
         {
-            viewLetter.SetAmount( --amount);
+            viewLetter.SetAmount(--amount);
         }
         else
         {
             gameObject.SetActive(false);
         }
-        
-        InvokeOnLetterClicked(letter.ToString());
 
         //VIEW
-        viewLetter.animation.Stop();
-        viewLetter.animation.Play("LetterAnimOnMouseUp");
+        //viewLetter.animation.Stop();
+        //viewLetter.animation.Play("LetterAnimOnMouseDown");
+
+        draggingLetter = true;
+
+        InvokeOnLetterMouseDown(letter.ToString());
     }
 
+    private void OnMouseUp() //No funciona si es la copia con la que interecuamos
+    {
+      
+    }
     // Regresa una letra
     public void ReturnLetter()
     {
@@ -110,9 +162,13 @@ public class LetterController : MonoBehaviour
         viewLetter.SetAmount(amount);
     }
 
-    protected virtual void InvokeOnLetterClicked(string letter)
+    protected virtual void InvokeOnLetterMouseUp(string letter)
     {
-        OnLetterClicked?.Invoke(letter);
+        OnLetterMouseUp?.Invoke(letter);
+    }
+    protected virtual void InvokeOnLetterMouseDown(string letter)
+    {
+        OnLetterMouseDown?.Invoke(letter);
     }
 
     //Getters
@@ -124,4 +180,7 @@ public class LetterController : MonoBehaviour
     {
         return basePuntuation+extraPuntuation;
     }
+
 }
+
+
