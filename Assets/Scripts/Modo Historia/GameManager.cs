@@ -349,7 +349,7 @@ public class GameManager : MonoBehaviour
     {
         if (selectedLetters.Count > 0)
         {
-            int letterIndex = _index - 1;//Error al pasar _index. El valor o no se escribe bien o no se guarda vien o no se que pasa
+            int letterIndex = _index;//Error al pasar _index. El valor o no se escribe bien o no se guarda vien o no se que pasa
             string letterValue = selectedLetters[letterIndex];   
 
             Debug.Log("Removed " + letterValue + " IN " + letterIndex.ToString());
