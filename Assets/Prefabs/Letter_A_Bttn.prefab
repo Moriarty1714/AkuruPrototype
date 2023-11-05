@@ -37,7 +37,7 @@ Transform:
   - {fileID: 6655385139868589926}
   - {fileID: 204652493751756874}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1346571285280737319
 MonoBehaviour:
@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f7370cb3191af94696dc00d81dbf24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clone: {fileID: 0}
   viewLetter:
     puntuationTMP: {fileID: 2221107556157343212}
     amountTMP: {fileID: 7189293161113888836}
@@ -60,7 +61,7 @@ MonoBehaviour:
   letter: 65
   amount: 5
   extraPuntuation: 0
-  arnau: 0
+  inputResponseInSeconds: 2
 --- !u!61 &5952083341030423977
 BoxCollider2D:
   m_ObjectHideFlags: 0

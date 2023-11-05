@@ -9,6 +9,7 @@ public class LetterController : MonoBehaviour
 {    
     private enum LetterState {IDLE, DRAG }
     private LetterState state;
+    public LetterController clone;
     [System.Serializable]
     private class ViewLetter
     {
@@ -51,14 +52,16 @@ public class LetterController : MonoBehaviour
     [SerializeField] private int extraPuntuation = 0;
 
     //Visual
+    [Header("Drag mode:")]
+    [SerializeField] private float inputResponseInSeconds = 0.1f;
     private Vector2 initLetterPos;
     private Vector2 initTouchPos;
 
-    public bool draggingLetter = false;
+    IEnumerator waitingForDragMode = null;
 
     // Define the event
     public static event Action<string> OnLetterMouseUp;
-    public static event Action<string> OnLetterMouseDown;
+    public static event Action<string> OnLetterDrag;
 
     private void Awake()
     {
@@ -73,6 +76,8 @@ public class LetterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (amount < 1) gameObject.SetActive(false);
+
         GetComponentsInChildren<TextMeshPro>()[0].text =letter.ToString();
 
         viewLetter.SetPuntuation(basePuntuation, extraPuntuation);
@@ -81,94 +86,74 @@ public class LetterController : MonoBehaviour
         initLetterPos = transform.position;
 
         state = LetterState.IDLE;
+
+        waitingForDragMode = DragMode();
     }
 
     private void Update()
     {
-        switch (state)
-        {
-            case LetterState.IDLE:
-                {
-                    if (draggingLetter)
-                    {
-                        initTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        state = LetterState.DRAG;
-                    }
-                }
-                break;
-            case LetterState.DRAG:
-                {
-                    Vector2 dragPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    transform.position = initLetterPos - (initTouchPos - dragPos);
-                    
-                    if (Input.GetMouseButtonUp(0)) //OnMouseUp
-                    {
-                        Debug.Log("GFFS");
-                        ////VIEW
-                        //viewLetter.animation.Stop();
-                        //viewLetter.animation.Play("LetterAnimOnMouseUp");
-
-                        draggingLetter = false;
-
-                        InvokeOnLetterMouseUp(letter.ToString());
-
-                        Destroy(this.gameObject);
-
-                        transform.position = initLetterPos; 
-                        state = LetterState.IDLE;
-                    }
-                }
-                break;
-            default:
-                break;
+        if(state == LetterState.DRAG) 
+        { 
+            Vector2 dragPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = initLetterPos - (initTouchPos - dragPos);
         }
     }
     // Evento de click del mouse
     void OnMouseDown()
     {
-        if (amount > 1)
-        {
-            viewLetter.SetAmount(--amount);
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        StartCoroutine(waitingForDragMode);
+        initTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        //VIEW
-        //viewLetter.animation.Stop();
-        //viewLetter.animation.Play("LetterAnimOnMouseDown");
-
-        draggingLetter = true;
-
-        InvokeOnLetterMouseDown(letter.ToString());
+        if (amount > 1) viewLetter.SetAmount(--amount);
     }
 
-    private void OnMouseUp() //No funciona si es la copia con la que interecuamos
+    private void OnMouseUp() 
     {
-      
-    }
-    // Regresa una letra
-    public void ReturnLetter()
-    {
-        if (!gameObject.activeInHierarchy)
-        {               
-            gameObject.SetActive(true);
+        //    viewLetter.animation.Stop();
+        //    viewLetter.animation.Play("LetterAnimOnMouseUp");
+
+        StopCoroutine(waitingForDragMode);
+        if (state == LetterState.DRAG) 
+        {
+            if (amount > 1) {
+                clone.ReturnLetter(); //Devuelve la letra
+                Destroy(this.gameObject); //Y destruyete, ya tienes una copia tuya en el tablero
+            }
+            transform.position = initLetterPos;
+            state = LetterState.IDLE;
         }
         else 
         {
-            amount = amount + 1;
+            Debug.Log(amount);
+            if (amount == 1) gameObject.SetActive(false);
+            LetterAccepted();
         }
-        viewLetter.SetAmount(amount);
+
+        
     }
 
+    // Regresa una letra
+    public void ReturnLetter()
+    {
+        if(amount > 1) 
+        {
+            amount = amount + 1;
+            viewLetter.SetAmount(amount);
+        }
+        else gameObject.SetActive(true);
+    }
+
+    public void LetterAccepted() 
+    {
+        InvokeOnLetterMouseUp(letter.ToString());
+    }
     protected virtual void InvokeOnLetterMouseUp(string letter)
     {
         OnLetterMouseUp?.Invoke(letter);
     }
-    protected virtual void InvokeOnLetterMouseDown(string letter)
+    protected virtual void InvokeOnLetterDrag(string letter)
     {
-        OnLetterMouseDown?.Invoke(letter);
+        OnLetterDrag?.Invoke(letter);
     }
 
     //Getters
@@ -181,6 +166,14 @@ public class LetterController : MonoBehaviour
         return basePuntuation+extraPuntuation;
     }
 
+    IEnumerator DragMode() 
+    {
+        yield return new WaitForSeconds(inputResponseInSeconds);
+        Debug.Log("DRAG MODE ACTIVE");
+        state = LetterState.DRAG;
+        
+        if(amount > 1) InvokeOnLetterDrag(letter.ToString());
+    }
 }
 
 

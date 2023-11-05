@@ -17,6 +17,8 @@ public class ConstructorController : MonoBehaviour
 
         public void UpdateEditingWord(string _editingWord, GameManager _gameManager)
         {
+            minDistanceBetweenObjects = 0.5f;
+
             foreach (GameObject letterGO in editingWordLettersGO)
             {
                 Destroy(letterGO);
@@ -37,7 +39,7 @@ public class ConstructorController : MonoBehaviour
             PlaceObjectsInLine(startPointConstructor.position, endPointConstructor.position);
         }
         public void PlaceObjectsInLine(Vector2 pointA, Vector2 pointB)
-        {
+        {          
             Vector2 direction = (pointB - pointA).normalized;
             float totalLength = Vector2.Distance(pointA, pointB);
             float totalObjectLength = minDistanceBetweenObjects * (editingWordLettersGO.Count - 1);

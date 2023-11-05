@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
     {
         wordValidator.OnWordValidationComplete -= OnWordValidationComplete;
 
-        LetterController.OnLetterMouseDown -= CopyLetter;
+        LetterController.OnLetterDrag -= CopyLetter;
         LetterController.OnLetterMouseUp -= AddLetter;
 
         LetterConstructor.OnLetterClicked -= RemoveLetter;
@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         wordValidator.OnWordValidationComplete += OnWordValidationComplete;
-        LetterController.OnLetterMouseDown += CopyLetter;
+        LetterController.OnLetterDrag += CopyLetter;
         LetterController.OnLetterMouseUp += AddLetter;
 
         LetterConstructor.OnLetterClicked += RemoveLetter;
@@ -309,11 +309,11 @@ public class GameManager : MonoBehaviour
 
     public void CopyLetter(string _letterValue) 
     {
-        GameObject letterCopy = Instantiate(lettersCtrl[_letterValue].gameObject, boardTrans);
-        letterCopy.SetActive(true);
+        GameObject letterCopy = Instantiate(lettersCtrl[_letterValue].gameObject, boardTrans); //esta copia se queda
+        letterCopy.name = lettersCtrl[_letterValue].name;
 
+        lettersCtrl[_letterValue].clone = letterCopy.GetComponent<LetterController>();
         lettersCtrl[_letterValue] = letterCopy.GetComponent<LetterController>();
-        lettersCtrl[_letterValue].draggingLetter = true;
     }
     public void AddLetter(string letterValue)
     {
