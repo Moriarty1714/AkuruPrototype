@@ -57,11 +57,12 @@ public class LetterController : MonoBehaviour
     private Vector2 initLetterPos;
     private Vector2 initTouchPos;
 
-    IEnumerator waitingForDragMode = null;
+    Coroutine waitingForDragMode = null;
 
     // Define the event
     public static event Action<string> OnLetterMouseUp;
     public static event Action<string> OnLetterDrag;
+    public static event Action<GameObject> OnLetterDragGetReference;
 
     private void Awake()
     {
@@ -86,8 +87,6 @@ public class LetterController : MonoBehaviour
         initLetterPos = transform.position;
 
         state = LetterState.IDLE;
-
-        waitingForDragMode = DragMode();
     }
 
     private void Update()
@@ -101,7 +100,10 @@ public class LetterController : MonoBehaviour
     // Evento de click del mouse
     void OnMouseDown()
     {
-        StartCoroutine(waitingForDragMode);
+        //viewLetter.animation.Stop();
+        //viewLetter.animation.Play("LetterAnimOnMouseDown");
+
+        waitingForDragMode = StartCoroutine(DragMode());
         initTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (amount > 1) viewLetter.SetAmount(--amount);
@@ -109,10 +111,10 @@ public class LetterController : MonoBehaviour
 
     private void OnMouseUp() 
     {
-        //    viewLetter.animation.Stop();
-        //    viewLetter.animation.Play("LetterAnimOnMouseUp");
+        //viewLetter.animation.Stop();
+        //viewLetter.animation.Play("LetterAnimOnMouseUp");
 
-        StopCoroutine(waitingForDragMode);
+        if(waitingForDragMode != null) StopCoroutine(waitingForDragMode);
         if (state == LetterState.DRAG) 
         {
             if (amount > 1) {
@@ -155,6 +157,10 @@ public class LetterController : MonoBehaviour
     {
         OnLetterDrag?.Invoke(letter);
     }
+    protected virtual void InvokeOnLetterDragConstructor(GameObject _this)
+    {
+        OnLetterDragGetReference?.Invoke(_this);
+    }
 
     //Getters
     public char GetLetterChar()
@@ -171,8 +177,9 @@ public class LetterController : MonoBehaviour
         yield return new WaitForSeconds(inputResponseInSeconds);
         Debug.Log("DRAG MODE ACTIVE");
         state = LetterState.DRAG;
-        
-        if(amount > 1) InvokeOnLetterDrag(letter.ToString());
+        InvokeOnLetterDragConstructor(this.gameObject);
+
+        if (amount > 1) InvokeOnLetterDrag(letter.ToString());
     }
 }
 

@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ConstructorController : MonoBehaviour
 {
+    public GameObject letterDragging = null;
+
     [System.Serializable]
     public class ConstructorView
     {
-        private List<GameObject> editingWordLettersGO = new List<GameObject>();
+        public List<GameObject> editingWordLettersGO = new List<GameObject>();
         public GameObject prefabLetterConstruct;
         public Transform constructorTrans;
         public Transform startPointConstructor;
@@ -67,13 +70,67 @@ public class ConstructorController : MonoBehaviour
     }
     public ConstructorView constructorView;
     // Start is called before the first frame update
+    private void OnDisable()
+    {
+        LetterController.OnLetterDragGetReference -= GetReference;
+    }
     void Start()
     {
+        LetterController.OnLetterDragGetReference += GetReference;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void GetReference(GameObject _letterReference)
+    {
+        letterDragging = _letterReference;
+        Debug.Log(_letterReference.name);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log("TriggerEnter");
+        if (true) //Comprovar que es una letra en el futuro
+        {
+            GameObject closest = FindClosestObject(letterDragging.transform.position, constructorView.editingWordLettersGO);
+            
+            // Activa todos los objetos y desactiva el más cercano.
+            foreach (GameObject obj in constructorView.editingWordLettersGO)
+            {
+                if (obj != closest)
+                {
+                    obj.SetActive(true);
+                }
+                else
+                {
+                    obj.SetActive(false);
+                }
+            }
+        }
+    }
+
+    private GameObject FindClosestObject(Vector2 position, List<GameObject> gameObjects)
+    {
+        GameObject closest = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = new Vector3(position.x, position.y, 0);
+
+        // Recorre todos los objetos para encontrar el más cercano.
+        foreach (GameObject obj in gameObjects)
+        {
+            Vector3 directionToTarget = obj.transform.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                closest = obj;
+            }
+        }
+
+        return closest;
     }
 }

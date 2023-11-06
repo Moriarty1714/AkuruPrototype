@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1346571285280737319}
   - component: {fileID: 5952083341030423977}
   - component: {fileID: 1114614997583095742}
+  - component: {fileID: 5021563078597339142}
   m_Layer: 0
   m_Name: Letter_A_Bttn
   m_TagString: Untagged
@@ -61,7 +62,7 @@ MonoBehaviour:
   letter: 65
   amount: 5
   extraPuntuation: 0
-  inputResponseInSeconds: 2
+  inputResponseInSeconds: 0.1
 --- !u!61 &5952083341030423977
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -91,7 +92,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -124,6 +125,33 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!50 &5021563078597339142
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531634133290831498}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &966086776694216140
 GameObject:
   m_ObjectHideFlags: 0
