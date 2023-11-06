@@ -87,10 +87,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> lettersInGameGO = new List<GameObject>();
 
     [Header("Constructor")]
-    [SerializeField] ConstructorController constructorController;
-   
-    [Header("Board")]
-    [SerializeField] Transform boardTrans;
+    [SerializeField] ConstructorController constructorController;   
 
     private Dictionary<string, LetterController> lettersCtrl = new Dictionary<string, LetterController>();
     private List<string> selectedLetters = new List<string>();
@@ -311,7 +308,7 @@ public class GameManager : MonoBehaviour
         if (selectedLetters.Count < MAX_LETTERS_IN_WORD)
         {
             
-            Debug.Log("Added " + letterValue + " IN " + (selectedLetters.Count).ToString());
+            //Debug.Log("Added " + letterValue + " IN " + (selectedLetters.Count).ToString());
 
             //Word
             selectedLetters.Add(letterValue);

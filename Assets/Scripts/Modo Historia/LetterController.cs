@@ -52,8 +52,11 @@ public class LetterController : MonoBehaviour
     [Header("Drag mode:")]
     [SerializeField] private float inputResponseInSeconds = 0.1f;
     [SerializeField] GameObject letterConstructorPrefab;
+    [SerializeField] GameObject letterRef;
+
 
     Coroutine waitingForDragMode = null;
+
 
     // Define the event
     public static event Action<string> OnLetterMouseUp;
@@ -92,10 +95,8 @@ public class LetterController : MonoBehaviour
         //viewLetter.animation.Stop();
         //viewLetter.animation.Play("LetterAnimOnMouseDown");
 
-        waitingForDragMode = StartCoroutine(DragMode());
-
-
         viewLetter.SetAmount(--amount);
+        waitingForDragMode = StartCoroutine(DragMode());
     }
 
     private void OnMouseUp() 
@@ -103,10 +104,19 @@ public class LetterController : MonoBehaviour
         //viewLetter.animation.Stop();
         //viewLetter.animation.Play("LetterAnimOnMouseUp");
        
-        Debug.Log(amount);
-        if (amount < 1) gameObject.SetActive(false);
-        LetterAccepted();
+        if (amount < 1) gameObject.SetActive(false);        
         if (waitingForDragMode != null) StopCoroutine(waitingForDragMode);
+
+        if (letterRef != null)
+        {
+            Destroy(letterRef);
+            ReturnLetter();
+        }
+        else
+        {
+            LetterAccepted();
+        }
+
     }
 
     // Regresa una letra
@@ -147,14 +157,16 @@ public class LetterController : MonoBehaviour
         Debug.Log("DRAG MODE ACTIVE");
         InvokeOnLetterDragConstructor(this.gameObject);
 
-        CopyLetter(letter.ToString());
+        CopyLetter();
     }
 
-    public void CopyLetter(string _letter)
+    public void CopyLetter()
     {
-        GameObject letterCopy = Instantiate(letterConstructorPrefab); //esta copia se queda
-        letterCopy.GetComponent<LetterConstructor>().state = LetterConstructor.LetterState.DRAG;
-        letterCopy.name = this.gameObject.name;
+        letterRef = Instantiate(letterConstructorPrefab); //esta copia se queda
+        letterRef.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5f));
+        letterRef.GetComponent<LetterConstructor>().state = LetterConstructor.LetterState.DRAG;
+        letterRef.GetComponent<LetterConstructor>().SetLetter(letter.ToString());
+        letterRef.name = this.gameObject.name;
     }
 }
 

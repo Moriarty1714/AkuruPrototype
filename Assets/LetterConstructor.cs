@@ -9,10 +9,6 @@ public class LetterConstructor : MonoBehaviour
     public enum LetterState { IDLE, DRAG }
     public LetterState state;
 
-
-    private Vector2 initLetterPos;
-    private Vector2 initTouchPos;
-
     // Start is called before the first frame update
     [System.Serializable]
     private struct LetterView 
@@ -27,8 +23,7 @@ public class LetterConstructor : MonoBehaviour
 
     void Start()
     {
-       
-
+        //state = LetterState.IDLE;
     }
 
     // Update is called once per frame
@@ -36,7 +31,7 @@ public class LetterConstructor : MonoBehaviour
     {
         if (state == LetterState.DRAG)
         {
-            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = Camera.main.ScreenToWorldPoint( new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5f));
         }
     }
 
@@ -44,7 +39,7 @@ public class LetterConstructor : MonoBehaviour
     {        
         if (state == LetterState.DRAG)
         { 
-            Destroy(this.gameObject); //Y destruyete, ya tienes una copia tuya en el tablero
+            Destroy(gameObject); 
         }
         InvokeOnLetterClicked(index);
 
