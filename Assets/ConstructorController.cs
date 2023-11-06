@@ -66,14 +66,7 @@ public class ConstructorController : MonoBehaviour
                 Vector2 position = startPoint + direction * minDistanceBetweenObjects * i;
                 editingWordLettersGO[i].transform.position = position;
             }
-        }
-        public void RemoveWords(GameManager _gameManager)
-        {
-            for (int i = 0; i < editingWordLettersGO.Count; i++)
-            {
-                _gameManager.RemoveLetter(i);
-            }
-        }
+        }       
     }
     public ConstructorView constructorView;
     // Start is called before the first frame update

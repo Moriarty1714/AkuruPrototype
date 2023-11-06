@@ -6,6 +6,13 @@ using System;
 
 public class LetterConstructor : MonoBehaviour
 {
+    public enum LetterState { IDLE, DRAG }
+    public LetterState state;
+
+
+    private Vector2 initLetterPos;
+    private Vector2 initTouchPos;
+
     // Start is called before the first frame update
     [System.Serializable]
     private struct LetterView 
@@ -20,17 +27,27 @@ public class LetterConstructor : MonoBehaviour
 
     void Start()
     {
- 
+       
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (state == LetterState.DRAG)
+        {
+            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
     }
+
     private void OnMouseUp()
-    {
+    {        
+        if (state == LetterState.DRAG)
+        { 
+            Destroy(this.gameObject); //Y destruyete, ya tienes una copia tuya en el tablero
+        }
         InvokeOnLetterClicked(index);
+
     }
     protected virtual void InvokeOnLetterClicked(int _index)
     {

@@ -52,7 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f7370cb3191af94696dc00d81dbf24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clone: {fileID: 0}
   viewLetter:
     puntuationTMP: {fileID: 2221107556157343212}
     amountTMP: {fileID: 7189293161113888836}
@@ -63,6 +62,7 @@ MonoBehaviour:
   amount: 5
   extraPuntuation: 0
   inputResponseInSeconds: 0.1
+  letterConstructorPrefab: {fileID: 531634133290831498, guid: 32826dde42ed76f4cb104db09ee3e803, type: 3}
 --- !u!61 &5952083341030423977
 BoxCollider2D:
   m_ObjectHideFlags: 0

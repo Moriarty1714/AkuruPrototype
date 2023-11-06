@@ -6,10 +6,7 @@ using UnityEditor;
 using UnityEngine;
 public enum LetterType { CONSONANT, VOWEL };
 public class LetterController : MonoBehaviour
-{    
-    private enum LetterState {IDLE, DRAG }
-    private LetterState state;
-    public LetterController clone;
+{       
     [System.Serializable]
     private class ViewLetter
     {
@@ -54,8 +51,7 @@ public class LetterController : MonoBehaviour
     //Visual
     [Header("Drag mode:")]
     [SerializeField] private float inputResponseInSeconds = 0.1f;
-    private Vector2 initLetterPos;
-    private Vector2 initTouchPos;
+    [SerializeField] GameObject letterConstructorPrefab;
 
     Coroutine waitingForDragMode = null;
 
@@ -83,19 +79,12 @@ public class LetterController : MonoBehaviour
 
         viewLetter.SetPuntuation(basePuntuation, extraPuntuation);
         viewLetter.SetAmount(amount);
-
-        initLetterPos = transform.position;
-
-        state = LetterState.IDLE;
+       
     }
 
     private void Update()
     {
-        if(state == LetterState.DRAG) 
-        { 
-            Vector2 dragPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = initLetterPos - (initTouchPos - dragPos);
-        }
+       
     }
     // Evento de click del mouse
     void OnMouseDown()
@@ -104,45 +93,29 @@ public class LetterController : MonoBehaviour
         //viewLetter.animation.Play("LetterAnimOnMouseDown");
 
         waitingForDragMode = StartCoroutine(DragMode());
-        initTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (amount > 1) viewLetter.SetAmount(--amount);
+
+        viewLetter.SetAmount(--amount);
     }
 
     private void OnMouseUp() 
     {
         //viewLetter.animation.Stop();
         //viewLetter.animation.Play("LetterAnimOnMouseUp");
-
-        if(waitingForDragMode != null) StopCoroutine(waitingForDragMode);
-        if (state == LetterState.DRAG) 
-        {
-            if (amount > 1) {
-                clone.ReturnLetter(); //Devuelve la letra
-                Destroy(this.gameObject); //Y destruyete, ya tienes una copia tuya en el tablero
-            }
-            transform.position = initLetterPos;
-            state = LetterState.IDLE;
-        }
-        else 
-        {
-            Debug.Log(amount);
-            if (amount == 1) gameObject.SetActive(false);
-            LetterAccepted();
-        }
-
-        
+       
+        Debug.Log(amount);
+        if (amount < 1) gameObject.SetActive(false);
+        LetterAccepted();
+        if (waitingForDragMode != null) StopCoroutine(waitingForDragMode);
     }
 
     // Regresa una letra
     public void ReturnLetter()
     {
-        if(amount > 1) 
-        {
-            amount = amount + 1;
-            viewLetter.SetAmount(amount);
-        }
-        else gameObject.SetActive(true);
+        gameObject.SetActive(true);
+
+        amount++;
+        viewLetter.SetAmount(amount);
     }
 
     public void LetterAccepted() 
@@ -152,11 +125,7 @@ public class LetterController : MonoBehaviour
     protected virtual void InvokeOnLetterMouseUp(string letter)
     {
         OnLetterMouseUp?.Invoke(letter);
-    }
-    protected virtual void InvokeOnLetterDrag(string letter)
-    {
-        OnLetterDrag?.Invoke(letter);
-    }
+    }   
     protected virtual void InvokeOnLetterDragConstructor(GameObject _this)
     {
         OnLetterDragGetReference?.Invoke(_this);
@@ -172,14 +141,20 @@ public class LetterController : MonoBehaviour
         return basePuntuation+extraPuntuation;
     }
 
-    IEnumerator DragMode() 
+    IEnumerator DragMode()
     {
         yield return new WaitForSeconds(inputResponseInSeconds);
         Debug.Log("DRAG MODE ACTIVE");
-        state = LetterState.DRAG;
         InvokeOnLetterDragConstructor(this.gameObject);
 
-        if (amount > 1) InvokeOnLetterDrag(letter.ToString());
+        CopyLetter(letter.ToString());
+    }
+
+    public void CopyLetter(string _letter)
+    {
+        GameObject letterCopy = Instantiate(letterConstructorPrefab); //esta copia se queda
+        letterCopy.GetComponent<LetterConstructor>().state = LetterConstructor.LetterState.DRAG;
+        letterCopy.name = this.gameObject.name;
     }
 }
 

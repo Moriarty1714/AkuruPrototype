@@ -1017,7 +1017,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7390ac88261f144f97a8a7d20a0414d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  letterDragging: {fileID: 0}
   constructorView:
+    editingWordLettersGO: []
     prefabLetterConstruct: {fileID: 531634133290831498, guid: 32826dde42ed76f4cb104db09ee3e803, type: 3}
     constructorTrans: {fileID: 226190743}
     startPointConstructor: {fileID: 205605968}
@@ -3650,7 +3652,7 @@ PrefabInstance:
       objectReference: {fileID: 7400000, guid: 46903da676ac101478bbf0af93971243, type: 2}
     - target: {fileID: 1346571285280737319, guid: 1c755a6bc1fe80642adf86c920af41ba, type: 3}
       propertyPath: amount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1346571285280737319, guid: 1c755a6bc1fe80642adf86c920af41ba, type: 3}
       propertyPath: letter

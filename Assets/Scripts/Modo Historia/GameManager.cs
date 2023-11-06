@@ -110,8 +110,7 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         wordValidator.OnWordValidationComplete -= OnWordValidationComplete;
-
-        LetterController.OnLetterDrag -= CopyLetter;
+        
         LetterController.OnLetterMouseUp -= AddLetter;
 
         LetterConstructor.OnLetterClicked -= RemoveLetter;
@@ -129,7 +128,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         wordValidator.OnWordValidationComplete += OnWordValidationComplete;
-        LetterController.OnLetterDrag += CopyLetter;
+        
         LetterController.OnLetterMouseUp += AddLetter;
 
         LetterConstructor.OnLetterClicked += RemoveLetter;
@@ -306,15 +305,7 @@ public class GameManager : MonoBehaviour
             wordObj.GetComponent<WordCompletedController>().WantToRemove();
         }
     }
-
-    public void CopyLetter(string _letterValue) 
-    {
-        GameObject letterCopy = Instantiate(lettersCtrl[_letterValue].gameObject, boardTrans); //esta copia se queda
-        letterCopy.name = lettersCtrl[_letterValue].name;
-
-        lettersCtrl[_letterValue].clone = letterCopy.GetComponent<LetterController>();
-        lettersCtrl[_letterValue] = letterCopy.GetComponent<LetterController>();
-    }
+  
     public void AddLetter(string letterValue)
     {
         if (selectedLetters.Count < MAX_LETTERS_IN_WORD)
@@ -346,7 +337,7 @@ public class GameManager : MonoBehaviour
 
             string letterValue = selectedLetters[letterIndex];
 
-            Debug.Log("Removed " + letterValue + " IN " + (selectedLetters.Count - 1).ToString());
+            Debug.Log("Removed " + letterValue + " IN " + letterIndex);
 
             //Word
             lettersCtrl[letterValue].ReturnLetter();
@@ -376,8 +367,16 @@ public class GameManager : MonoBehaviour
         SceneChanger.Instance.LoadScene(_text);
     }
 
-    public void RemoveAllLettersInConstructor()
-    {
-        constructorController.constructorView.RemoveWords(this);
-    }
+    //public void RemoveAllLettersInConstructor()
+    //{
+    //    constructorController.constructorView.UpdateEditingWord("", this);
+
+    //    foreach (char letter in editingWord)
+    //    {
+    //        lettersCtrl[letter.ToString()].ReturnLetter();
+    //    }
+
+    //    selectedLetters.Clear();
+    //    editingWord = string.Empty;
+    //}
 }
