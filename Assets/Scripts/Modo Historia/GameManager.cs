@@ -375,4 +375,9 @@ public class GameManager : MonoBehaviour
     {
         SceneChanger.Instance.LoadScene(_text);
     }
+
+    public void RemoveAllLettersInConstructor()
+    {
+        constructorController.constructorView.RemoveWords(this);
+    }
 }
