@@ -238,8 +238,8 @@ public class GameManager : MonoBehaviour
             foreach (string word in wordsCompleted)
             {
                 GameObject wordObj = Instantiate(wordPrefab, uiElements.wordContainers[rowIndex]);
-                wordObj.GetComponentInChildren<TextMeshProUGUI>().text = word + ", ";
-                wordObj.GetComponent<Button>().onClick.AddListener(() => RemoveAcceptedWord(word));
+                wordObj.GetComponent<WordCompletedController>().SetWord(word + ",");
+                wordObj.GetComponentInChildren<Button>().onClick.AddListener(() => RemoveAcceptedWord(word));
 
                 //Comprobamos que quepa en la misma fila
                 float wordObjWidth = wordObj.GetComponentInChildren<TextMeshProUGUI>().preferredWidth;
@@ -266,40 +266,44 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void RemoveAcceptedWord(string word)
+    private void RemoveAcceptedWord(string _word)
     {
-        int index = wordsCompleted.IndexOf(word);
+        int index = wordsCompleted.IndexOf(_word);
         int restAccPuntuation = 0;
 
-        if (index != -1 && wordObjects[index].GetComponent<WordCompletedController>().preparedToRemove)
+        if (index != -1)
         {
-            foreach (char letter in word)
+            ReturnEditingWord();
+
+            foreach (char letter in _word)
             {
-                lettersCtrl[letter.ToString()].ReturnLetter();
                 restAccPuntuation += lettersCtrl[letter.ToString()].GetLetterPuntuation();
             }
 
-            int restPuntuation = (int)(restAccPuntuation * (bonusMultiplyer * word.Length));
+            int restPuntuation = (int)(restAccPuntuation * (bonusMultiplyer * _word.Length));
             puntuation -= restPuntuation;
 
             wordsCompleted.RemoveAt(index);
-            Destroy(wordObjects[index]);
-            wordObjects.RemoveAt(index);
 
             GenerateAcceptedWords();
 
             //VIEW
             uiElements.UpdateRestPuntuation(restPuntuation, this);
             uiElements.UpdatePuntuation(puntuation);
-            
-       }
+
+            foreach (char letter in _word)
+            {
+                AddLetter(letter.ToString());
+            }
+        }
     }
 
-    public void TrashButtonRemoveWord() 
+    public void ReturnEditingWord()
     {
-        foreach (GameObject wordObj in wordObjects)
+        int newletters = selectedLetters.Count;
+        for (int i = 0; i < newletters; i++)
         {
-            wordObj.GetComponent<WordCompletedController>().WantToRemove();
+            RemoveLetter(0);
         }
     }
   
