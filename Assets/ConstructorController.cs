@@ -94,21 +94,21 @@ public class ConstructorController : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         Debug.Log("TriggerEnter");
-        if (true) //Comprovar que es una letra en el futuro
+        if (collision.gameObject.tag == "DragLetter") //Comprovar que es una letra en el futuro
         {
             GameObject closest = FindClosestObject(letterDragging.transform.position, constructorView.editingWordLettersGO);
             
             // Activa todos los objetos y desactiva el más cercano.
             foreach (GameObject obj in constructorView.editingWordLettersGO)
             {
-                if (obj != closest)
-                {
-                    obj.SetActive(true);
-                }
-                else
-                {
-                    obj.SetActive(false);
-                }
+                //if (obj != closest)
+                //{
+                //    obj.SetActive(true);
+                //}
+                //else
+                //{
+                //    obj.SetActive(false);
+                //}
             }
         }
     }

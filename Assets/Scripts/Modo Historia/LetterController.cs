@@ -166,6 +166,7 @@ public class LetterController : MonoBehaviour
         letterRef.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5f));
         letterRef.GetComponent<LetterConstructor>().state = LetterConstructor.LetterState.DRAG;
         letterRef.GetComponent<LetterConstructor>().SetLetter(letter.ToString());
+        letterRef.tag = "DragLetter";
         letterRef.name = this.gameObject.name;
     }
 }
