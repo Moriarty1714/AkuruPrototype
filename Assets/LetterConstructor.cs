@@ -7,15 +7,28 @@ using System;
 public class LetterConstructor : MonoBehaviour
 {
     public enum LetterState { IDLE, DRAG }
-    public LetterState state;
+    public LetterState state = LetterState.IDLE;
+
+    //Only for drag mode:
+    public bool addLetterAviable = false;
 
     // Start is called before the first frame update
     [System.Serializable]
-    private struct LetterView 
+    public class LetterView
     {
-        public TextMeshPro letter;
+        [SerializeField] private TextMeshPro letter;
+        [SerializeField] private GameObject putPositionMark;
+        public void SetLetter(string _letter)
+        {
+            letter.text = _letter;
+        }
+
+        public void SetPositionMark(bool _state)
+        {
+            putPositionMark.SetActive(_state);
+        }
     }
-    [SerializeField] LetterView viewLetter;
+    public LetterView viewLetter;
 
     public int index = 0;
     // Define the event
@@ -23,7 +36,7 @@ public class LetterConstructor : MonoBehaviour
 
     void Start()
     {
-        //state = LetterState.IDLE;
+
     }
 
     // Update is called once per frame
@@ -31,16 +44,13 @@ public class LetterConstructor : MonoBehaviour
     {
         if (state == LetterState.DRAG)
         {
-            transform.position = Camera.main.ScreenToWorldPoint( new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5f));
+            transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5f));
         }
     }
 
-    private void OnMouseUp()
-    {        
-        if (state == LetterState.DRAG)
-        { 
-            Destroy(gameObject); 
-        }
+    private void OnMouseUp() //Solo pasa con los GO que estan en el cosntructor
+    {
+        Debug.Log("UP!");
         InvokeOnLetterClicked(index);
 
     }
@@ -49,8 +59,9 @@ public class LetterConstructor : MonoBehaviour
         OnLetterClicked?.Invoke(_index);
     }
 
-    public void SetLetter(string _letter) 
-    { 
-        viewLetter.letter.text = _letter;
+    public void AddLetterAvaiable(int _index)
+    {
+        addLetterAviable = true;
+        index = _index;
     }
 }

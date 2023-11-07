@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 
 public class ConstructorController : MonoBehaviour
 {
-    public GameObject letterDragging = null;
 
     [System.Serializable]
     public class ConstructorView
@@ -17,6 +16,8 @@ public class ConstructorController : MonoBehaviour
         public Transform startPointConstructor;
         public Transform endPointConstructor;
         public float minDistanceBetweenObjects = 0.5f;
+
+        public GameObject OnDragDetectedPanel;
 
         public void UpdateEditingWord(string _editingWord, GameManager _gameManager)
         {
@@ -34,7 +35,7 @@ public class ConstructorController : MonoBehaviour
                 GameObject tmp = Instantiate(prefabLetterConstruct, constructorTrans);
                 tmp.name = i.ToString() + letter.ToString() + "-" + prefabLetterConstruct.name;
                 tmp.GetComponent<LetterConstructor>().index = i;
-                tmp.GetComponent<LetterConstructor>().SetLetter(letter.ToString());
+                tmp.GetComponent<LetterConstructor>().viewLetter.SetLetter(letter.ToString());
 
                 editingWordLettersGO.Add(tmp);
                 i++;
@@ -66,17 +67,19 @@ public class ConstructorController : MonoBehaviour
                 Vector2 position = startPoint + direction * minDistanceBetweenObjects * i;
                 editingWordLettersGO[i].transform.position = position;
             }
-        }       
+        }
+        public void SetActivePanel(bool _desicion) 
+        {
+            OnDragDetectedPanel.SetActive(_desicion);
+        }
     }
     public ConstructorView constructorView;
     // Start is called before the first frame update
     private void OnDisable()
     {
-        LetterController.OnLetterDragGetReference -= GetReference;
     }
     void Start()
     {
-        LetterController.OnLetterDragGetReference += GetReference;
     }
 
     // Update is called once per frame
@@ -85,44 +88,47 @@ public class ConstructorController : MonoBehaviour
         
     }
 
-    private void GetReference(GameObject _letterReference)
-    {
-        letterDragging = _letterReference;
-        Debug.Log(_letterReference.name);
-    }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("TriggerEnter");
         if (collision.gameObject.tag == "DragLetter") //Comprovar que es una letra en el futuro
         {
-            GameObject closest = FindClosestObject(letterDragging.transform.position, constructorView.editingWordLettersGO);
-            
-            // Activa todos los objetos y desactiva el más cercano.
-            foreach (GameObject obj in constructorView.editingWordLettersGO)
+            constructorView.SetActivePanel(true);
+
+            GameObject closest = FindClosestObject(collision.gameObject.transform.position, constructorView.editingWordLettersGO);
+            if (closest != null)
             {
-                //if (obj != closest)
-                //{
-                //    obj.SetActive(true);
-                //}
-                //else
-                //{
-                //    obj.SetActive(false);
-                //}
+                foreach (GameObject letterConstrGO in constructorView.editingWordLettersGO)
+                {
+                    if (letterConstrGO == closest)
+                    {
+                        closest.GetComponent<LetterConstructor>().viewLetter.SetPositionMark(true);
+                        collision.gameObject.GetComponent<LetterConstructor>().AddLetterAvaiable(closest.GetComponent<LetterConstructor>().index);
+                    }
+                    else
+                    {
+                        letterConstrGO.GetComponent<LetterConstructor>().viewLetter.SetPositionMark(false);
+                    }
+                }
             }
         }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "DragLetter") //Comprovar que es una letra en el futuro
+        {
+            constructorView.SetActivePanel(false);
+        }
+    }
 
-    private GameObject FindClosestObject(Vector2 position, List<GameObject> gameObjects)
+    private GameObject FindClosestObject(Vector3 position, List<GameObject> gameObjects)
     {
         GameObject closest = null;
         float closestDistanceSqr = Mathf.Infinity;
-        Vector3 currentPosition = new Vector3(position.x, position.y, 0);
 
         // Recorre todos los objetos para encontrar el más cercano.
         foreach (GameObject obj in gameObjects)
         {
-            Vector3 directionToTarget = obj.transform.position - currentPosition;
+            Vector3 directionToTarget = obj.transform.position - position;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
             if (dSqrToTarget < closestDistanceSqr)
             {

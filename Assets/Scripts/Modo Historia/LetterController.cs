@@ -59,9 +59,7 @@ public class LetterController : MonoBehaviour
 
 
     // Define the event
-    public static event Action<string> OnLetterMouseUp;
-    public static event Action<string> OnLetterDrag;
-    public static event Action<GameObject> OnLetterDragGetReference;
+    public static event Action<string,int> OnLetterMouseUp;
 
     private void Awake()
     {
@@ -107,10 +105,17 @@ public class LetterController : MonoBehaviour
         if (amount < 1) gameObject.SetActive(false);        
         if (waitingForDragMode != null) StopCoroutine(waitingForDragMode);
 
-        if (letterRef != null)
+        if (letterRef != null) //Si te has copiado
         {
-            Destroy(letterRef);
-            ReturnLetter();
+            if (letterRef.GetComponent<LetterConstructor>().addLetterAviable)
+            {
+                LetterAccepted(letterRef.GetComponent<LetterConstructor>().index);
+            }
+            else
+            {
+                ReturnLetter();
+            }
+            Destroy(letterRef);         
         }
         else
         {
@@ -128,19 +133,14 @@ public class LetterController : MonoBehaviour
         viewLetter.SetAmount(amount);
     }
 
-    public void LetterAccepted() 
+    public void LetterAccepted(int _index = -1) 
     {
-        InvokeOnLetterMouseUp(letter.ToString());
+        InvokeOnLetterMouseUp(letter.ToString(),_index);
     }
-    protected virtual void InvokeOnLetterMouseUp(string letter)
+    protected virtual void InvokeOnLetterMouseUp(string letter, int index = -1)
     {
-        OnLetterMouseUp?.Invoke(letter);
+        OnLetterMouseUp?.Invoke(letter,index);
     }   
-    protected virtual void InvokeOnLetterDragConstructor(GameObject _this)
-    {
-        OnLetterDragGetReference?.Invoke(_this);
-    }
-
     //Getters
     public char GetLetterChar()
     {
@@ -155,7 +155,6 @@ public class LetterController : MonoBehaviour
     {
         yield return new WaitForSeconds(inputResponseInSeconds);
         Debug.Log("DRAG MODE ACTIVE");
-        InvokeOnLetterDragConstructor(this.gameObject);
 
         CopyLetter();
     }
@@ -165,7 +164,7 @@ public class LetterController : MonoBehaviour
         letterRef = Instantiate(letterConstructorPrefab); //esta copia se queda
         letterRef.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5f));
         letterRef.GetComponent<LetterConstructor>().state = LetterConstructor.LetterState.DRAG;
-        letterRef.GetComponent<LetterConstructor>().SetLetter(letter.ToString());
+        letterRef.GetComponent<LetterConstructor>().viewLetter.SetLetter(letter.ToString());
         letterRef.tag = "DragLetter";
         letterRef.name = this.gameObject.name;
     }

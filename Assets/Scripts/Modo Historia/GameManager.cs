@@ -303,15 +303,16 @@ public class GameManager : MonoBehaviour
         }
     }
   
-    public void AddLetter(string letterValue)
+    public void AddLetter(string letterValue, int _index = -1) //SI index == -1 ->Se borra la última referencia)
     {
         if (selectedLetters.Count < MAX_LETTERS_IN_WORD)
         {
-            
-            //Debug.Log("Added " + letterValue + " IN " + (selectedLetters.Count).ToString());
+            int letterIndex = _index == -1 ? selectedLetters.Count : _index;
+
+            Debug.Log("Added " + letterValue + " IN " + _index.ToString());
 
             //Word
-            selectedLetters.Add(letterValue);
+            selectedLetters.Insert(letterIndex,letterValue);
             ConcatenateLetters();
 
             //Puntuation

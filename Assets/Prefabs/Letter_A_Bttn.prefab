@@ -60,7 +60,7 @@ MonoBehaviour:
   letter: 65
   amount: 5
   extraPuntuation: 0
-  inputResponseInSeconds: 0.1
+  inputResponseInSeconds: 0.2
   letterConstructorPrefab: {fileID: 531634133290831498, guid: 32826dde42ed76f4cb104db09ee3e803, type: 3}
   letterRef: {fileID: 0}
 --- !u!61 &5952083341030423977
