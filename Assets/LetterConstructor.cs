@@ -33,7 +33,6 @@ public class LetterConstructor : MonoBehaviour
     public int index = 0;
     // Define the event
     public static event Action<int> OnLetterClicked;
-
     void Start()
     {
 
@@ -48,20 +47,25 @@ public class LetterConstructor : MonoBehaviour
         }
     }
 
-    private void OnMouseUp() //Solo pasa con los GO que estan en el cosntructor
+    private void OnMouseUp() //Solo pasa con los GO que estan en el consntructor
     {
-        Debug.Log("UP!");
         InvokeOnLetterClicked(index);
 
     }
+
+    private void OnMouseDown()
+    {
+        
+    }
+
     protected virtual void InvokeOnLetterClicked(int _index)
     {
         OnLetterClicked?.Invoke(_index);
     }
 
-    public void AddLetterAvaiable(int _index)
+    public void AddLetterAvaiable(bool _state, int _index = 0)
     {
-        addLetterAviable = true;
+        addLetterAviable = _state;
         index = _index;
     }
 }

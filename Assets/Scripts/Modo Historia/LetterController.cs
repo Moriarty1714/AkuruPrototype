@@ -105,7 +105,7 @@ public class LetterController : MonoBehaviour
         if (amount < 1) gameObject.SetActive(false);        
         if (waitingForDragMode != null) StopCoroutine(waitingForDragMode);
 
-        if (letterRef != null) //Si te has copiado
+        if (letterRef != null) //Si te has copiado y estsa haciendo drag
         {
             if (letterRef.GetComponent<LetterConstructor>().addLetterAviable)
             {

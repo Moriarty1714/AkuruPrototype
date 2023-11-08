@@ -102,7 +102,7 @@ public class ConstructorController : MonoBehaviour
                     if (letterConstrGO == closest)
                     {
                         closest.GetComponent<LetterConstructor>().viewLetter.SetPositionMark(true);
-                        collision.gameObject.GetComponent<LetterConstructor>().AddLetterAvaiable(closest.GetComponent<LetterConstructor>().index);
+                        collision.gameObject.GetComponent<LetterConstructor>().AddLetterAvaiable(true,closest.GetComponent<LetterConstructor>().index);
                     }
                     else
                     {
@@ -117,6 +117,12 @@ public class ConstructorController : MonoBehaviour
         if (collision.gameObject.tag == "DragLetter") //Comprovar que es una letra en el futuro
         {
             constructorView.SetActivePanel(false);
+            collision.gameObject.GetComponent<LetterConstructor>().AddLetterAvaiable(false);
+
+            foreach (GameObject letterConstrGO in constructorView.editingWordLettersGO)
+            {
+                letterConstrGO.GetComponent<LetterConstructor>().viewLetter.SetPositionMark(false);        
+            }
         }
     }
 
