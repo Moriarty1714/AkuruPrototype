@@ -55,7 +55,7 @@ public class LetterConstructor : MonoBehaviour
 
     private void OnMouseDown()
     {
-        
+
     }
 
     protected virtual void InvokeOnLetterClicked(int _index)
