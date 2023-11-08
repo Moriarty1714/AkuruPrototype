@@ -42,6 +42,7 @@ public class ConstructorController : MonoBehaviour
             }
             PlaceObjectsInLine(startPointConstructor.position, endPointConstructor.position);
         }
+
         public void PlaceObjectsInLine(Vector2 pointA, Vector2 pointB)
         {          
             Vector2 direction = (pointB - pointA).normalized;
@@ -74,6 +75,10 @@ public class ConstructorController : MonoBehaviour
         }
     }
     public ConstructorView constructorView;
+
+    public GameObject dragLetter; 
+
+
     // Start is called before the first frame update
     private void OnDisable()
     {
@@ -102,6 +107,7 @@ public class ConstructorController : MonoBehaviour
                     if (letterConstrGO == closest)
                     {
                         closest.GetComponent<LetterConstructor>().viewLetter.SetPositionMark(true);
+
                         collision.gameObject.GetComponent<LetterConstructor>().AddLetterAvaiable(true,closest.GetComponent<LetterConstructor>().index);
                     }
                     else

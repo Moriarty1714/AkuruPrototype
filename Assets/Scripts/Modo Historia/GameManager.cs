@@ -111,6 +111,8 @@ public class GameManager : MonoBehaviour
         LetterController.OnLetterMouseUp -= AddLetter;
 
         LetterConstructor.OnLetterClicked -= RemoveLetter;
+
+        LetterConstructor.OnLetterMouseUpDrag -= AddLetter;
     }
 
     private void Awake()
@@ -129,6 +131,8 @@ public class GameManager : MonoBehaviour
         LetterController.OnLetterMouseUp += AddLetter;
 
         LetterConstructor.OnLetterClicked += RemoveLetter;
+
+        LetterConstructor.OnLetterMouseUpDrag += AddLetter;
 
         for (int i = 0; i < lettersInGameGO.Count; i++)
         {
@@ -331,18 +335,22 @@ public class GameManager : MonoBehaviour
             lettersCtrl[letterValue].ReturnLetter();
         }
     }
-    public void RemoveLetter(int _index = -1) //SI index == -1 ->Se borra la última referencia
+    public void RemoveLetter(int _index = -1, bool _isDrag = false, bool _isLimbo = false, string _letter = "") //SI index == -1 ->Se borra la última referencia
     {
-        if (selectedLetters.Count > 0)
+        if (selectedLetters.Count > 0 && !_isLimbo)
         {
             int letterIndex = _index == -1? selectedLetters.Count - 1: _index;
 
+            
             string letterValue = selectedLetters[letterIndex];
+           
 
             Debug.Log("Removed " + letterValue + " IN " + letterIndex);
 
             //Word
+            if(!_isDrag)
             lettersCtrl[letterValue].ReturnLetter();
+
             selectedLetters.RemoveAt(letterIndex);
             ConcatenateLetters();
 
@@ -352,6 +360,12 @@ public class GameManager : MonoBehaviour
 
             //VIEW
             uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
+        }
+        else if(_isLimbo){
+            
+            string letterValue = _letter;
+
+            lettersCtrl[letterValue].ReturnLetter();
         }
     }
    

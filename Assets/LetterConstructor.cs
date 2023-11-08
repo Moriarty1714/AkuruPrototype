@@ -11,6 +11,9 @@ public class LetterConstructor : MonoBehaviour
 
     //Only for drag mode:
     public bool addLetterAviable = false;
+    Coroutine waitingForDragMode = null;
+
+
 
     // Start is called before the first frame update
     [System.Serializable]
@@ -27,12 +30,23 @@ public class LetterConstructor : MonoBehaviour
         {
             putPositionMark.SetActive(_state);
         }
+
+        public string GetLetter()
+        {
+            return letter.text.ToString();
+        }
     }
     public LetterView viewLetter;
 
     public int index = 0;
+    private float inputResponseInSeconds = 0.1f;
+
     // Define the event
-    public static event Action<int> OnLetterClicked;
+    public static event Action<int, bool, bool, string> OnLetterClicked;
+
+    public static event Action<string, int> OnLetterMouseUpDrag;
+
+
     void Start()
     {
 
@@ -44,23 +58,50 @@ public class LetterConstructor : MonoBehaviour
         if (state == LetterState.DRAG)
         {
             transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5f));
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (addLetterAviable)
+                {
+                    LetterAccepted(index);
+                }
+                else
+                {
+                    InvokeOnLetterClicked(index, false, true, viewLetter.GetLetter());
+                }
+                Destroy(this.gameObject);
+            }
         }
     }
+
 
     private void OnMouseUp() //Solo pasa con los GO que estan en el consntructor
     {
         InvokeOnLetterClicked(index);
+        if (waitingForDragMode != null)
+        {
+            StopCoroutine(waitingForDragMode);
+        }
 
+    }
+
+    public void LetterAccepted(int _index = -1)
+    {
+        InvokeOnLetterMouseUp(viewLetter.GetLetter(), _index);
+    }
+    protected static void InvokeOnLetterMouseUp(string letter, int index = -1)
+    {
+        OnLetterMouseUpDrag?.Invoke(letter, index);
     }
 
     private void OnMouseDown()
     {
-
+        waitingForDragMode = StartCoroutine(DragMode());
     }
 
-    protected virtual void InvokeOnLetterClicked(int _index)
+    protected virtual void InvokeOnLetterClicked(int _index, bool _isDrag = false, bool _isLimbo = false, string _letter = "")
     {
-        OnLetterClicked?.Invoke(_index);
+        OnLetterClicked?.Invoke(_index, _isDrag, _isLimbo, _letter);
     }
 
     public void AddLetterAvaiable(bool _state, int _index = 0)
@@ -68,4 +109,30 @@ public class LetterConstructor : MonoBehaviour
         addLetterAviable = _state;
         index = _index;
     }
+
+    IEnumerator DragMode()
+    {
+        yield return new WaitForSeconds(inputResponseInSeconds);
+        Debug.Log("DRAG MODE ACTIVE");
+        state = LetterState.DRAG;
+
+        CopyLetter();
+    }
+    public void CopyLetter()
+    {
+        GameObject letterRef;
+        letterRef = Instantiate(this.gameObject, transform.parent); //esta copia se queda
+        letterRef.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5f));
+        letterRef.GetComponent<LetterConstructor>().state = LetterConstructor.LetterState.DRAG;
+        letterRef.GetComponent<LetterConstructor>().viewLetter.SetLetter(viewLetter.GetLetter());
+        //letterRef.GetComponent<LetterConstructor>().AddLetterAvaiable(true);
+        letterRef.GetComponent<LetterConstructor>().index = index;
+        letterRef.tag = "DragLetter";
+        letterRef.name = this.gameObject.name;
+
+
+
+        InvokeOnLetterClicked(index, true);
+    }
+
 }
