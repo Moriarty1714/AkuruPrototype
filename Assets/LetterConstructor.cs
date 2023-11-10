@@ -42,9 +42,10 @@ public class LetterConstructor : MonoBehaviour
     private float inputResponseInSeconds = 0.1f;
 
     // Define the event
-    public static event Action<int, bool, bool, string> OnLetterClicked;
+    public static event Action<int, bool> OnLetterMouseUp;
+    public static event Action<string> OnReturnLetterInLimbo;
 
-    public static event Action<string, int> OnLetterMouseUpDrag;
+    public static event Action<string, int> OnLetterMouseUpDraggging;
 
 
     void Start()
@@ -67,7 +68,7 @@ public class LetterConstructor : MonoBehaviour
                 }
                 else
                 {
-                    InvokeOnLetterClicked(index, false, true, viewLetter.GetLetter());
+                    InvokeOnLetterClickedInLimbo(viewLetter.GetLetter());
                 }
                 Destroy(this.gameObject);
             }
@@ -91,7 +92,7 @@ public class LetterConstructor : MonoBehaviour
     }
     protected static void InvokeOnLetterMouseUp(string letter, int index = -1)
     {
-        OnLetterMouseUpDrag?.Invoke(letter, index);
+        OnLetterMouseUpDraggging?.Invoke(letter, index);
     }
 
     private void OnMouseDown()
@@ -99,9 +100,13 @@ public class LetterConstructor : MonoBehaviour
         waitingForDragMode = StartCoroutine(DragMode());
     }
 
-    protected virtual void InvokeOnLetterClicked(int _index, bool _isDrag = false, bool _isLimbo = false, string _letter = "")
+    protected virtual void InvokeOnLetterClicked(int _index, bool _isDrag = false)
     {
-        OnLetterClicked?.Invoke(_index, _isDrag, _isLimbo, _letter);
+        OnLetterMouseUp?.Invoke(_index, _isDrag);
+    }
+    protected virtual void InvokeOnLetterClickedInLimbo(string _letter)
+    {
+        OnReturnLetterInLimbo?.Invoke(_letter);
     }
 
     public void AddLetterAvaiable(bool _state, int _index = 0)

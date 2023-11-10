@@ -110,9 +110,9 @@ public class GameManager : MonoBehaviour
         
         LetterController.OnLetterMouseUp -= AddLetter;
 
-        LetterConstructor.OnLetterClicked -= RemoveLetter;
-
-        LetterConstructor.OnLetterMouseUpDrag -= AddLetter;
+        LetterConstructor.OnLetterMouseUp -= RemoveLetter;
+        LetterConstructor.OnReturnLetterInLimbo -= ReturnLetterInLimbo;
+        LetterConstructor.OnLetterMouseUpDraggging -= AddLetter;
     }
 
     private void Awake()
@@ -130,9 +130,9 @@ public class GameManager : MonoBehaviour
         
         LetterController.OnLetterMouseUp += AddLetter;
 
-        LetterConstructor.OnLetterClicked += RemoveLetter;
-
-        LetterConstructor.OnLetterMouseUpDrag += AddLetter;
+        LetterConstructor.OnLetterMouseUp += RemoveLetter;
+        LetterConstructor.OnReturnLetterInLimbo += ReturnLetterInLimbo;
+        LetterConstructor.OnLetterMouseUpDraggging += AddLetter;
 
         for (int i = 0; i < lettersInGameGO.Count; i++)
         {
@@ -335,9 +335,9 @@ public class GameManager : MonoBehaviour
             lettersCtrl[letterValue].ReturnLetter();
         }
     }
-    public void RemoveLetter(int _index = -1, bool _isDrag = false, bool _isLimbo = false, string _letter = "") //SI index == -1 ->Se borra la última referencia
+    public void RemoveLetter(int _index, bool _isDrag = false) //SI index == -1 ->Se borra la última referencia
     {
-        if (selectedLetters.Count > 0 && !_isLimbo)
+        if (selectedLetters.Count > 0)
         {
             int letterIndex = _index == -1? selectedLetters.Count - 1: _index;
 
@@ -361,14 +361,38 @@ public class GameManager : MonoBehaviour
             //VIEW
             uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         }
-        else if(_isLimbo){
-            
-            string letterValue = _letter;
+    }
 
+    public void RemoveLetter(int _index) //SI index == -1 ->Se borra la última referencia
+    {
+        if (selectedLetters.Count > 0)
+        {
+            int letterIndex = selectedLetters.Count - 1;
+            string letterValue = selectedLetters[letterIndex];
+
+            Debug.Log("Removed " + letterValue + " IN " + letterIndex);
+            
             lettersCtrl[letterValue].ReturnLetter();
+
+            selectedLetters.RemoveAt(letterIndex);
+            ConcatenateLetters();
+
+            //Puntuation
+            accPuntuation -= lettersCtrl[letterValue].GetLetterPuntuation();
+            accBonusMultiplyer -= bonusMultiplyer;
+
+            //VIEW
+            uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         }
     }
-   
+
+    public void ReturnLetterInLimbo( string _letter) //SI index == -1 ->Se borra la última referencia
+    {
+            string letterValue = _letter;
+
+            lettersCtrl[_letter].ReturnLetter();
+    }
+
 
     public void ValidatorButton()
     {
