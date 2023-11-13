@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
 
         public AcceptButtonController acceptButton;
 
+        public GameObject gameEndedPanel;
+
         public void UpdateAccPuntAndBonMult(int _accumulatePuntuation, float _accBonusMultiplyer)
         {
             float accBonusMultRounded = Mathf.Round(_accBonusMultiplyer * 10f) / 10f; ;
@@ -160,16 +162,31 @@ public class GameManager : MonoBehaviour
                     if (actualTimer <= 0) gameState = GameState.ENDED;
 
                     //View
-                    uiElements.UpdateTimerTicking(actualTimer);                   
+                    uiElements.UpdateTimerTicking(actualTimer); 
                 }
                 break;
             case GameState.ENDED:
-                { }
+                {
+                    uiElements.gameEndedPanel.SetActive(true);    
+                }
                 break;
             default:
                 break;
         }
        
+    }
+
+    public void CheckBoardEmpty()
+    {
+        for (int i = 5; i < lettersInGameGO.Count; i++)
+        {
+            if (lettersInGameGO[i].activeInHierarchy)
+            {
+                Debug.Log("Check" + lettersInGameGO[i].name);
+                return;
+            }
+        }
+        gameState = GameState.ENDED;
     }
     private void OnWordValidationComplete(bool exists)
     {
@@ -187,6 +204,8 @@ public class GameManager : MonoBehaviour
             colorFeedback = Color.green;
             uiElements.UpdatePuntuation(puntuation);
             GenerateAcceptedWords();
+
+            CheckBoardEmpty();
         }
         else
         {
