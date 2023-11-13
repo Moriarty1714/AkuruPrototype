@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 public class LevelHandler : MonoBehaviour
 {
 
-    private enum StoryLevelType { LVL1, LVL2, TESTLVL }
+    private enum StoryLevelType { LVL1, LVL2, LVL3, LVL4, LVL5, TESTLVL }
     [SerializeField] private StoryLevelType storyLevelType;
 
     public LevelInfo levelInfo;
@@ -33,6 +33,15 @@ public class LevelHandler : MonoBehaviour
                 break;
             case StoryLevelType.LVL2:
                 levelInfo.SetTableConfiguration(1);
+                break;
+            case StoryLevelType.LVL3:
+                levelInfo.SetTableConfiguration(2);
+                break;
+            case StoryLevelType.LVL4:
+                levelInfo.SetTableConfiguration(3);
+                break;
+            case StoryLevelType.LVL5:
+                levelInfo.SetTableConfiguration(4);
                 break;
             case StoryLevelType.TESTLVL:
                 levelInfo.SetRandomLevel();

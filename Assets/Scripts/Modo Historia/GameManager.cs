@@ -12,7 +12,7 @@ using UnityEngine.XR;
 
 public class GameManager : MonoBehaviour
 {
-    private enum GameState { PLAYING, ENDED}
+    private enum GameState { PLAYING, GAMEENDED}
     private GameState gameState = GameState.PLAYING;
 
     private const int MAX_LETTERS_IN_WORD = 15;
@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
         public AcceptButtonController acceptButton;
 
         public GameObject gameEndedPanel;
+        public TextMeshProUGUI gameEndedMissage;
 
         public void UpdateAccPuntAndBonMult(int _accumulatePuntuation, float _accBonusMultiplyer)
         {
@@ -68,6 +69,10 @@ public class GameManager : MonoBehaviour
             else acceptButton.WaitingForResponse();
         }
 
+        public void GameEndedPanel(string _gameEndedFB) { 
+            gameEndedPanel.SetActive(true);
+            gameEndedMissage.text = _gameEndedFB;
+        }
         IEnumerator RestPuntuationFeedback(int _timerInSeconds)
         {
             restPuntuationTMP.color += new Color(0, 0, 0, 1f);
@@ -159,17 +164,21 @@ public class GameManager : MonoBehaviour
                 {
                     int actualTimer = gameTimeSesionInSec - (int)(Time.time - startSesionInSeconds);
 
-                    if (actualTimer <= 0) gameState = GameState.ENDED;
-
                     //View
-                    uiElements.UpdateTimerTicking(actualTimer); 
+                    uiElements.UpdateTimerTicking(actualTimer);
+
+                    if (actualTimer <= 0)
+                    {
+                        gameState = GameState.GAMEENDED;
+                        uiElements.GameEndedPanel("Ooops! Times Up!");
+                    }
                 }
                 break;
-            case GameState.ENDED:
+            case GameState.GAMEENDED:
                 {
-                    uiElements.gameEndedPanel.SetActive(true);    
+                  
                 }
-                break;
+                break;            
             default:
                 break;
         }
@@ -186,7 +195,9 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
-        gameState = GameState.ENDED;
+        gameState = GameState.GAMEENDED;
+        //View
+        uiElements.GameEndedPanel("All Clear! Good job!");
     }
     private void OnWordValidationComplete(bool exists)
     {

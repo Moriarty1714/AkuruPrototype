@@ -27,7 +27,7 @@ public class LetterController : MonoBehaviour
                 if (extraPuntuation != 0)
                 {
                     //Feedback for extrapower
-                    puntuationTMP.gameObject.GetComponentInParent<SpriteRenderer>().color = Color.yellow;
+                    //puntuationTMP.gameObject.GetComponentInParent<SpriteRenderer>().color = Color.yellow;
                 }
             }
         }

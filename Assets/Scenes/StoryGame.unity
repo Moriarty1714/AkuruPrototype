@@ -720,10 +720,10 @@ RectTransform:
   m_Father: {fileID: 1695414193}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 162}
-  m_SizeDelta: {x: 19.440002, y: 23.439941}
+  m_SizeDelta: {x: 19.440002, y: -76.56006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &215267954
 MonoBehaviour:
@@ -2713,6 +2713,7 @@ MonoBehaviour:
     constructorPanelTrans: {fileID: 226190745}
     acceptButton: {fileID: 1757151865}
     gameEndedPanel: {fileID: 215267952}
+    gameEndedMissage: {fileID: 2049509134}
   wordValidator: {fileID: 1010754165}
   lettersInGameGO:
   - {fileID: 1311333826}
