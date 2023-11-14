@@ -108,13 +108,17 @@ public class ConstructorController : MonoBehaviour
                     {
                         closest.GetComponent<LetterConstructor>().viewLetter.SetPositionMark(true);
 
-                        collision.gameObject.GetComponent<LetterConstructor>().AddLetterAvaiable(true,closest.GetComponent<LetterConstructor>().index);
+                        collision.gameObject.GetComponent<LetterConstructor>().AddLetterAvaiable(true, closest.GetComponent<LetterConstructor>().index);
                     }
                     else
                     {
                         letterConstrGO.GetComponent<LetterConstructor>().viewLetter.SetPositionMark(false);
                     }
                 }
+            }
+            else
+            {
+                collision.gameObject.GetComponent<LetterConstructor>().AddLetterAvaiable(true, 0);
             }
         }
     }

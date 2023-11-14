@@ -3007,7 +3007,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1584548339989159849, guid: 441d00605d0a65843a883834b5c10994, type: 3}
       propertyPath: levelInfo.gameTimeSesionInSec
-      value: 50
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1721482752995982191, guid: 441d00605d0a65843a883834b5c10994, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4093,6 +4093,10 @@ PrefabInstance:
     - target: {fileID: 1584548339989159849, guid: 441d00605d0a65843a883834b5c10994, type: 3}
       propertyPath: storyLevelType
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1584548339989159849, guid: 441d00605d0a65843a883834b5c10994, type: 3}
+      propertyPath: levelInfo.gameTimeSesionInSec
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 3629323079854825646, guid: 441d00605d0a65843a883834b5c10994, type: 3}
       propertyPath: m_Name
