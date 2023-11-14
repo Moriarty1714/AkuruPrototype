@@ -203,7 +203,7 @@ public class GameManager : MonoBehaviour
     {
         Color colorFeedback = Color.white;
 
-        if (exists && !wordsCompleted.Contains(editingWord) && editingWord.Length > 1)
+        if (exists && !wordsCompleted.Contains(editingWord) && editingWord.Length > 2)
         {         
             //WordCompeted
             wordsCompleted.Add(editingWord);
