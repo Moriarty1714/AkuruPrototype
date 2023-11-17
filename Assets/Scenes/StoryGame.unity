@@ -2642,11 +2642,16 @@ MonoBehaviour:
     accumulateBonusMultiplayerTMP: {fileID: 225337835}
     restPuntuationTMP: {fileID: 571403021}
     timerTicking: {fileID: 1457554584}
-    wordContainers: []
+    wordContainers:
+    - {fileID: 1016531175}
+    - {fileID: 1620960616}
+    - {fileID: 1299717501}
+    - {fileID: 21807625}
     constructorPanelTrans: {fileID: 226190745}
     acceptButton: {fileID: 1757151865}
     gameEndedPanel: {fileID: 215267952}
     gameEndedMissage: {fileID: 2049509134}
+    playerCoinsTMP: {fileID: 1539181640}
   wordValidator: {fileID: 1010754165}
   lettersInGameGO:
   - {fileID: 539807674}

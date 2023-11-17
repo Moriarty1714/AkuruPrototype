@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
         public GameObject gameEndedPanel;
         public TextMeshProUGUI gameEndedMissage;
 
+        public TextMeshProUGUI playerCoinsTMP;
+
         public void UpdateAccPuntAndBonMult(int _accumulatePuntuation, float _accBonusMultiplyer)
         {
             float accBonusMultRounded = Mathf.Round(_accBonusMultiplyer * 10f) / 10f; ;
@@ -68,6 +70,11 @@ public class GameManager : MonoBehaviour
             if (_haveResponse) acceptButton.ResponseRecived();
             else acceptButton.WaitingForResponse();
         }
+        public void UpdatePlayerCoins()
+        {
+            playerCoinsTMP.text = Profile.Instance.GetPlayerCoints().ToString();
+        }
+
 
         public void GameEndedPanel(string _gameEndedFB) { 
             gameEndedPanel.SetActive(true);
@@ -109,9 +116,6 @@ public class GameManager : MonoBehaviour
     private int accPuntuation;
     private int puntuation;
 
-    //CoinsTMP
-    static int playerCoins = 100;
-
     private float startSesionInSeconds;
 
     private void OnDisable()
@@ -119,10 +123,12 @@ public class GameManager : MonoBehaviour
         wordValidator.OnWordValidationComplete -= OnWordValidationComplete;
         
         LetterController.OnLetterMouseUp -= AddLetter;
+        LetterController.OnBuyLetter -= UpdatePlayerCoins;
 
         LetterConstructor.OnLetterMouseUp -= RemoveLetter;
         LetterConstructor.OnReturnLetterInLimbo -= ReturnLetterInLimbo;
         LetterConstructor.OnLetterMouseUpDraggging -= AddLetter;
+        
     }
 
     private void Awake()
@@ -139,6 +145,7 @@ public class GameManager : MonoBehaviour
         wordValidator.OnWordValidationComplete += OnWordValidationComplete;
         
         LetterController.OnLetterMouseUp += AddLetter;
+        LetterController.OnBuyLetter += UpdatePlayerCoins;
 
         LetterConstructor.OnLetterMouseUp += RemoveLetter;
         LetterConstructor.OnReturnLetterInLimbo += ReturnLetterInLimbo;
@@ -424,6 +431,11 @@ public class GameManager : MonoBehaviour
             string letterValue = _letter;
 
             lettersCtrl[_letter].ReturnLetter();
+    }
+
+    public void UpdatePlayerCoins(bool _isPossible) {
+       
+        if(_isPossible)uiElements.UpdatePlayerCoins();
     }
     public void ValidatorButton()
     {
