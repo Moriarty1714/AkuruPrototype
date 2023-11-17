@@ -87,7 +87,6 @@ public class LetterController : MonoBehaviour
 
     // Define the event
     public static event Action<string,int> OnLetterMouseUp;
-    public static event Action<bool> OnBuyLetter;
 
     private void Awake()
     {
@@ -165,10 +164,10 @@ public class LetterController : MonoBehaviour
                 LetterAccepted();
             }
         }
-        else if (letterState == LetterState.SHOP && OnMouseOverButton() && Profile.Instance.UpdateProfileCoints(-10)) 
+        else if (letterState == LetterState.SHOP && OnMouseOverButton()) 
        {
             ReturnLetter();
-            InvokeOnBuyLetter(true);
+
        }    
     }
 
@@ -187,11 +186,7 @@ public class LetterController : MonoBehaviour
     protected static void InvokeOnLetterMouseUp(string letter, int index = -1)
     {
         OnLetterMouseUp?.Invoke(letter,index);
-    }
-    protected virtual void InvokeOnBuyLetter(bool _isPoosible)
-    {
-        OnBuyLetter?.Invoke(_isPoosible);
-    }
+    }   
     //Getters
     public char GetLetterChar()
     {

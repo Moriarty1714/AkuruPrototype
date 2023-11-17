@@ -13,6 +13,8 @@ public class LetterConstructor : MonoBehaviour
     public bool addLetterAviable = false;
     Coroutine waitingForDragMode = null;
 
+
+
     // Start is called before the first frame update
     [System.Serializable]
     public class LetterView
@@ -41,8 +43,10 @@ public class LetterConstructor : MonoBehaviour
 
     // Define the event
     public static event Action<int, bool> OnLetterMouseUp;
-    public static event Action<string, int> OnLetterMouseUpDraggging;
     public static event Action<string> OnReturnLetterInLimbo;
+
+    public static event Action<string, int> OnLetterMouseUpDraggging;
+
 
     void Start()
     {
@@ -86,9 +90,23 @@ public class LetterConstructor : MonoBehaviour
     {
         InvokeOnLetterMouseUp(viewLetter.GetLetter(), _index);
     }
+    protected static void InvokeOnLetterMouseUp(string letter, int index = -1)
+    {
+        OnLetterMouseUpDraggging?.Invoke(letter, index);
+    }
+
     private void OnMouseDown()
     {
         waitingForDragMode = StartCoroutine(DragMode());
+    }
+
+    protected virtual void InvokeOnLetterClicked(int _index, bool _isDrag = false)
+    {
+        OnLetterMouseUp?.Invoke(_index, _isDrag);
+    }
+    protected virtual void InvokeOnLetterClickedInLimbo(string _letter)
+    {
+        OnReturnLetterInLimbo?.Invoke(_letter);
     }
 
     public void AddLetterAvaiable(bool _state, int _index = 0)
@@ -117,22 +135,9 @@ public class LetterConstructor : MonoBehaviour
         letterRef.tag = "DragLetter";
         letterRef.name = this.gameObject.name;
 
+
+
         InvokeOnLetterClicked(index, true);
     }
-
-    protected static void InvokeOnLetterMouseUp(string letter, int index = -1)
-    {
-        OnLetterMouseUpDraggging?.Invoke(letter, index);
-    }
-
-    protected virtual void InvokeOnLetterClicked(int _index, bool _isDrag = false)
-    {
-        OnLetterMouseUp?.Invoke(_index, _isDrag);
-    }
-    protected virtual void InvokeOnLetterClickedInLimbo(string _letter)
-    {
-        OnReturnLetterInLimbo?.Invoke(_letter);
-    }
-   
 
 }
