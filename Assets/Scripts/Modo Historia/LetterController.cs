@@ -72,8 +72,8 @@ public class LetterController : MonoBehaviour
     [Header("Configuation:")]
     [SerializeField] private LetterType letterType;
  
-    [SerializeField] private int basePuntuation;   
-    private char letter;
+    [SerializeField] private int basePuntuation;
+    [SerializeField] private char letter;
     [SerializeField] int amount = 1;
     [SerializeField] private int extraPuntuation = 0;
 
@@ -91,6 +91,7 @@ public class LetterController : MonoBehaviour
 
     private void Awake()
     {
+        letter = char.Parse(name.Split("_")[1]);
         if (!(StoryGameSettings.instance == null))
         {
             amount = StoryGameSettings.instance.levelInfo.letterInfo[letter].amount;
@@ -102,7 +103,6 @@ public class LetterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        letter = char.Parse(name.Split("_")[1]);
         if (amount < 1) {
             letterState = LetterState.SHOP;
             //Decidir si poner que se pueda comprar si empiezas la partida con la letra desactivada.

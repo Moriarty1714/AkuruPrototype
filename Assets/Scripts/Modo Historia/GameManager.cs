@@ -164,6 +164,7 @@ public class GameManager : MonoBehaviour
         constructorController.constructorView.UpdateEditingWord(editingWord, this);
         uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         uiElements.UpdatePuntuation(puntuation);
+        uiElements.UpdatePlayerCoins();
     }
 
     private void Update()
