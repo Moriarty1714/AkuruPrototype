@@ -109,6 +109,9 @@ public class GameManager : MonoBehaviour
     private int accPuntuation;
     private int puntuation;
 
+    //CoinsTMP
+    static int playerCoins = 100;
+
     private float startSesionInSeconds;
 
     private void OnDisable()
@@ -422,8 +425,6 @@ public class GameManager : MonoBehaviour
 
             lettersCtrl[_letter].ReturnLetter();
     }
-
-
     public void ValidatorButton()
     {
         wordValidator.ValidateWord(editingWord);

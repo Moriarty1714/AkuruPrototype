@@ -2,8 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 public enum LetterType { CONSONANT, VOWEL };
 public enum LetterState { NORMAL, SHOP };
 
@@ -21,7 +24,6 @@ public class LetterController : MonoBehaviour
 
         public GameObject puntuation;
         public GameObject number;
-
 
         // Setea la puntuación y maneja la visibilidad del elemento de puntuación
         public void SetPuntuation(int basePuntuation, int extraPuntuation = 0)
@@ -50,7 +52,6 @@ public class LetterController : MonoBehaviour
 
         public void ChangeViewToStateShop(bool active)
         {
-            //
             if (!active)
             {
                 spr.color = new Color(0f, 0f, 0f, 0.5f);
@@ -72,7 +73,7 @@ public class LetterController : MonoBehaviour
     [SerializeField] private LetterType letterType;
  
     [SerializeField] private int basePuntuation;   
-    [SerializeField] private char letter;
+    private char letter;
     [SerializeField] int amount = 1;
     [SerializeField] private int extraPuntuation = 0;
 
@@ -82,9 +83,7 @@ public class LetterController : MonoBehaviour
     [SerializeField] GameObject letterConstructorPrefab;
     [SerializeField] GameObject letterRef;
 
-
     Coroutine waitingForDragMode = null;
-
 
     // Define the event
     public static event Action<string,int> OnLetterMouseUp;
@@ -102,6 +101,7 @@ public class LetterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        letter = char.Parse(name.Split("_")[1]);
         if (amount < 1) {
             letterState = LetterState.SHOP;
             //Decidir si poner que se pueda comprar si empiezas la partida con la letra desactivada.
@@ -121,7 +121,6 @@ public class LetterController : MonoBehaviour
 
     private void Update()
     {
-       
     }
     // Evento de click del mouse
     void OnMouseDown()
@@ -133,17 +132,16 @@ public class LetterController : MonoBehaviour
             viewLetter.SetAmount(--amount);
             waitingForDragMode = StartCoroutine(DragMode());
         }
-        else{
-            waitingForDragMode = StartCoroutine(DragMode());
-        }
     }
 
     private void OnMouseUp() 
     {
         //viewLetter.animation.Stop();
         //viewLetter.animation.Play("LetterAnimOnMouseUp");
-       if(letterState == LetterState.NORMAL) {
-            if (amount < 1) {
+        if (letterState == LetterState.NORMAL)
+        {
+            if (amount < 1)
+            {
                 letterState = LetterState.SHOP;
                 viewLetter.ChangeViewToStateShop(false);
             }
@@ -165,12 +163,11 @@ public class LetterController : MonoBehaviour
             {
                 LetterAccepted();
             }
-       }
-       else
+        }
+        else if (letterState == LetterState.SHOP && OnMouseOverButton()) 
        {
-           viewLetter.SetAmount(++amount);
-           letterState = LetterState.NORMAL;
-           viewLetter.ChangeViewToStateShop(true);
+            ReturnLetter();
+
        }    
     }
 
@@ -202,16 +199,10 @@ public class LetterController : MonoBehaviour
 
     IEnumerator DragMode()
     {
-        if (letterState == LetterState.NORMAL)
-        {
-            yield return new WaitForSeconds(inputResponseInSeconds);
-            Debug.Log("DRAG MODE ACTIVE");
+        yield return new WaitForSeconds(inputResponseInSeconds);
+        Debug.Log("DRAG MODE ACTIVE");
+        CopyLetter();
 
-            CopyLetter();
-        }
-        else{ //No proccesar la compra, si mantentgo pulsado y levanto el click fura de la ficha me cuenta como si la comprara! DRAG_SHOP ?¿ XD
-
-        }           
     }
 
     public void CopyLetter()
@@ -222,6 +213,22 @@ public class LetterController : MonoBehaviour
         letterRef.GetComponent<LetterConstructor>().viewLetter.SetLetter(letter.ToString());
         letterRef.tag = "DragLetter";
         letterRef.name = this.gameObject.name;
+    }
+
+    private bool OnMouseOverButton()
+    {
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+            if (hit.collider != null)
+            {
+                // Check if the hit collider is the one you're interested in
+                return hit.collider.gameObject == gameObject; // or some specific condition based on your setup
+            }
+
+            return false;
+        }
     }
 }
 
