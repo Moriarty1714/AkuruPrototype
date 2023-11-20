@@ -24,6 +24,7 @@ public class LetterController : MonoBehaviour
 
         public GameObject puntuation;
         public GameObject number;
+        public GameObject coinsObj;
 
         // Setea la puntuación y maneja la visibilidad del elemento de puntuación
         public void SetPuntuation(int basePuntuation, int extraPuntuation = 0)
@@ -65,6 +66,7 @@ public class LetterController : MonoBehaviour
 
             puntuation.SetActive(active);
             number.SetActive(active);
+            coinsObj.SetActive(!active);
         }
     }
     [SerializeField] private ViewLetter viewLetter;
