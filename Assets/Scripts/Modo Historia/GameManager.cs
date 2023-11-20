@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 5; i < lettersInGameGO.Count; i++)
         {
-            if (lettersInGameGO[i].activeInHierarchy)
+            if (lettersInGameGO[i].GetComponent<LetterController>().letterState != LetterState.SHOP)
             {
                 Debug.Log("Check" + lettersInGameGO[i].name);
                 return;
