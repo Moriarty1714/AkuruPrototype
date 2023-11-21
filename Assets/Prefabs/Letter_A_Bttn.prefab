@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2899125729791483779}
   - component: {fileID: 380831937149273473}
   m_Layer: 0
-  m_Name: NumberPunt_TMP
+  m_Name: NumberCoins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -520,7 +520,7 @@ GameObject:
   - component: {fileID: 816266419925473840}
   - component: {fileID: 3628704520281990987}
   m_Layer: 0
-  m_Name: 9-Sliced
+  m_Name: CoinImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

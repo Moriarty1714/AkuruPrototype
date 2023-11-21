@@ -7,20 +7,46 @@ public class Move_DoTween : MonoBehaviour
 {
     public float distance, time;
 
+    public bool xAxis = false, yAxis = false;
+
+    public bool invert = false;
+
     void Start()
     {
         DOTween.Init();
 
-        MoveUP();
+        if (xAxis)
+        {
+            if (invert)
+                MoveXUP();
+            else
+                MoveXDown();
+        }
+        else if (yAxis)
+        {
+            if (invert)
+                MoveYUP();
+            else
+                MoveYDown();
+        }
     }
 
-    void MoveUP()
+    void MoveYUP()
     {
-        transform.DOMoveY(transform.position.y + distance, time).OnComplete(MoveDown);
+        transform.DOMoveY(transform.position.y + distance, time).OnComplete(MoveYDown);
     }
-    void MoveDown()
+    void MoveYDown()
     {
-        transform.DOMoveY(transform.position.y - distance, time).OnComplete(MoveUP);
+        transform.DOMoveY(transform.position.y - distance, time).OnComplete(MoveYUP);
+    }
+    
+    void MoveXUP()
+    {
+        transform.DOMoveX(transform.position.x + distance, time).OnComplete(MoveXDown);
+    }
+    void MoveXDown()
+    {
+        transform.DOMoveX(transform.position.x - distance, time).OnComplete(MoveXUP);
     }
 
 }
