@@ -9143,6 +9143,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "\rThis is the construcor, here you can create words"
       objectReference: {fileID: 0}
+    - target: {fileID: 3855242930823174394, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4339238305750584306, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: yAxis
       value: 1
