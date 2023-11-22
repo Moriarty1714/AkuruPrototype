@@ -104,11 +104,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] ConstructorController constructorController;   
 
     private Dictionary<string, LetterController> lettersCtrl = new Dictionary<string, LetterController>();
-    private List<string> selectedLetters = new List<string>();
+    public List<string> selectedLetters = new List<string>();
 
     [SerializeField] private GameObject wordPrefab;
     private string editingWord;
-    private List<string> wordsCompleted = new List<string>();
+    public List<string> wordsCompleted = new List<string>();
     private List<GameObject> wordObjects = new List<GameObject>();
 
     private float bonusMultiplyer = 1f;
@@ -161,10 +161,13 @@ public class GameManager : MonoBehaviour
         startSesionInSeconds = Time.time;
 
         //VIEW
+        ConcatenateLetters();
         constructorController.constructorView.UpdateEditingWord(editingWord, this);
         uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         uiElements.UpdatePuntuation(puntuation);
         uiElements.UpdatePlayerCoins();
+
+        
     }
 
     private void Update()
