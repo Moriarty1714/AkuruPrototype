@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
@@ -186,6 +187,11 @@ public class GameManager : MonoBehaviour
                         gameState = GameState.GAMEENDED;
                         uiElements.GameEndedPanel("Ooops! Times Up!");
                     }
+                    else if (CheckBoardEmpty()) 
+                    {
+                        gameState = GameState.GAMEENDED;
+                        uiElements.GameEndedPanel("All Clear! Good job!");
+                    }
                 }
                 break;
             case GameState.GAMEENDED:
@@ -199,19 +205,17 @@ public class GameManager : MonoBehaviour
        
     }
 
-    public void CheckBoardEmpty()
+    public bool CheckBoardEmpty()
     {
         for (int i = 5; i < lettersInGameGO.Count; i++)
         {
             if (lettersInGameGO[i].GetComponent<LetterController>().letterState != LetterState.SHOP)
             {
                 Debug.Log("Check" + lettersInGameGO[i].name);
-                return;
+                return false;
             }
         }
-        gameState = GameState.GAMEENDED;
-        //View
-        uiElements.GameEndedPanel("All Clear! Good job!");
+       return true;
     }
     private void OnWordValidationComplete(bool exists)
     {
@@ -230,23 +234,21 @@ public class GameManager : MonoBehaviour
             uiElements.UpdatePuntuation(puntuation);
             GenerateAcceptedWords();
 
-            CheckBoardEmpty();
+            editingWord = string.Empty;
+            selectedLetters.Clear();
+
+            accPuntuation = 0;
+            accBonusMultiplyer = 0;            
         }
         else
         {
-            //ReturnEditingWord
-            foreach (string letterValue in selectedLetters)
-            {
-                lettersCtrl[letterValue].ReturnLetter();
-            }
+            ////ReturnEditingWord
+            //foreach (string letterValue in selectedLetters)
+            //{
+            //    lettersCtrl[letterValue].ReturnLetter();
+            //}
             colorFeedback = Color.red;
         }
-
-        editingWord = string.Empty;
-        selectedLetters.Clear();
-
-        accPuntuation = 0;
-        accBonusMultiplyer = 0;
 
         //VIEW
         StartCoroutine(FadeToAndFromColor(colorFeedback, 0.5f));
