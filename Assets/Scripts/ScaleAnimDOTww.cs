@@ -9,20 +9,22 @@ public class ScaleAnimDOTww : MonoBehaviour
 
     public bool invert = false;
 
+    public GameObject popUP;
+
     void Start()
     {
         DOTween.Init();
-        transform.DOScale(0, 0);
+        popUP.transform.DOScale(0, 0);
         ScaleUP();
     }
 
     public void ScaleUP()
     {
-        transform.DOScale(1, 1);
+        popUP.transform.DOScale(1, 1);
     }
     public void ScaleDown()
     {
-        transform.DOScale(0, 1).OnComplete(Desactivate);
+        popUP.transform.DOScale(0, 1).OnComplete(Desactivate);
     }
 
     void Desactivate()
