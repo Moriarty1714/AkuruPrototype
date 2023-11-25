@@ -1,21 +1,23 @@
 using UnityEngine;
-
-[RequireComponent(typeof(RectTransform))]
 public class DynamicColliderAdjuster : MonoBehaviour
 {
-    public RectTransform smallSquare;
+    public Camera camera;
+    public Transform smallSquare;
 
     public BoxCollider2D upLeftCollider;
     public BoxCollider2D upRightCollider;
     public BoxCollider2D downLeftCollider;
     public BoxCollider2D downRightCollider;
 
-    private RectTransform canvasRectTransform;
+    private Transform tutorialBlackFilter;
 
     void Start()
     {
-        canvasRectTransform = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
-        AdjustColliders();
+        tutorialBlackFilter = GetComponent<Transform>();
+
+        FitToScreen(tutorialBlackFilter, camera);
+
+        //AdjustColliders();
     }
 
     void Update()
@@ -25,49 +27,41 @@ public class DynamicColliderAdjuster : MonoBehaviour
 
     void AdjustColliders()
     {
-        // Obtén la escala del canvas para manejar la resolución de la pantalla correctamente
-        float canvasScale = canvasRectTransform.localScale.x;
+        // Tamaño de la pantalla en unidades del mundo
+        Vector2 screenSize = new Vector2(camera.orthographicSize * camera.aspect * 2, camera.orthographicSize * 2);
 
-        // Calcular el tamaño del canvas en el espacio del mundo
-        Vector2 canvasSize = new Vector2(
-            canvasRectTransform.sizeDelta.x * canvasScale,
-            canvasRectTransform.sizeDelta.y * canvasScale
-        );
+        // Posición y escala del cuadrado blanco
+        Vector2 holePosition = (Vector2)smallSquare.position;
+        Vector2 holeSize = smallSquare.localScale;
 
-        // Calcular la posición y tamaño del smallSquare en el espacio del mundo
-        Vector2 squareSize = new Vector2(
-            smallSquare.rect.width * canvasScale,
-            smallSquare.rect.height * canvasScale
-        );
+        // Calcular el tamaño del collider 'upLeft'
+        Vector2 upLeftSize = new Vector2(Mathf.Abs((screenSize.x / 2) - (holePosition.x - holeSize.x / 2)), Mathf.Abs((screenSize.y / 2) - (holePosition.y + holeSize.y / 2)));
 
-        Vector2 squarePos = new Vector2(
-            smallSquare.anchoredPosition.x * canvasScale,
-            smallSquare.anchoredPosition.y * canvasScale
-        );
+        // Calcular el desplazamiento del collider 'upLeft'
+        Vector2 upLeftOffset = new Vector2((-screenSize.x / 2) + (upLeftSize.x / 2), (screenSize.y / 2) - (upLeftSize.y / 2));
 
-        // Asegúrate de que el pivote del smallSquare esté en el centro
-        if (smallSquare.pivot != new Vector2(0.5f, 0.5f))
+        // Aplicar tamaño y desplazamiento al collider 'upLeft'
+        upLeftCollider.size = upLeftSize;
+        upLeftCollider.offset = upLeftOffset + new Vector2((holeSize.x / 2), -(holeSize.y / 2));
+    }
+
+
+
+
+
+    public static void FitToScreen(Transform transform, Camera camera)
+    {
+        if (camera.orthographic)
         {
-            Debug.LogWarning("El pivote de smallSquare debe estar centrado.");
+            float screenHeightInWorld = camera.orthographicSize * 2;
+            float screenWidthInWorld = screenHeightInWorld * camera.aspect;
+
+            // Aplica el nuevo localScale al transform
+            transform.localScale = new Vector3(screenWidthInWorld, screenHeightInWorld, 1); ;
         }
+        else {
 
-        // Ajustar los colliders para que rodeen el smallSquare
-        // Los colliders se posicionan en el espacio local respecto al centro del canvas
-
-        // Collider superior izquierdo
-        upLeftCollider.size = new Vector2(squarePos.x, (canvasSize.y - squarePos.y) / 2);
-        upLeftCollider.offset = new Vector2((-canvasSize.x + squareSize.x) / 4, squarePos.y + squareSize.y / 2);
-
-        // Collider superior derecho
-        upRightCollider.size = new Vector2((canvasSize.x - squarePos.x - squareSize.x) / 2, (canvasSize.y - squarePos.y) / 2);
-        upRightCollider.offset = new Vector2(squarePos.x + (3 * squareSize.x) / 4, squarePos.y + squareSize.y / 2);
-
-        // Collider inferior izquierdo
-        downLeftCollider.size = new Vector2(squarePos.x, (canvasSize.y + squarePos.y - squareSize.y) / 2);
-        downLeftCollider.offset = new Vector2((-canvasSize.x + squareSize.x) / 4, (-canvasSize.y + squareSize.y) / 4);
-
-        // Collider inferior derecho
-        downRightCollider.size = new Vector2((canvasSize.x - squarePos.x - squareSize.x) / 2, (canvasSize.y + squarePos.y - squareSize.y) / 2);
-        downRightCollider.offset = new Vector2(squarePos.x + (3 * squareSize.x) / 4, (-canvasSize.y + squareSize.y) / 4);
+            Debug.LogError("Camera must be ortograhic!");
+        }
     }
 }
