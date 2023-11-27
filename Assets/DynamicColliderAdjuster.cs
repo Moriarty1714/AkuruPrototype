@@ -4,10 +4,7 @@ public class DynamicColliderAdjuster : MonoBehaviour
     public Camera camera;
     public Transform smallSquare;
 
-    public BoxCollider2D upLeftCollider;
-    public BoxCollider2D upRightCollider;
-    public BoxCollider2D downLeftCollider;
-    public BoxCollider2D downRightCollider;
+
 
     private Transform tutorialBlackFilter;
     private Vector2 centerFilter;

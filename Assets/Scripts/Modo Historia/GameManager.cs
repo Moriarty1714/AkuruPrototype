@@ -187,11 +187,6 @@ public class GameManager : MonoBehaviour
                         gameState = GameState.GAMEENDED;
                         uiElements.GameEndedPanel("Ooops! Times Up!");
                     }
-                    else if (CheckBoardEmpty()) 
-                    {
-                        gameState = GameState.GAMEENDED;
-                        uiElements.GameEndedPanel("All Clear! Good job!");
-                    }
                 }
                 break;
             case GameState.GAMEENDED:
@@ -205,17 +200,18 @@ public class GameManager : MonoBehaviour
        
     }
 
-    public bool CheckBoardEmpty()
+    public void CheckBoardEmpty()
     {
         for (int i = 5; i < lettersInGameGO.Count; i++)
         {
             if (lettersInGameGO[i].GetComponent<LetterController>().letterState != LetterState.SHOP)
             {
                 Debug.Log("Check" + lettersInGameGO[i].name);
-                return false;
+                return;
             }
         }
-       return true;
+        gameState = GameState.GAMEENDED;
+        uiElements.GameEndedPanel("All Clear! Good job!");
     }
     private void OnWordValidationComplete(bool exists)
     {
@@ -238,7 +234,9 @@ public class GameManager : MonoBehaviour
             selectedLetters.Clear();
 
             accPuntuation = 0;
-            accBonusMultiplyer = 0;            
+            accBonusMultiplyer = 0;
+
+            CheckBoardEmpty();
         }
         else
         {

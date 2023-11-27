@@ -6267,22 +6267,6 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 6348974475049724132, guid: b1fbf05cc75b29744b758f770a7c5cdb, type: 3}
-      propertyPath: upLeftCollider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6348974475049724132, guid: b1fbf05cc75b29744b758f770a7c5cdb, type: 3}
-      propertyPath: upRightCollider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6348974475049724132, guid: b1fbf05cc75b29744b758f770a7c5cdb, type: 3}
-      propertyPath: downLeftCollider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6348974475049724132, guid: b1fbf05cc75b29744b758f770a7c5cdb, type: 3}
-      propertyPath: downRightCollider
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

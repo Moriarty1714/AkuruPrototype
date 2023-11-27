@@ -126,7 +126,7 @@ public class LetterController : MonoBehaviour
     {
     }
     // Evento de click del mouse
-    void OnMouseDown()
+    public void OnMouseDown()
     {
         //viewLetter.animation.Stop();
         //viewLetter.animation.Play("LetterAnimOnMouseDown");
@@ -137,7 +137,7 @@ public class LetterController : MonoBehaviour
         }
     }
 
-    private void OnMouseUp() 
+    public void OnMouseUp() 
     {
         //viewLetter.animation.Stop();
         //viewLetter.animation.Play("LetterAnimOnMouseUp");
