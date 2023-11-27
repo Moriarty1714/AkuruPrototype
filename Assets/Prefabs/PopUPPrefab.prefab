@@ -258,7 +258,10 @@ MonoBehaviour:
   scale: 0
   time: 0
   invert: 0
-  popUP: {fileID: 2761602327010316373}
+  afectedObj:
+  - {fileID: 2761602327010316373}
+  - {fileID: 8602669790437308091}
+  - {fileID: 5380745702756359175}
 --- !u!1 &2761602327010316373
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,24 +9,32 @@ public class ScaleAnimDOTww : MonoBehaviour
 
     public bool invert = false;
 
-    public GameObject popUP;
+    public GameObject[] afectedObj;
 
     void Start()
     {
         DOTween.Init();
-        popUP.transform.DOScale(0, 0);
+        for (int i = 0; i < afectedObj.Length; i++)
+        {
+            afectedObj[i].transform.DOScale(0, 0);
+        }
+        
         ScaleUP();
     }
-
     public void ScaleUP()
     {
-        popUP.transform.DOScale(1, 1);
+        for (int i = 0; i < afectedObj.Length; i++)
+        {
+            afectedObj[i].transform.DOScale(afectedObj[i].gameObject.transform.localScale, 1);
+        }
     }
     public void ScaleDown()
     {
-        popUP.transform.DOScale(0, 1).OnComplete(Desactivate);
+        for (int i = 0; i < afectedObj.Length; i++)
+        {
+            afectedObj[i].transform.DOScale(0, 1).OnComplete(Desactivate);
+        }
     }
-
     void Desactivate()
     {
         this.gameObject.SetActive(false);
