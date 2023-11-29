@@ -121,7 +121,6 @@ public class GameManager : MonoBehaviour
 
     private float startSesionInSeconds;
 
-    public UnityEvent tutoEvent;
 
     private void OnDisable()
     {
@@ -371,7 +370,6 @@ public class GameManager : MonoBehaviour
             selectedLetters.Insert(letterIndex,letterValue);
             ConcatenateLetters();
             
-            tutoEvent.Invoke();
 
             //Puntuation
             accPuntuation += lettersCtrl[letterValue].GetLetterPuntuation();

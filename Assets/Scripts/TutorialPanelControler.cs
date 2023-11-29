@@ -14,8 +14,11 @@ public class TutorialPanelControler : MonoBehaviour
 
     Coroutine waitingForDragMode = null;
     public UnityEvent onMouseDown, onMouseUp;
-    public UnityEvent onDragMode, onGameManager;
+    public UnityEvent onDragMode, onTrigger, onConstructor;
 
+    public GameManager gameManager;
+
+    bool dragMode = false, inTrigger = false;
 
 
     private void Start()
@@ -32,23 +35,34 @@ public class TutorialPanelControler : MonoBehaviour
     public void OnMouseUp()
     {
         if (waitingForDragMode != null) StopCoroutine(waitingForDragMode);
-        else
-        {
-            onMouseUp.Invoke();            
-        }
 
-        //if (gameManager.selectedLetters.Count == 8) // Check Board -.-
-        //{
-        //    Debug.Log("N letters:" + gameManager.selectedLetters.Count);
-        //    onGameManager.Invoke();
-        //}
+        if (dragMode)
+        {
+            if (gameManager != null)
+            {               
+                if (inTrigger) // Check Board -.-
+                {
+                    Debug.Log("NN letters:" + gameManager.selectedLetters.Count);
+                    onConstructor.Invoke();
+                }
+            }
+        }
     }
 
     IEnumerator DragMode()
     {
         yield return new WaitForSeconds(0.1f); //vigilar pq ha de ser el mateix que en el LetterControler
-
+        dragMode = true;
         onDragMode.Invoke();
         onMouseUp.Invoke();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "DragLetter")
+        {
+            onTrigger.Invoke();
+            inTrigger = true;
+        }
     }
 }
