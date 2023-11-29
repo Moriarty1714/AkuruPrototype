@@ -11,11 +11,44 @@ using UnityEngine.EventSystems;
 
 public class TutorialPanelControler : MonoBehaviour
 {
-    public UnityEvent onMouseDown;
 
+    Coroutine waitingForDragMode = null;
+    public UnityEvent onMouseDown, onMouseUp;
+    public UnityEvent onDragMode, onGameManager;
+
+
+
+    private void Start()
+    {        
+       
+    }
     void OnMouseDown()
     {
-        Debug.Log("Click");
         onMouseDown.Invoke();
+
+        waitingForDragMode = StartCoroutine(DragMode());
+    }
+
+    public void OnMouseUp()
+    {
+        if (waitingForDragMode != null) StopCoroutine(waitingForDragMode);
+        else
+        {
+            onMouseUp.Invoke();            
+        }
+
+        //if (gameManager.selectedLetters.Count == 8) // Check Board -.-
+        //{
+        //    Debug.Log("N letters:" + gameManager.selectedLetters.Count);
+        //    onGameManager.Invoke();
+        //}
+    }
+
+    IEnumerator DragMode()
+    {
+        yield return new WaitForSeconds(0.1f); //vigilar pq ha de ser el mateix que en el LetterControler
+
+        onDragMode.Invoke();
+        onMouseUp.Invoke();
     }
 }

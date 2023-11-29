@@ -10,6 +10,8 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -118,6 +120,8 @@ public class GameManager : MonoBehaviour
     private int puntuation;
 
     private float startSesionInSeconds;
+
+    public UnityEvent tutoEvent;
 
     private void OnDisable()
     {
@@ -366,6 +370,8 @@ public class GameManager : MonoBehaviour
             //Word
             selectedLetters.Insert(letterIndex,letterValue);
             ConcatenateLetters();
+            
+            tutoEvent.Invoke();
 
             //Puntuation
             accPuntuation += lettersCtrl[letterValue].GetLetterPuntuation();

@@ -212,6 +212,17 @@ public class LetterController : MonoBehaviour
 
     }
 
+    public void RemoveAmount()
+    {
+        amount--;
+    }
+
+    public void SetShop()
+    {
+        if(amount<1)
+        letterState = LetterState.SHOP; viewLetter.ChangeViewToStateShop(false);
+    }
+
     public void CopyLetter()
     {
         letterRef = Instantiate(letterConstructorPrefab); //esta copia se queda
