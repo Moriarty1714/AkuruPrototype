@@ -83,7 +83,7 @@ public class LetterController : MonoBehaviour
     [Header("Drag mode:")]
     [SerializeField] private float inputResponseInSeconds = 0.1f;
     [SerializeField] GameObject letterConstructorPrefab;
-    [SerializeField] GameObject letterRef;
+    [SerializeField] public GameObject letterRef;
 
     Coroutine waitingForDragMode = null;
 
