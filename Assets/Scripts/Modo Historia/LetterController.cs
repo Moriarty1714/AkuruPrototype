@@ -76,7 +76,7 @@ public class LetterController : MonoBehaviour
  
     [SerializeField] private int basePuntuation;
     [SerializeField] private char letter;
-    [SerializeField] int amount = 1;
+    [SerializeField] public int amount = 1;
     [SerializeField] private int extraPuntuation = 0;
 
     //Visual
@@ -215,6 +215,7 @@ public class LetterController : MonoBehaviour
     public void RemoveAmount()
     {
         amount--;
+        viewLetter.SetAmount(amount);
     }
 
     public void SetShop()
