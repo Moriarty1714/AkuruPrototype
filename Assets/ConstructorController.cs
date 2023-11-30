@@ -66,7 +66,7 @@ public class ConstructorController : MonoBehaviour
             for (int i = 0; i < editingWordLettersGO.Count; i++)
             {
                 Vector2 position = startPoint + direction * minDistanceBetweenObjects * i;
-                editingWordLettersGO[i].transform.position = position;
+                editingWordLettersGO[i].transform.position = new Vector3(position.x, position.y, -0.2f);
             }
         }
         public void SetActivePanel(bool _desicion) 

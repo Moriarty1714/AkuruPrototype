@@ -317,7 +317,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void RemoveAcceptedWord(string _word)
+    public void RemoveAcceptedWord(string _word)
     {
         int index = wordsCompleted.IndexOf(_word);
         int restAccPuntuation = 0;
