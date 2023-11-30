@@ -139,6 +139,7 @@ public class LetterController : MonoBehaviour
 
     public void OnMouseUp() 
     {
+        Debug.Log("Holi");
         //viewLetter.animation.Stop();
         //viewLetter.animation.Play("LetterAnimOnMouseUp");
         if (letterState == LetterState.NORMAL)
@@ -168,10 +169,10 @@ public class LetterController : MonoBehaviour
             }
         }
         else if (letterState == LetterState.SHOP && OnMouseOverButton() && Profile.Instance.UpdateProfileCoints(-10)) 
-       {
+        {
             ReturnLetter();
             InvokeOnBuyLetter(true);
-       }    
+        }    
     }
 
     // Regresa una letra
@@ -190,7 +191,7 @@ public class LetterController : MonoBehaviour
     {
         OnLetterMouseUp?.Invoke(letter,index);
     }
-    protected virtual void InvokeOnBuyLetter(bool _isPoosible)
+    public virtual void InvokeOnBuyLetter(bool _isPoosible)
     {
         OnBuyLetter?.Invoke(_isPoosible);
     }
