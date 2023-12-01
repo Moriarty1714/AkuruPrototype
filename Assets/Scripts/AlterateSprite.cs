@@ -26,8 +26,6 @@ public class AlterateSprite : MonoBehaviour
             afectedObj[i].transform.DOScale(new Vector3(afectedObj[i].gameObject.transform.localScale.x + scale,
                 afectedObj[i].gameObject.transform.localScale.y + scale,
                 afectedObj[i].gameObject.transform.localScale.z + scale), 1).OnComplete(ScaleDown);
-
-            //spr.color = spr.color = new Color(1f, 1f, 1f, 0.5f);
         }
     }
     public void ScaleDown()
@@ -38,8 +36,6 @@ public class AlterateSprite : MonoBehaviour
                 afectedObj[i].gameObject.transform.localScale.x - scale,
                 afectedObj[i].gameObject.transform.localScale.y - scale,
                 afectedObj[i].gameObject.transform.localScale.z - scale), 1).OnComplete(ScaleUP);
-
-            //spr.color = spr.color = new Color(1f, 1f, 1f, 1f);
         }
     }
     void Desactivate()
