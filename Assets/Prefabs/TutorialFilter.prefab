@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4106459062876297467}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.14130896, y: -1.2286812, z: 2.2553556}
-  m_LocalScale: {x: 60, y: 100, z: 0}
+  m_LocalScale: {x: 98.09, y: 100, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4584130976546511713}
@@ -99,10 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
   smallSquare: {fileID: 7327427787871703716}
-  upLeftCollider: {fileID: 0}
-  upRightCollider: {fileID: 0}
-  downLeftCollider: {fileID: 0}
-  downRightCollider: {fileID: 0}
 --- !u!1 &5135419386654142514
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +131,7 @@ Transform:
   - {fileID: 8172401183724345978}
   - {fileID: 7959781089772027163}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5600423779728458568
 GameObject:
