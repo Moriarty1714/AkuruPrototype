@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static ConstructorController;
 
 public class GameOverController : MonoBehaviour
@@ -27,5 +28,10 @@ public class GameOverController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void GoToScene(string _scene)
+    {
+        SceneManager.LoadScene(_scene);
     }
 }

@@ -8,7 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StoryMode.unity
     guid: 7c5190fa900968949b0d851b235b84b1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StoryGame.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/TEST_Tuto1.unity
+    guid: 3422f2abdf0085e4790aaab5bf3d8f7d
+  - enabled: 1
+    path: Assets/Scenes/TEST_Tuto2.unity
+    guid: 12927aaf5bc092b448ae0a30d06f53a7
+  - enabled: 1
+    path: Assets/Scenes/TEST_Tuto3.unity
+    guid: 3a8e509858ef73348b8de3e3a55820b7
   m_configObjects: {}
