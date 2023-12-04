@@ -38,6 +38,7 @@ public class AlterateSprite : MonoBehaviour
                 afectedObj[i].gameObject.transform.localScale.z - scale), 1).OnComplete(ScaleUP);
         }
     }
+
     void Desactivate()
     {
         this.gameObject.SetActive(false);
