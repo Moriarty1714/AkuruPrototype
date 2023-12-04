@@ -332,7 +332,8 @@ public class GameManager : MonoBehaviour
             }
 
             int restPuntuation = (int)(restAccPuntuation * (bonusMultiplyer * _word.Length));
-            puntuation -= restPuntuation;
+
+            puntuation = puntuation - restPuntuation >= 0 ? puntuation - restPuntuation : 0; 
 
             wordsCompleted.RemoveAt(index);
 
