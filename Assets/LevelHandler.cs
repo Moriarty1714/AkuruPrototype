@@ -6,11 +6,11 @@ using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+public enum StoryLevelType { LVL1, LVL2, LVL3, LVL4, LVL5, TESTLVL }
 public class LevelHandler : MonoBehaviour
 {
 
-    private enum StoryLevelType { LVL1, LVL2, LVL3, LVL4, LVL5, TESTLVL }
+    
     [SerializeField] private StoryLevelType storyLevelType;
 
     public LevelInfo levelInfo;

@@ -37,8 +37,8 @@ public class GameManager : MonoBehaviour
 
         public AcceptButtonController acceptButton;
 
-        public GameObject gameEndedPanel;
-        public TextMeshProUGUI gameEndedMissage;
+        public GameObject posGameEndedPanel;
+        public GameObject negGameEndedPanel;
 
         public TextMeshProUGUI playerCoinsTMP;
 
@@ -79,9 +79,12 @@ public class GameManager : MonoBehaviour
         }
 
 
-        public void GameEndedPanel(string _gameEndedFB) { 
-            gameEndedPanel.SetActive(true);
-            gameEndedMissage.text = _gameEndedFB;
+        public void GameEndedPanel(bool _isPos) 
+        {
+            if (_isPos)
+                posGameEndedPanel.SetActive(true);
+            else 
+                negGameEndedPanel.SetActive(true);
         }
         IEnumerator RestPuntuationFeedback(int _timerInSeconds)
         {
@@ -195,7 +198,7 @@ public class GameManager : MonoBehaviour
                     if (actualTimer <= 0)
                     {
                         gameState = GameState.GAMEENDED;
-                        uiElements.GameEndedPanel("Ooops! Times Up!");
+                        uiElements.GameEndedPanel(false);
                     }
                 }
                 break;
@@ -220,8 +223,11 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
+
+        //EndGame
         gameState = GameState.GAMEENDED;
-        uiElements.GameEndedPanel("All Clear! Good job!");
+        Profile.Instance.SetActualPuntuation(puntuation);
+        uiElements.GameEndedPanel(true);
     }
     private void OnWordValidationComplete(bool exists)
     {
@@ -249,11 +255,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            ////ReturnEditingWord
-            //foreach (string letterValue in selectedLetters)
-            //{
-            //    lettersCtrl[letterValue].ReturnLetter();
-            //}
             colorFeedback = Color.red;
         }
 
