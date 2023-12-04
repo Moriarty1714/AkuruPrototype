@@ -7,28 +7,30 @@ public class TutorialPanelControllerDragMode :  TutorialPanelControler
 {
     public UnityEvent onMouseUp;
     public ConstructorController constructorController;
-    public LetterController letterD;
+    public LetterController letterTutorial;
 
     private void OnMouseDown()
     {
         onMouseDown.Invoke();
-
-        letterD.OnMouseDown();
+        if (letterTutorial != null)
+        {
+            letterTutorial.OnMouseDown();
+        }
     }
     void OnMouseUp()
     {
-        if (letterD.letterRef != null) //Si tiene copia
+        if (letterTutorial.letterRef != null) //Si tiene copia
         {
-            letterD.OnMouseUp();
-            if (letterD.letterState == LetterState.SHOP)
+            letterTutorial.OnMouseUp();
+            if (letterTutorial.letterState == LetterState.SHOP)
             {
                 onMouseUp.Invoke();
             }
         }
         else
         {
-            letterD.CopyLetter();
-            letterD.OnMouseUp();
+            letterTutorial.CopyLetter();
+            letterTutorial.OnMouseUp();
         }
     }
     public void OnTriggerStay2D(Collider2D collision)
