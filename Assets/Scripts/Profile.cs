@@ -11,7 +11,7 @@ public class Profile
     // Constructor is private to prevent instantiation from outside the class.
     private Profile()
     {
-        playerCoins = 100;
+        playerCoins = 10;
         // Initialize your singleton here
     }
 

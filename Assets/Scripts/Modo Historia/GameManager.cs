@@ -137,6 +137,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
         if (!(StoryGameSettings.instance == null))
         {
             gameTimeSesionInSec = StoryGameSettings.instance.levelInfo.gameTimeSesionInSec;
