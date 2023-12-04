@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private enum GameState { PLAYING, GAMEENDED}
     private GameState gameState = GameState.PLAYING;
 
-    private const int MAX_LETTERS_IN_WORD = 15;
+    private const int MAX_LETTERS_IN_WORD = 10;
     
     private int gameTimeSesionInSec = 300;
     private Language gameLanguage;
