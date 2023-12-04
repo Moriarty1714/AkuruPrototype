@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ConstructorController constructorController;   
 
     private Dictionary<string, LetterController> lettersCtrl = new Dictionary<string, LetterController>();
-    public List<string> selectedLetters = new List<string>();
+    public List<string> initSelectedLetters = new List<string>();
 
     [SerializeField] private GameObject wordPrefab;
     private string editingWord;
@@ -165,13 +165,18 @@ public class GameManager : MonoBehaviour
         startSesionInSeconds = Time.time;
 
         //VIEW
-        ConcatenateLetters();
+        constructorController.constructorView.UpdateEditingWord(editingWord, this);
         constructorController.constructorView.UpdateEditingWord(editingWord, this);
         uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         uiElements.UpdatePuntuation(puntuation);
         uiElements.UpdatePlayerCoins();
 
-        
+        if (initSelectedLetters.Count > 0) {
+            foreach (string letter in initSelectedLetters)
+            {
+                AddLetter(letter);
+            }
+        }
     }
 
     private void Update()
@@ -234,7 +239,6 @@ public class GameManager : MonoBehaviour
             GenerateAcceptedWords();
 
             editingWord = string.Empty;
-            selectedLetters.Clear();
 
             accPuntuation = 0;
             accBonusMultiplyer = 0;
@@ -256,15 +260,6 @@ public class GameManager : MonoBehaviour
         constructorController.constructorView.UpdateEditingWord(editingWord, this);
         uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         uiElements.UpdateAcceptButton(true);
-    }
-    private void ConcatenateLetters()
-    {
-        editingWord = string.Empty;
-        foreach (string selectedLetter in selectedLetters)
-        {          
-            editingWord += selectedLetter;
-        }
-        constructorController.constructorView.UpdateEditingWord(editingWord, this);
     }
     private IEnumerator FadeToAndFromColor(Color color, float duration)
     {
@@ -313,8 +308,6 @@ public class GameManager : MonoBehaviour
             Debug.Log("Max completed words limit reach");
             throw;
         }
-           
-
     }
 
     public void RemoveAcceptedWord(string _word)
@@ -352,7 +345,7 @@ public class GameManager : MonoBehaviour
 
     public void ReturnEditingWord()
     {
-        int newletters = selectedLetters.Count;
+        int newletters = editingWord.Length;
         for (int i = 0; i < newletters; i++)
         {
             RemoveLetter(0);
@@ -361,16 +354,15 @@ public class GameManager : MonoBehaviour
   
     public void AddLetter(string letterValue, int _index = -1) //SI index == -1 ->Se borra la última referencia)
     {
-        if (selectedLetters.Count < MAX_LETTERS_IN_WORD)
+        if (editingWord.Length < MAX_LETTERS_IN_WORD)
         {
-            int letterIndex = _index == -1 ? selectedLetters.Count : _index;
+            int letterIndex = _index == -1 ? editingWord.Length : _index;
 
             Debug.Log("Added " + letterValue + " IN " + _index.ToString());
 
             //Word
-            selectedLetters.Insert(letterIndex,letterValue);
-            ConcatenateLetters();
-            
+            editingWord = editingWord.Insert(letterIndex,letterValue); 
+            constructorController.constructorView.UpdateEditingWord(editingWord, this);
 
             //Puntuation
             accPuntuation += lettersCtrl[letterValue].GetLetterPuntuation();
@@ -386,13 +378,10 @@ public class GameManager : MonoBehaviour
     }
     public void RemoveLetter(int _index, bool _isDrag = false) //SI index == -1 ->Se borra la última referencia
     {
-        if (selectedLetters.Count > 0)
+        if (editingWord.Length > 0)
         {
-            int letterIndex = _index == -1? selectedLetters.Count - 1: _index;
-
-            
-            string letterValue = selectedLetters[letterIndex];
-           
+            int letterIndex = _index == -1? editingWord.Length - 1: _index;
+            string letterValue = editingWord[letterIndex].ToString();
 
             Debug.Log("Removed " + letterValue + " IN " + letterIndex);
 
@@ -400,8 +389,8 @@ public class GameManager : MonoBehaviour
             if(!_isDrag)
             lettersCtrl[letterValue].ReturnLetter();
 
-            selectedLetters.RemoveAt(letterIndex);
-            ConcatenateLetters();
+            editingWord = editingWord.Remove(letterIndex);
+            constructorController.constructorView.UpdateEditingWord(editingWord, this);
 
             //Puntuation
             accPuntuation -= lettersCtrl[letterValue].GetLetterPuntuation();
@@ -414,17 +403,17 @@ public class GameManager : MonoBehaviour
 
     public void RemoveLetter(int _index) //SI index == -1 ->Se borra la última referencia
     {
-        if (selectedLetters.Count > 0)
+        if (editingWord.Length > 0)
         {
-            int letterIndex = selectedLetters.Count - 1;
-            string letterValue = selectedLetters[letterIndex];
+            int letterIndex = editingWord.Length - 1;
+            string letterValue = editingWord[letterIndex].ToString();
 
             Debug.Log("Removed " + letterValue + " IN " + letterIndex);
             
             lettersCtrl[letterValue].ReturnLetter();
 
-            selectedLetters.RemoveAt(letterIndex);
-            ConcatenateLetters();
+            editingWord =editingWord.Remove(letterIndex);
+            constructorController.constructorView.UpdateEditingWord(editingWord, this);
 
             //Puntuation
             accPuntuation -= lettersCtrl[letterValue].GetLetterPuntuation();
@@ -438,7 +427,6 @@ public class GameManager : MonoBehaviour
     public void ReturnLetterInLimbo( string _letter) //SI index == -1 ->Se borra la última referencia
     {
             string letterValue = _letter;
-
             lettersCtrl[_letter].ReturnLetter();
     }
 
