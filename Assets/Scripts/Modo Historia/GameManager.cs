@@ -392,7 +392,7 @@ public class GameManager : MonoBehaviour
             if(!_isDrag)
             lettersCtrl[letterValue].ReturnLetter();
 
-            editingWord = editingWord.Remove(letterIndex);
+            editingWord = editingWord.Remove(letterIndex,1);
             constructorController.constructorView.UpdateEditingWord(editingWord, this);
 
             //Puntuation
@@ -415,7 +415,7 @@ public class GameManager : MonoBehaviour
             
             lettersCtrl[letterValue].ReturnLetter();
 
-            editingWord =editingWord.Remove(letterIndex);
+            editingWord =editingWord.Remove(letterIndex,1);
             constructorController.constructorView.UpdateEditingWord(editingWord, this);
 
             //Puntuation
