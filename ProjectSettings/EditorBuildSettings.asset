@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StoryMode.unity
     guid: 7c5190fa900968949b0d851b235b84b1
   - enabled: 0

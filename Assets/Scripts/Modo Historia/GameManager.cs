@@ -1,17 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using TMPro;
-using Unity.Collections.LowLevel.Unsafe;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.XR;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
+using UnityEditor.SearchService;
 
 public class GameManager : MonoBehaviour
 {
@@ -227,6 +221,10 @@ public class GameManager : MonoBehaviour
         //EndGame
         gameState = GameState.GAMEENDED;
         Profile.Instance.SetActualPuntuation(puntuation);
+
+        if (SceneManager.GetActiveScene().name == "TEST_Tuto2") 
+            Profile.Instance.UpdateProfileCoints(10);
+
         uiElements.GameEndedPanel(true);
     }
     private void OnWordValidationComplete(bool exists)

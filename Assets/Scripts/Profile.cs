@@ -11,7 +11,6 @@ public class Profile
     private int actualPlayPuntuation = -1;
     private Profile()
     {
-        playerCoins = 0;
         // Initialize your singleton here
     }
 
