@@ -3294,7 +3294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5135419386654142514, guid: b1fbf05cc75b29744b758f770a7c5cdb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5600423779728458568, guid: b1fbf05cc75b29744b758f770a7c5cdb, type: 3}
       propertyPath: m_IsActive
@@ -4188,7 +4188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1147816498257445992, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1572407591673163697, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_LocalScale.x
@@ -8401,6 +8401,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1100400191733473727, guid: f81d8f9bd69409f4c8b9b19d36a96999, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2874959449043919908, guid: f81d8f9bd69409f4c8b9b19d36a96999, type: 3}
       propertyPath: m_Name
       value: GameOver Panels
@@ -8942,7 +8946,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955991305182990522, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_text
-      value: "\rThis is the construcor, here you can create and modify words"
+      value: "\rThis is the constructor, here you can create and modify words"
       objectReference: {fileID: 0}
     - target: {fileID: 1955991305182990522, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_fontSize

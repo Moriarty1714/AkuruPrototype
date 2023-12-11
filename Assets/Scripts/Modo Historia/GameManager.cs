@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEditor.SearchService;
 
 public class GameManager : MonoBehaviour
 {
@@ -222,7 +221,7 @@ public class GameManager : MonoBehaviour
         gameState = GameState.GAMEENDED;
         Profile.Instance.SetActualPuntuation(puntuation);
 
-        if (SceneManager.GetActiveScene().name == "TEST_Tuto2") 
+        if (SceneManager.GetActiveScene().name == "TEST_Tuto3") 
             Profile.Instance.UpdateProfileCoints(10);
 
         uiElements.GameEndedPanel(true);

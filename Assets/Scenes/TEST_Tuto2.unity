@@ -7609,11 +7609,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955991305182990522, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_margin.x
-      value: -358.05707
+      value: -205.5293
       objectReference: {fileID: 0}
     - target: {fileID: 1955991305182990522, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_margin.z
-      value: -356.11212
+      value: -223.63626
       objectReference: {fileID: 0}
     - target: {fileID: 2073689966149313660, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_LocalScale.x
@@ -9104,11 +9104,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955991305182990522, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_margin.x
-      value: -358.05707
+      value: -209.39862
       objectReference: {fileID: 0}
     - target: {fileID: 1955991305182990522, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_margin.z
-      value: -356.11212
+      value: -204.20267
       objectReference: {fileID: 0}
     - target: {fileID: 2073689966149313660, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_LocalScale.x
@@ -10407,6 +10407,14 @@ PrefabInstance:
     - target: {fileID: 1955991305182990522, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_text
       value: You must use all consonant to complete the level
+      objectReference: {fileID: 0}
+    - target: {fileID: 1955991305182990522, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
+      propertyPath: m_margin.x
+      value: -224.46817
+      objectReference: {fileID: 0}
+    - target: {fileID: 1955991305182990522, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
+      propertyPath: m_margin.z
+      value: -219.85236
       objectReference: {fileID: 0}
     - target: {fileID: 2073689966149313660, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -15675,11 +15683,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955991305182990522, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_margin.x
-      value: -358.05707
+      value: -222.79047
       objectReference: {fileID: 0}
     - target: {fileID: 1955991305182990522, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_margin.z
-      value: -356.11212
+      value: -226.4657
       objectReference: {fileID: 0}
     - target: {fileID: 2073689966149313660, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -16614,7 +16622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955991305182990522, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_text
-      value: Good Job! now drag the next letter
+      value: Good Job! Now, drag the next letter
       objectReference: {fileID: 0}
     - target: {fileID: 2073689966149313660, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_AnchoredPosition.x

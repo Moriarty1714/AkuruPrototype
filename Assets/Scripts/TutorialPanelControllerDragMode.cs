@@ -19,18 +19,21 @@ public class TutorialPanelControllerDragMode :  TutorialPanelControler
     }
     void OnMouseUp()
     {
-        if (letterTutorial.letterRef != null) //Si tiene copia
+        if (letterTutorial != null)
         {
-            letterTutorial.OnMouseUp();
-            if (letterTutorial.letterState == LetterState.SHOP)
+            if (letterTutorial.letterRef != null) //Si tiene copia
             {
-                onMouseUp.Invoke();
+                letterTutorial.OnMouseUp();
+                if (letterTutorial.letterState == LetterState.SHOP)
+                {
+                    onMouseUp.Invoke();
+                }
             }
-        }
-        else
-        {
-            letterTutorial.CopyLetter();
-            letterTutorial.OnMouseUp();
+            else
+            {
+                letterTutorial.CopyLetter();
+                letterTutorial.OnMouseUp();
+            }
         }
     }
     public void OnTriggerStay2D(Collider2D collision)
