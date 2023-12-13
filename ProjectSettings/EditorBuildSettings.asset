@@ -16,8 +16,11 @@ EditorBuildSettings:
     guid: 3422f2abdf0085e4790aaab5bf3d8f7d
   - enabled: 1
     path: Assets/Scenes/TEST_Tuto2.unity
-    guid: 12927aaf5bc092b448ae0a30d06f53a7
+    guid: fbd6445c6c8ee0e4ea6d5e88de3e5bd2
   - enabled: 1
     path: Assets/Scenes/TEST_Tuto3.unity
+    guid: 12927aaf5bc092b448ae0a30d06f53a7
+  - enabled: 1
+    path: Assets/Scenes/TEST_Tuto4.unity
     guid: 3a8e509858ef73348b8de3e3a55820b7
   m_configObjects: {}

@@ -1,38 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
 public class ScaleAnimDOTww : MonoBehaviour
 {
-    public float scale, time;
+    private float time =0.5f;
 
     public bool invert = false;
 
     public GameObject[] afectedObj;
 
+    private Vector2[] normalScale;
+
     void Start()
     {
+        normalScale = new Vector2[afectedObj.Length];
+
         DOTween.Init();
         for (int i = 0; i < afectedObj.Length; i++)
         {
-            afectedObj[i].transform.DOScale(0, 0);
+            normalScale[i] = afectedObj[i].transform.localScale;
+            afectedObj[i].transform.localScale = new Vector2(0, 0);
         }
-        
-        ScaleUP();
+
+        StartCoroutine(WaitScaleDownAndScaleUp());
     }
     public void ScaleUP()
     {
         for (int i = 0; i < afectedObj.Length; i++)
         {
-            afectedObj[i].transform.DOScale(afectedObj[i].gameObject.transform.localScale, 1);
+            afectedObj[i].transform.GetComponent<RectTransform>().DOScale(normalScale[i], time);
         }
     }
     public void ScaleDown()
     {
         for (int i = 0; i < afectedObj.Length; i++)
         {
-            afectedObj[i].transform.DOScale(0, 1).OnComplete(Desactivate);
+            afectedObj[i].transform.DOScale(0, time).OnComplete(Desactivate);
         }
     }
     void Desactivate()
@@ -40,4 +46,9 @@ public class ScaleAnimDOTww : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    IEnumerator WaitScaleDownAndScaleUp() {
+        yield return new WaitForSeconds(time);
+
+        ScaleUP();
+    }
 }

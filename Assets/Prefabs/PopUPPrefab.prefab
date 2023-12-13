@@ -256,13 +256,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26556078fba18ad49ab89a5b2c258593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 0
-  time: 0
   invert: 0
   afectedObj:
   - {fileID: 2761602327010316373}
   - {fileID: 8602669790437308091}
   - {fileID: 5380745702756359175}
+  - {fileID: 5829995683130096764}
 --- !u!1 &2761602327010316373
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEditor;
 
 public class Move_DoTween : MonoBehaviour
 {
@@ -15,20 +16,7 @@ public class Move_DoTween : MonoBehaviour
     {
         DOTween.Init();
 
-        if (xAxis)
-        {
-            if (invert)
-                MoveXUP();
-            else
-                MoveXDown();
-        }
-        else if (yAxis)
-        {
-            if (invert)
-                MoveYUP();
-            else
-                MoveYDown();
-        }
+       StartCoroutine(WaitForPopUpScaleUp());
     }
 
     void MoveYUP()
@@ -49,4 +37,22 @@ public class Move_DoTween : MonoBehaviour
         transform.DOMoveX(transform.position.x - distance, time).OnComplete(MoveXUP);
     }
 
+    IEnumerator WaitForPopUpScaleUp() {
+        yield return new WaitForSeconds(1f);
+
+        if (xAxis)
+        {
+            if (invert)
+                MoveXUP();
+            else
+                MoveXDown();
+        }
+        else if (yAxis)
+        {
+            if (invert)
+                MoveYUP();
+            else
+                MoveYDown();
+        }
+    }
 }
