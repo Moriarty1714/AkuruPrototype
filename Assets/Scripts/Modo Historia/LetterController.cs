@@ -28,11 +28,19 @@ public class LetterController : MonoBehaviour
         public GameObject coinsObj;
 
         // Setea la puntuación y maneja la visibilidad del elemento de puntuación
-        public void SetColorPuntuation(int basePuntuation, int extraPuntuation = 0)
+        public void SetColorPuntuation(LetterType _letterType, int basePuntuation, int extraPuntuation = 0)
         {
-            // Cambiar el color del SpriteRenderer
-            float t = Mathf.InverseLerp(1, 10, basePuntuation);
-            spr.color = Color.Lerp(Color.blue, Color.yellow, t);
+            if (_letterType == LetterType.CONSONANT)
+            {
+                // Definir los colores pastel
+                Color pastelBlue = new Color(0.678f, 0.847f, 0.902f); // Pastel Blue
+                Color pastelYellow = new Color(0.992f, 0.992f, 0.588f); // Pastel Yellow
+
+                // Cambiar el color del SpriteRenderer
+                float t = Mathf.InverseLerp(1, 10, basePuntuation+ extraPuntuation);
+                spr.color = Color.Lerp(pastelBlue, pastelYellow, t);
+
+            }
 
             // Activar o desactivar el GameObject "glow"
             extraPuntuationEffect.SetActive(extraPuntuation != 0);
@@ -111,7 +119,7 @@ public class LetterController : MonoBehaviour
 
         GetComponentsInChildren<TextMeshPro>()[0].text =letter.ToString();
 
-        viewLetter.SetColorPuntuation(basePuntuation, extraPuntuation);
+        viewLetter.SetColorPuntuation(letterType, basePuntuation, extraPuntuation);
         viewLetter.SetAmount(amount);
 
         if(letter == 'A' || letter == 'E' ||letter == 'I' || letter == 'O' || letter == 'U')//Set img depending if is vocalo or not

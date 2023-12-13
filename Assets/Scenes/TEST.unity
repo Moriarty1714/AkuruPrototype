@@ -8531,6 +8531,10 @@ PrefabInstance:
       propertyPath: letter
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 1812633230795264161, guid: 80a1664427d14e04ca18f82a4adb0c6d, type: 3}
+      propertyPath: extraPuntuation
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1846169185248120389, guid: 80a1664427d14e04ca18f82a4adb0c6d, type: 3}
       propertyPath: letter
       value: 70
