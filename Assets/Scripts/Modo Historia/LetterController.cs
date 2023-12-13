@@ -124,6 +124,8 @@ public class LetterController : MonoBehaviour
         if(letter == 'A' || letter == 'E' ||letter == 'I' || letter == 'O' || letter == 'U')//Set img depending if is vocalo or not
         {
             viewLetter.spr.sprite = viewLetter.vocalImg;
+            viewLetter.spr.gameObject.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+            viewLetter.spr.gameObject.transform.position += new Vector3(0f, -0.07f, 0f);
         }
         else
         {
