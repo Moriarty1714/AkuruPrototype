@@ -20,6 +20,7 @@ public class LetterController : MonoBehaviour
         public TextMeshPro amountTMP;
         public Animation animation;
         public SpriteRenderer spr;
+        public GameObject vocalImg, consonantImg;
         public TextMeshPro letterTMP;
 
         public GameObject puntuation;
@@ -119,6 +120,12 @@ public class LetterController : MonoBehaviour
 
         viewLetter.SetPuntuation(basePuntuation, extraPuntuation);
         viewLetter.SetAmount(amount);
+
+        if(letter == 'A' || letter == 'E' ||letter == 'I' || letter == 'O' || letter == 'U')//Set img depending if is vocalo or not
+        {
+            viewLetter.vocalImg.SetActive(true);
+            viewLetter.consonantImg.SetActive(false);
+        }
        
     }
 
