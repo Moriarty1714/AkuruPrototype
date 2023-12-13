@@ -16,33 +16,26 @@ public class LetterController : MonoBehaviour
     [System.Serializable]
     private class ViewLetter
     {
-        public TextMeshPro puntuationTMP;
         public TextMeshPro amountTMP;
         public Animation animation;
         public SpriteRenderer spr;
         public Sprite vocalImg, consonantImg;
         public TextMeshPro letterTMP;
 
+        public GameObject extraPuntuationEffect;
         public GameObject puntuation;
         public GameObject number;
         public GameObject coinsObj;
 
         // Setea la puntuación y maneja la visibilidad del elemento de puntuación
-        public void SetPuntuation(int basePuntuation, int extraPuntuation = 0)
+        public void SetColorPuntuation(int basePuntuation, int extraPuntuation = 0)
         {
-            bool isBasePuntuationZero = basePuntuation == 0;
-            puntuationTMP.gameObject.SetActive(!isBasePuntuationZero);
+            // Cambiar el color del SpriteRenderer
+            float t = Mathf.InverseLerp(1, 10, basePuntuation);
+            spr.color = Color.Lerp(Color.blue, Color.yellow, t);
 
-            if (!isBasePuntuationZero)
-            {
-                puntuationTMP.text = "+" + (extraPuntuation + basePuntuation).ToString();
-
-                if (extraPuntuation != 0)
-                {
-                    //Feedback for extrapower
-                    //puntuationTMP.gameObject.GetComponentInParent<SpriteRenderer>().color = Color.yellow;
-                }
-            }
+            // Activar o desactivar el GameObject "glow"
+            extraPuntuationEffect.SetActive(extraPuntuation != 0);
         }
 
         // Setea la cantidad y maneja la representación visual de la misma
@@ -118,7 +111,7 @@ public class LetterController : MonoBehaviour
 
         GetComponentsInChildren<TextMeshPro>()[0].text =letter.ToString();
 
-        viewLetter.SetPuntuation(basePuntuation, extraPuntuation);
+        viewLetter.SetColorPuntuation(basePuntuation, extraPuntuation);
         viewLetter.SetAmount(amount);
 
         if(letter == 'A' || letter == 'E' ||letter == 'I' || letter == 'O' || letter == 'U')//Set img depending if is vocalo or not

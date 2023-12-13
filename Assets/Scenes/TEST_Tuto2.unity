@@ -8603,7 +8603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955991305182990522, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: m_text
-      value: Finish the word
+      value: Clear all consonants
       objectReference: {fileID: 0}
     - target: {fileID: 4339238305750584306, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
       propertyPath: yAxis
