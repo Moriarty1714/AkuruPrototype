@@ -107,16 +107,7 @@ public class LetterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (amount < 1) {
-            letterState = LetterState.SHOP;
-            //Decidir si poner que se pueda comprar si empiezas la partida con la letra desactivada.
-            viewLetter.ChangeViewToStateShop(false);
-        }
-        else
-        {
-            letterState = LetterState.NORMAL;
-        }
-
+       
         GetComponentsInChildren<TextMeshPro>()[0].text =letter.ToString();
 
         viewLetter.SetColorPuntuation(letterType, basePuntuation, extraPuntuation);
@@ -133,8 +124,16 @@ public class LetterController : MonoBehaviour
             viewLetter.spr.sprite = viewLetter.consonantImg;
         }
 
-
-       
+        if (amount < 1)
+        {
+            letterState = LetterState.SHOP;
+            //Decidir si poner que se pueda comprar si empiezas la partida con la letra desactivada.
+            viewLetter.ChangeViewToStateShop(false);
+        }
+        else
+        {
+            letterState = LetterState.NORMAL;
+        }
     }
 
     private void Update()
@@ -183,7 +182,7 @@ public class LetterController : MonoBehaviour
                 LetterAccepted();
             }
         }
-        else if (letterState == LetterState.SHOP && OnMouseOverButton() && Profile.Instance.UpdateProfileCoints(-10)) 
+        else if (letterState == LetterState.SHOP && OnMouseOverButton() && Profile.Instance.CanBuy(-10)) 
         {
             ReturnLetter();
             InvokeOnBuyLetter(true);
@@ -208,6 +207,7 @@ public class LetterController : MonoBehaviour
     }
     public virtual void InvokeOnBuyLetter(bool _isPoosible)
     {
+        Profile.Instance.UpdateProfileCoints(-10);
         OnBuyLetter?.Invoke(_isPoosible);
     }
     //Getters

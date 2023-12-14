@@ -25,15 +25,17 @@ public class Profile
             return _instance;
         }
     }
-    public bool UpdateProfileCoints(int _coins)
+
+    public bool CanBuy(int _coins)
+    {
+        return _coins + playerCoins >= 0;
+    }
+    public void UpdateProfileCoints(int _coins)
     {
         if (_coins + playerCoins >= 0) 
         {
             playerCoins += _coins;
-            return true;
         }           
-
-        return false;
     }
 
     public void SetActualPuntuation(int _puntuation) 

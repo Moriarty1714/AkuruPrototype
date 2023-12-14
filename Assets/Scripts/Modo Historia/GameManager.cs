@@ -168,6 +168,7 @@ public class GameManager : MonoBehaviour
         uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         uiElements.UpdatePuntuation(puntuation);
         uiElements.UpdatePlayerCoins();
+        GenerateAcceptedWords();
 
         if (initSelectedLetters.Count > 0) {
             foreach (string letter in initSelectedLetters)
