@@ -12,6 +12,10 @@ public class LightLetters : MonoBehaviour
     public GameObject[] objetosParaIluminar; // Array de GameObjects a iluminar en secuencia
     public GameObject objetoAMover; // GameObject a mover en la secuencia
 
+    public GameObject initialPos; // GameObject a mover en la secuencia
+
+
+
     private SpriteRenderer[] spriteRenderers;
     private LetterController[] letterControllers;
     private Transform[] transformLetters;
@@ -40,7 +44,14 @@ public class LightLetters : MonoBehaviour
             transformLetters[i] = lettersAIluminar[i].GetComponent<Transform>();
         }
 
-        objetoAMover.transform.position = transformLetters[0].position;
+        if(initialPos != null)
+        {
+            objetoAMover.transform.position = initialPos.transform.position;
+        }
+        else
+        {
+            objetoAMover.transform.position = transformLetters[0].position;
+        }
 
         IniciarSecuenciaIluminacion();
         IniciarSecuenciaRecorrido();
@@ -83,7 +94,16 @@ public class LightLetters : MonoBehaviour
     IEnumerator RecorridoSecuenciaCoroutine()
     {
         DOTween.Clear();
-        objetoAMover.transform.position = letterControllers[0].transform.position;
+        if (initialPos != null)
+        {
+            objetoAMover.transform.position = initialPos.transform.position;
+        }
+        else
+        {
+            objetoAMover.transform.position = letterControllers[0].transform.position;
+        }
+
+        
 
         Vector3[] lettersPositions = new Vector3[lettersAIluminar.Length];
         for (int i = 0; i < lettersAIluminar.Length; i++)
