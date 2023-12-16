@@ -249,11 +249,13 @@ public class GameManager : MonoBehaviour
             accPuntuation = 0;
             accBonusMultiplyer = 0;
 
+            AudioManager.Instance.PlaySFX("AcceptedWord");
             CheckBoardEmpty();
         }
         else
         {
             colorFeedback = Color.red;
+            AudioManager.Instance.PlaySFX("NotAcceptedWord");
         }
 
         //VIEW

@@ -8261,51 +8261,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f7370cb3191af94696dc00d81dbf24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1407352244
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1407352246}
-  - component: {fileID: 1407352245}
-  m_Layer: 0
-  m_Name: InstanciateEffectTouch
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1407352245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1407352244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b14261fd433a346489b504042f1b328d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particle: {fileID: 6400457929481621375, guid: 6fc0c8deae6ca77409bcc985dca47d2d, type: 3}
---- !u!4 &1407352246
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1407352244}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7719227, y: -0.27304298, z: -0.958058}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1411854749
 GameObject:
   m_ObjectHideFlags: 0
@@ -10122,6 +10077,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1936492680}
   m_CullTransparentMesh: 1
+--- !u!1001 &1942463931
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8624640771546632455, guid: 33493bcd5a8bfe844923fedcda17e7b0, type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624640771546632455, guid: 33493bcd5a8bfe844923fedcda17e7b0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.7719227
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624640771546632455, guid: 33493bcd5a8bfe844923fedcda17e7b0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.27304298
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624640771546632455, guid: 33493bcd5a8bfe844923fedcda17e7b0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.958058
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624640771546632455, guid: 33493bcd5a8bfe844923fedcda17e7b0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624640771546632455, guid: 33493bcd5a8bfe844923fedcda17e7b0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624640771546632455, guid: 33493bcd5a8bfe844923fedcda17e7b0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624640771546632455, guid: 33493bcd5a8bfe844923fedcda17e7b0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624640771546632455, guid: 33493bcd5a8bfe844923fedcda17e7b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624640771546632455, guid: 33493bcd5a8bfe844923fedcda17e7b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624640771546632455, guid: 33493bcd5a8bfe844923fedcda17e7b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787912470477608145, guid: 33493bcd5a8bfe844923fedcda17e7b0, type: 3}
+      propertyPath: m_Name
+      value: InstanciateEffectTouch
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 33493bcd5a8bfe844923fedcda17e7b0, type: 3}
 --- !u!1 &1954042128 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1147816498257445992, guid: 4064dcb208c4809418e09317aab3db31, type: 3}
