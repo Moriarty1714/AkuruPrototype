@@ -5043,6 +5043,10 @@ PrefabInstance:
       propertyPath: letter
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 1286259637053478848, guid: 80a1664427d14e04ca18f82a4adb0c6d, type: 3}
+      propertyPath: basePuntuation
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1485135095024269404, guid: 80a1664427d14e04ca18f82a4adb0c6d, type: 3}
       propertyPath: m_IsActive
       value: 0

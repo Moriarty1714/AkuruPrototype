@@ -18,6 +18,7 @@ public class ConstructorController : MonoBehaviour
         public float minDistanceBetweenObjects = 0.5f;
 
         public GameObject OnDragDetectedPanel;
+        public GameObject lastLetterRef;
 
         public void UpdateEditingWord(string _editingWord, GameManager _gameManager)
         {
