@@ -164,7 +164,6 @@ public class GameManager : MonoBehaviour
 
         //VIEW
         constructorController.constructorView.UpdateEditingWord(editingWord, this);
-        constructorController.constructorView.UpdateEditingWord(editingWord, this);
         uiElements.UpdateAccPuntAndBonMult(accPuntuation, accBonusMultiplyer);
         uiElements.UpdatePuntuation(puntuation);
         uiElements.UpdatePlayerCoins();
@@ -249,7 +248,7 @@ public class GameManager : MonoBehaviour
             accPuntuation = 0;
             accBonusMultiplyer = 0;
 
-            AudioManager.Instance.PlaySFX("AcceptedWord");
+            //AudioManager.Instance.PlaySFX("AcceptedWord");
             CheckBoardEmpty();
         }
         else

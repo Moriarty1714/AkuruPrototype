@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class LevelInfo
@@ -24,8 +25,8 @@ public class LevelInfo
     }
 
     public Dictionary<char, LetterInfo> letterInfo = new Dictionary<char, LetterInfo>() { { 'A', new LetterInfo() }, { 'B', new LetterInfo() }, { 'C', new LetterInfo() }, { 'D', new LetterInfo() }, { 'E', new LetterInfo() }, { 'F', new LetterInfo() }, { 'G', new LetterInfo() }, { 'H', new LetterInfo() }, { 'I', new LetterInfo() }, { 'J', new LetterInfo() }, { 'K', new LetterInfo() }, { 'L', new LetterInfo() }, { 'M', new LetterInfo() }, { 'N', new LetterInfo() }, { 'O', new LetterInfo() }, { 'P', new LetterInfo() }, { 'Q', new LetterInfo() }, { 'R', new LetterInfo() }, { 'S', new LetterInfo() }, { 'T', new LetterInfo() }, { 'U', new LetterInfo() }, { 'V', new LetterInfo() }, { 'W', new LetterInfo() }, { 'X', new LetterInfo() }, { 'Y', new LetterInfo() }, { 'Z', new LetterInfo() } };
-    public int gameTimeSesionInSec = 150;
-    public Language gameLanguage;
+    public int gameTimeSesionInSec = 300;
+    public Language gameLanguage = Language.CATALAN;
 
     public void SetRandomLevel() //RandomLevelInfo
     {
@@ -74,19 +75,26 @@ public class LevelInfo
     }
     public void SetTableConfiguration(int _level)
     {
-        for (int i = 0; i < letterInfo.Count; i++)
+        if (_level <= 9)
         {
-            char actualLetterIndex = letterInfo.ElementAt(i).Key;
-            int primerElemento = 0;
-            int segundoElemento = 0;
-            int tercerElemento = 0;
+            for (int i = 0; i < letterInfo.Count; i++)
+            {
+                char actualLetterIndex = letterInfo.ElementAt(i).Key;
+                int primerElemento = 0;
+                int segundoElemento = 0;
+                int tercerElemento = 0;
 
-            int.TryParse(HandleTSV.Instance.levelInfo[_level][actualLetterIndex][0], out primerElemento);
-            int.TryParse(HandleTSV.Instance.levelInfo[_level][actualLetterIndex][1], out segundoElemento);
-            int.TryParse(HandleTSV.Instance.levelInfo[_level][actualLetterIndex][2], out tercerElemento);
-            
-            LetterInfo letterInfoTmp = new LetterInfo(primerElemento, segundoElemento, tercerElemento);
-            letterInfo[actualLetterIndex] = letterInfoTmp;           
+                int.TryParse(HandleTSV.Instance.levelInfo[_level][actualLetterIndex][0], out primerElemento);
+                int.TryParse(HandleTSV.Instance.levelInfo[_level][actualLetterIndex][1], out segundoElemento);
+                int.TryParse(HandleTSV.Instance.levelInfo[_level][actualLetterIndex][2], out tercerElemento);
+
+                LetterInfo letterInfoTmp = new LetterInfo(primerElemento, segundoElemento, tercerElemento);
+                letterInfo[actualLetterIndex] = letterInfoTmp;
+            }
+        }
+        else //Tmp prototype
+        {
+            SceneManager.LoadScene("MainMenu");
         }
     }
     

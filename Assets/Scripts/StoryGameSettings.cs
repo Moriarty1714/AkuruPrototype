@@ -5,7 +5,7 @@ using UnityEngine;
 public class StoryGameSettings : MonoBehaviour
 {
     public static StoryGameSettings instance;
-
+    int index = 0;
     private void Awake()
     {
         if (instance != null)
@@ -23,12 +23,17 @@ public class StoryGameSettings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void NextLevel() 
+    {
+        levelInfo.SetTableConfiguration(index++);
     }
 }

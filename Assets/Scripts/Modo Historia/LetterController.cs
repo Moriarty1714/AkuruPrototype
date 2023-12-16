@@ -23,7 +23,7 @@ public class LetterController : MonoBehaviour
         public TextMeshPro letterTMP;
 
         public GameObject extraPuntuationEffect;
-        public GameObject puntuation;
+        //public GameObject puntuation;
         public GameObject number;
         public GameObject coinsObj;
 
@@ -66,8 +66,10 @@ public class LetterController : MonoBehaviour
                 letterTMP.color = Color.white;
             }
 
-            puntuation.SetActive(active);
+            //puntuation.SetActive(active);
             number.SetActive(active);
+            extraPuntuationEffect.SetActive(active);
+
             coinsObj.SetActive(!active);
         }
     }
@@ -95,6 +97,7 @@ public class LetterController : MonoBehaviour
 
     private void Awake()
     {
+        
         letter = char.Parse(name.Split("_")[1]);
         if (!(StoryGameSettings.instance == null))
         {
