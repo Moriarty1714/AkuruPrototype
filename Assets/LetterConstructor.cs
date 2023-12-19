@@ -55,7 +55,7 @@ public class LetterConstructor : MonoBehaviour
         if (state == LetterState.DRAG)
         {
             Vector3 dragPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x , Input.mousePosition.y, 5f));
-            transform.position = new Vector2(dragPosition.x - transform.localScale.x / 2,dragPosition.y+ transform.localScale.y / 2);
+            transform.position = new Vector2(dragPosition.x - transform.localScale.x,dragPosition.y+ transform.localScale.y );
 
             if (Input.GetMouseButtonUp(0))
             {

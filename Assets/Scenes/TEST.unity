@@ -6248,6 +6248,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2383420257576732360, guid: f81d8f9bd69409f4c8b9b19d36a96999, type: 3}
+      propertyPath: m_text
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2874959449043919908, guid: f81d8f9bd69409f4c8b9b19d36a96999, type: 3}
       propertyPath: m_Name
       value: GameOver Panels

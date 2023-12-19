@@ -221,9 +221,6 @@ public class GameManager : MonoBehaviour
         gameState = GameState.GAMEENDED;
         Profile.Instance.SetActualPuntuation(puntuation);
 
-        if (SceneManager.GetActiveScene().name == "TEST_Tuto3") 
-            Profile.Instance.UpdateProfileCoints(10);
-
         uiElements.GameEndedPanel(true);
     }
     private void OnWordValidationComplete(bool exists)
@@ -461,4 +458,8 @@ public class GameManager : MonoBehaviour
     //    selectedLetters.Clear();
     //    editingWord = string.Empty;
     //}
+
+    public void GetCoins(int amount) {
+        Profile.Instance.UpdateProfileCoints(20);
+    }
 }
