@@ -54,7 +54,8 @@ public class LetterConstructor : MonoBehaviour
     {
         if (state == LetterState.DRAG)
         {
-            transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5f));
+            Vector3 dragPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x , Input.mousePosition.y, 5f));
+            transform.position = new Vector2(dragPosition.x - transform.localScale.x / 2,dragPosition.y+ transform.localScale.y / 2);
 
             if (Input.GetMouseButtonUp(0))
             {
@@ -102,7 +103,6 @@ public class LetterConstructor : MonoBehaviour
         yield return new WaitForSeconds(inputResponseInSeconds);
         Debug.Log("DRAG MODE ACTIVE");
         state = LetterState.DRAG;
-
         CopyLetter();
     }
     public void CopyLetter()
