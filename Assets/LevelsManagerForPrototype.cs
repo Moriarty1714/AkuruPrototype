@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelsManagerForPrototype : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    public void NextLevelNormal()
     {
         StoryGameSettings.instance.NextLevel();
     }
