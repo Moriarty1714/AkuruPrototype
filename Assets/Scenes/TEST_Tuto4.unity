@@ -5461,7 +5461,7 @@ MonoBehaviour:
     - {fileID: 1016531175}
     - {fileID: 1620960616}
     - {fileID: 1299717501}
-    constructorPanelTrans: {fileID: 226190745}
+    constructorPanelTrans: {fileID: 765659386}
     acceptButton: {fileID: 1668148293}
     posGameEndedPanel: {fileID: 194087401}
     negGameEndedPanel: {fileID: 194087400}
